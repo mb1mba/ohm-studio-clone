@@ -6,7 +6,7 @@ const Header = () => {
     <>
       <CustomMenu />
 
-      <header className="absolute w-full px-5 pt-10  ">
+      <header className="fixed w-full px-5 pt-10  ">
         <nav className="flex justify-between min-h-20">
           <Button>Menu</Button>
           <Button>Cart</Button>
