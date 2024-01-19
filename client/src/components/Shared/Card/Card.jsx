@@ -12,6 +12,4 @@ const Card = ({ size, content }) => {
   return <div className={`${style}`}>{content}</div>;
 };
 
-export { default as CardImage } from "./CardImage";
-export { default as CardText } from "./CardText";
-export { Card };
+export default Card;

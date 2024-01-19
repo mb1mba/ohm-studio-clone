@@ -1,7 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Text } from "/src/components/Shared";
-import LinkCard from "/src/components/LinkCard";
+import {
+  Text,
+  Card,
+  CardDiv,
+  CardText,
+  CardImage,
+} from "/src/components/Shared";
 
 const Home = () => {
   return (
@@ -90,13 +95,26 @@ const Home = () => {
 
       <section>
         <div className="py-9 max-w-[86.67%] m-auto grid row-span-2 gap-10">
-          <LinkCard size="lg" />
-          <div className="grid gap-4">
-            <img src="images/home-img2.webp" className="rounded-xl" />
-            <p className=" font-garamond text-xl text-[#8e9194]">
-              BAN collection
-            </p>
-          </div>
+          <CardDiv
+            card={
+              <Card
+                size="lg"
+                content={<CardImage src="images/ban-gray.webp" />}
+              />
+            }
+            text="BLOC - Raw "
+            price="1.125,00"
+          />
+
+          <CardDiv
+            card={
+              <Card
+                size="lg"
+                content={<CardImage src="images/home-img2.webp" />}
+              />
+            }
+            text="BAN collection"
+          />
         </div>
       </section>
 
@@ -129,13 +147,18 @@ const Home = () => {
 
       <section>
         <div className="  py-9 max-w-[86.67%] m-auto grid row-span-2 gap-10">
-          <div className="grid gap-4">
-            <img src="images/pion.webp" className="rounded-xl" />
-            <p className=" font-garamond text-xl text-[#8e9194]">
-              Orange PION created for COLLECTIBLE 2023
-            </p>
-          </div>
-          <LinkCard size="lg" />
+          <CardDiv
+            card={
+              <Card size="lg" content={<CardImage src="images/pion.webp" />} />
+            }
+            text="Orange PION created for COLLECTIBLE 2023
+            "
+          />
+          <CardDiv
+            card={<Card content={<CardImage src="images/ban-gray.webp" />} />}
+            text="PION - Orange"
+            price="600"
+          />
         </div>
       </section>
 
@@ -167,13 +190,18 @@ const Home = () => {
 
       <section>
         <div className="  py-9 max-w-[86.67%] m-auto grid row-span-2 gap-10">
-          <div className="grid gap-4">
-            <img src="images/pion.webp" className="rounded-xl" />
-            <p className=" font-garamond text-xl text-[#8e9194]">
-              Orange PION created for COLLECTIBLE 2023
-            </p>
-          </div>
-          <LinkCard size="lg" />
+          <CardDiv
+            card={
+              <Card size="lg" content={<CardImage src="images/pion.webp" />} />
+            }
+            text="Orange PION created for COLLECTIBLE 2023
+            "
+          />
+          <CardDiv
+            card={<Card content={<CardImage src="images/ban-gray.webp" />} />}
+            text="PION - Orange"
+            price="600"
+          />
         </div>
       </section>
 
@@ -186,11 +214,30 @@ const Home = () => {
           </div>
 
           <div className="grid grid-cols-2 grid-flow-row  gap-x-5 gap-y-9">
-            <LinkCard size="sm" />
-            <LinkCard size="sm" />
-            <LinkCard size="sm" />
-            <LinkCard size="sm" />
-            <LinkCard size="sm" />
+            <Card
+              size="sm"
+              content={<CardImage src="images/ban-gray.webp" />}
+            />
+            <Card
+              size="sm"
+              content={<CardImage src="images/ban-gray.webp" />}
+            />
+            <Card
+              size="sm"
+              content={<CardImage src="images/ban-gray.webp" />}
+            />
+            <Card
+              size="sm"
+              content={<CardImage src="images/ban-gray.webp" />}
+            />
+            <Card
+              size="sm"
+              content={<CardImage src="images/ban-gray.webp" />}
+            />
+            <Card
+              size="sm"
+              content={<CardImage src="images/ban-gray.webp" />}
+            />
           </div>
 
           <div className="w-full text-center">
