@@ -95,26 +95,17 @@ const Home = () => {
 
       <section>
         <div className="py-9 max-w-[86.67%] m-auto grid row-span-2 gap-10">
-          <CardDiv
-            card={
-              <Card
-                size="lg"
-                content={<CardImage src="images/ban-gray.webp" />}
-              />
-            }
-            text="BLOC - Raw "
-            price="1.125,00"
-          />
+          <CardDiv text="BLOC - Raw " price="1.125,00">
+            <Card size="lg">
+              <CardImage src="images/ban-gray.webp" />
+            </Card>
+          </CardDiv>
 
-          <CardDiv
-            card={
-              <Card
-                size="lg"
-                content={<CardImage src="images/home-img2.webp" />}
-              />
-            }
-            text="BAN collection"
-          />
+          <CardDiv text="BAN collection">
+            <Card size="lg">
+              <CardImage src="images/home-img2.webp" />
+            </Card>
+          </CardDiv>
         </div>
       </section>
 
@@ -147,18 +138,16 @@ const Home = () => {
 
       <section>
         <div className="  py-9 max-w-[86.67%] m-auto grid row-span-2 gap-10">
-          <CardDiv
-            card={
-              <Card size="lg" content={<CardImage src="images/pion.webp" />} />
-            }
-            text="Orange PION created for COLLECTIBLE 2023
-            "
-          />
-          <CardDiv
-            card={<Card content={<CardImage src="images/ban-gray.webp" />} />}
-            text="PION - Orange"
-            price="600"
-          />
+          <CardDiv text="Orange PION created for COLLECTIBLE 2023">
+            <Card size="lg">
+              <CardImage src="images/pion.webp" />
+            </Card>
+          </CardDiv>
+          <CardDiv text="PION - Orange" price="600">
+            <Card>
+              <CardImage src="images/ban-gray.webp" />
+            </Card>
+          </CardDiv>
         </div>
       </section>
 
@@ -190,18 +179,16 @@ const Home = () => {
 
       <section>
         <div className="  py-9 max-w-[86.67%] m-auto grid row-span-2 gap-10">
-          <CardDiv
-            card={
-              <Card size="lg" content={<CardImage src="images/pion.webp" />} />
-            }
-            text="Orange PION created for COLLECTIBLE 2023
-            "
-          />
-          <CardDiv
-            card={<Card content={<CardImage src="images/ban-gray.webp" />} />}
-            text="PION - Orange"
-            price="600"
-          />
+          <CardDiv text="Orange PION created for COLLECTIBLE 2023">
+            <Card size="lg">
+              <CardImage src="images/pion.webp" />
+            </Card>
+          </CardDiv>
+          <CardDiv text="PION - Orange" price="600">
+            <Card>
+              <CardImage src="images/ban-gray.webp" />
+            </Card>
+          </CardDiv>
         </div>
       </section>
 
@@ -214,30 +201,21 @@ const Home = () => {
           </div>
 
           <div className="grid grid-cols-2 grid-flow-row  gap-x-5 gap-y-9">
-            <Card
-              size="sm"
-              content={<CardImage src="images/ban-gray.webp" />}
-            />
-            <Card
-              size="sm"
-              content={<CardImage src="images/ban-gray.webp" />}
-            />
-            <Card
-              size="sm"
-              content={<CardImage src="images/ban-gray.webp" />}
-            />
-            <Card
-              size="sm"
-              content={<CardImage src="images/ban-gray.webp" />}
-            />
-            <Card
-              size="sm"
-              content={<CardImage src="images/ban-gray.webp" />}
-            />
-            <Card
-              size="sm"
-              content={<CardImage src="images/ban-gray.webp" />}
-            />
+            <Card size="sm">
+              <CardImage src="images/ban-gray.webp" />
+            </Card>
+            <Card size="sm">
+              <CardImage src="images/ban-gray.webp" />
+            </Card>
+            <Card size="sm">
+              <CardImage src="images/ban-gray.webp" />
+            </Card>
+            <Card size="sm">
+              <CardImage src="images/ban-gray.webp" />
+            </Card>
+            <Card size="sm">
+              <CardImage src="images/ban-gray.webp" />
+            </Card>
           </div>
 
           <div className="w-full text-center">
@@ -249,7 +227,36 @@ const Home = () => {
       </section>
 
       <section>
-        <div className="grid grid-cols-2 grid-flow-row  gap-x-5 gap-y-9"></div>
+        <div className="max-w-[86.67%] m-auto grid row-span-3 gap-y-9">
+          <CardDiv gap="20">
+            <div className="grid row-span-2 gap-6">
+              <Card size="lg">
+                <CardImage src="images/blue.webp" />
+              </Card>
+              <Card size="lg">
+                <CardText
+                  title="BLOC"
+                  path="/"
+                  text="Buy Now"
+                  description="Three aluminum chairs made in France in three versions : raw or brushed aluminum, and powder-coated blue."
+                />
+              </Card>
+            </div>
+            <div className="grid row-span-2 gap-6  ">
+              <Card size="lg">
+                <CardImage src="images/blue.webp" />
+              </Card>
+              <Card size="lg">
+                <CardText
+                  title="PION"
+                  path="/"
+                  text="Buy Now"
+                  description="Four colored stools made in France from recycled steel, assembled by hand and then powder coated."
+                />
+              </Card>
+            </div>
+          </CardDiv>
+        </div>
       </section>
     </>
   );
