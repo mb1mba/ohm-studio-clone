@@ -1,9 +1,8 @@
 import React from "react";
-
+import { useParams } from "react-router-dom";
 const Collections = () => {
-    return (
-        <div>Collections</div>
-    )
-}
+  const { collectionName } = useParams();
+  return <div>{collectionName}</div>;
+};
 
-export default Collections
+export default Collections;
