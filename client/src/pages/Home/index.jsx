@@ -96,13 +96,13 @@ const Home = () => {
       <section>
         <div className="py-9 max-w-[86.67%] m-auto grid row-span-2 gap-10">
           <CardDiv text="BLOC - Raw " price="1.125,00">
-            <Card size="lg">
+            <Card size="md">
               <CardImage src="images/ban-gray.webp" />
             </Card>
           </CardDiv>
 
           <CardDiv text="BAN collection">
-            <Card size="lg">
+            <Card size="md">
               <CardImage src="images/home-img2.webp" />
             </Card>
           </CardDiv>
@@ -139,7 +139,7 @@ const Home = () => {
       <section>
         <div className="  py-9 max-w-[86.67%] m-auto grid row-span-2 gap-10">
           <CardDiv text="Orange PION created for COLLECTIBLE 2023">
-            <Card size="lg">
+            <Card size="md">
               <CardImage src="images/pion.webp" />
             </Card>
           </CardDiv>
@@ -180,7 +180,7 @@ const Home = () => {
       <section>
         <div className="  py-9 max-w-[86.67%] m-auto grid row-span-2 gap-10">
           <CardDiv text="Orange PION created for COLLECTIBLE 2023">
-            <Card size="lg">
+            <Card size="md">
               <CardImage src="images/pion.webp" />
             </Card>
           </CardDiv>
