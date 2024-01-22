@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 
 const CustomMenu = () => {
@@ -7,17 +7,22 @@ const CustomMenu = () => {
 
   const handleClick = () => {
     setIsMenuOpen((prev) => !prev);
-    console.log("clicked");
   };
 
   return (
-    <div className="fixed left-1/2 top-10 -translate-x-1/2 bg-[#e3e3e3] h-auto w-28 rounded-xl overflow-hidden">
+    <div className="fixed left-1/2 top-10 -translate-x-1/2 bg-[#e3e3e3] h-auto w-28 rounded-xl">
       <div className="h-auto">
-        <div className="grid gap-2 justify-center pt-2 h-12 overflow-hidden">
-          {content.map((object) => (
-            <CustomMenuLink object={object} />
+        <motion.div
+          initial={{ height: "3rem" }}
+          animate={{ height: "100%" }}
+          exit={{ height: "3rem" }}
+          onClick={handleClick}
+          className="grid gap-2 justify-center pt-2  overflow-hidden"
+        >
+          {content.map((object, index) => (
+            <CustomMenuLink key={index} object={object} index={index} />
           ))}
-        </div>
+        </motion.div>
       </div>
 
       <CustomMenuBtn isMenuOpen={setIsMenuOpen} handleClick={handleClick} />
@@ -25,10 +30,23 @@ const CustomMenu = () => {
   );
 };
 
-const CustomMenuLink = ({ object }) => {
+const CustomMenuLink = ({ object, index }) => {
+  const { productName } = useParams();
+
   return (
-    <Link to={object.path} className="bg-white rounded-md w-[6.25rem]">
-      <h3 className=" text-4xl font-bold">{object.title}</h3>
+    <Link
+      to={object.path}
+      onClick={() => setActive(index)}
+      className="rounded-md w-[6.25rem]"
+    >
+      <h3
+        className={`${
+          productName.slice(0, object.title.length) ===
+            object.title.toLowerCase() && "bg-white"
+        } text-4xl font-bold`}
+      >
+        {object.title}
+      </h3>
     </Link>
   );
 };
