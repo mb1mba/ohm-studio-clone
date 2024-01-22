@@ -1,9 +1,24 @@
 import React from "react";
 import { Drawline } from "/src/components/Shared";
+import { Accordion } from "/src/components/Accordion";
+import AccordionBody from "/src/components/Accordion/AccordionBody";
+import AccordionHeader from "/src/components/Accordion/AccordionHeader";
+import { motion } from "framer-motion";
+
 const Product = () => {
+  const productsData = [
+    {
+      title: "Description",
+      text: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. A laudantium recusandae suscipit dicta soluta sunt, sapiente, minima consequatur nihil repellendus ea sed natus illum reiciendis excepturi ipsam laboriosam praesentium? Cumque.",
+    },
+    {
+      title: "Dimensions",
+      text: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. A laudantium recusandae suscipit dicta soluta sunt, sapiente, minima consequatur nihil repellendus ea sed natus illum reiciendis excepturi ipsam laboriosam praesentium? Cumque.",
+    },
+  ];
   return (
     <div>
-      <img className="runded-lg" src="/images/ban-gray.webp" alt="" />
+      <img className="rounded-lg" src="/images/ban-gray.webp" alt="" />
 
       <div className=" pt-16 px-5 pb-16">
         <section className="grid col-auto">
@@ -60,72 +75,14 @@ const Product = () => {
       </div>
 
       <section className="bg-[#e3e3e3] pt-14 px-5">
-        <div className="overflow-hidden">
-          <div className="flex justify-between items-center relative  py-5">
-            <p className=" font-helvetica text-lg ">Description</p>
-            <svg
-              fill="none"
-              height="7"
-              viewBox="0 0 10 7"
-              width="10"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path d="M1 1L5 5L9 1" strokeWidth="1.5" stroke="#111111"></path>
-            </svg>
-            <Drawline />
-          </div>
-
-          <div className="max-h-0">
-            <p>
-              Her line like her conception is clear simplicity, triviality, and
-              sends us back to the notion of frugality. To make something better
-              with less. To make something more beautiful with nothing. A story
-              of blissful sobriety. Like a child’s answer to an adult’s query.
-              The joy of the color before the austerity of the metal. Made in
-              France, in aluminum.{" "}
-            </p>
-          </div>
-        </div>
-
-        <div className="overflow-hidden">
-          <div className="flex justify-between items-center relative  py-5">
-            <p className=" font-helvetica text-lg ">Dimensions</p>
-            <svg
-              fill="none"
-              height="7"
-              viewBox="0 0 10 7"
-              width="10"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path d="M1 1L5 5L9 1" strokeWidth="1.5" stroke="#111111"></path>
-            </svg>
-            <Drawline />
-          </div>
-
-          <div className="max-h-0">
-            <p>product dimensions</p>
-          </div>
-        </div>
-
-        <div className="overflow-hidden">
-          <div className="flex justify-between items-center relative  py-5">
-            <p className=" font-helvetica text-lg ">Material & Finishes</p>
-            <svg
-              fill="none"
-              height="7"
-              viewBox="0 0 10 7"
-              width="10"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path d="M1 1L5 5L9 1" strokeWidth="1.5" stroke="#111111"></path>
-            </svg>
-            <Drawline />
-          </div>
-
-          <div className="max-h-0">
-            <p>Products materials</p>
-          </div>
-        </div>
+        <Accordion>
+          {productsData.map((obj, index) => (
+            <>
+              <AccordionHeader title={obj.title} index={index} />
+              <AccordionBody text={obj.text} index={index} />
+            </>
+          ))}
+        </Accordion>
       </section>
     </div>
   );
