@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const LinkCard = ({ size }) => {
   const cardClasses = {
     sm: "w-[40vw] max-w-52",
-    md: "w-[86vw] max-w-md",,
+    md: "w-[86vw] max-w-md",
   };
 
   const currentClass = cardClasses[size];
