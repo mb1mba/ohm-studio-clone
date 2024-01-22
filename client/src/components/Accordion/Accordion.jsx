@@ -1,7 +1,11 @@
 import AccordionContext from "./AccordionContext";
 
 const Accordion = ({ children }) => {
-  return <AccordionContext>{children}</AccordionContext>;
+  return (
+    <AccordionContext>
+      <div className=" ">{children}</div>
+    </AccordionContext>
+  );
 };
 
 export default Accordion;

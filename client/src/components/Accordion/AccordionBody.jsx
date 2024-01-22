@@ -1,18 +1,23 @@
 import React from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useToggleContext } from "./AccordionContext";
 
 const AccordionBody = ({ text, index }) => {
   const { toggle, setToggle } = useToggleContext();
-  const variants = {
-    open: { maxHeight: "auto", overflow: "visible" },
-    closed: { maxHeight: 0, overflow: "hidden" },
-  };
-
   return (
-    <motion.div variants={variants} onClick={() => setToggle(false)}>
-      <p>{toggle === index ? text : null}</p>
-    </motion.div>
+    <AnimatePresence>
+      {toggle === index && (
+        <motion.div
+          initial={{ height: 0 }}
+          animate={{ height: "auto" }}
+          exit={{ height: 0 }}
+          transition={{ ease: "easeInOut", duration: 0.4 }}
+          className="overflow-hidden"
+        >
+          <p>{text}</p>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 };
 

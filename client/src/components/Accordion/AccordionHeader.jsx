@@ -1,9 +1,8 @@
-import { useContext } from "react";
 import { Drawline } from "../Shared";
 import { useToggleContext } from "./AccordionContext";
 
-const AccordionHeader = ({ title, index }) => {
-  const { toggle, setToggle } = useToggleContext();
+const AccordionHeader = ({ title, index, children }) => {
+  const { setToggle } = useToggleContext();
 
   return (
     <>
@@ -22,7 +21,6 @@ const AccordionHeader = ({ title, index }) => {
           <path d="M1 1L5 5L9 1" strokeWidth="1.5" stroke="#111111"></path>
         </svg>
       </div>
-      <Drawline />
     </>
   );
 };

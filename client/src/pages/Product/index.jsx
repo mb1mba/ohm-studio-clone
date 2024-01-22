@@ -11,11 +11,17 @@ const Product = () => {
       title: "Description",
       text: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. A laudantium recusandae suscipit dicta soluta sunt, sapiente, minima consequatur nihil repellendus ea sed natus illum reiciendis excepturi ipsam laboriosam praesentium? Cumque.",
     },
+
     {
       title: "Dimensions",
       text: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. A laudantium recusandae suscipit dicta soluta sunt, sapiente, minima consequatur nihil repellendus ea sed natus illum reiciendis excepturi ipsam laboriosam praesentium? Cumque.",
     },
+    {
+      title: "Material & Finishes",
+      text: "Solid French ash then varnished with a natural or black stain.",
+    },
   ];
+
   return (
     <div>
       <img className="rounded-lg" src="/images/ban-gray.webp" alt="" />
@@ -74,15 +80,19 @@ const Product = () => {
         </section>
       </div>
 
-      <section className="bg-[#e3e3e3] pt-14 px-5">
+      <section className="bg-[#e3e3e3] pt-14 px-5 pb-14">
         <Accordion>
           {productsData.map((obj, index) => (
-            <>
+            <div className="border-b border-black">
               <AccordionHeader title={obj.title} index={index} />
               <AccordionBody text={obj.text} index={index} />
-            </>
+            </div>
           ))}
         </Accordion>
+      </section>
+
+      <section className="pt-14 px-5">
+        <h2>Selected Products</h2>
       </section>
     </div>
   );
