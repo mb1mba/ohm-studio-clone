@@ -9,3 +9,7 @@
   font-family: "Favorit";
   src: url("fonts/Favorit.otf");
 }
+
+body {
+  background-color: #e3e3e3;
+}

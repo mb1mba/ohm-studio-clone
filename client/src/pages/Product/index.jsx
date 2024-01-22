@@ -3,7 +3,8 @@ import { Drawline } from "/src/components/Shared";
 import { Accordion } from "/src/components/Accordion";
 import AccordionBody from "/src/components/Accordion/AccordionBody";
 import AccordionHeader from "/src/components/Accordion/AccordionHeader";
-import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+import { CardImage, Card, CardDiv } from "/src/components/Shared";
 
 const Product = () => {
   const productsData = [
@@ -23,8 +24,8 @@ const Product = () => {
   ];
 
   return (
-    <div>
-      <img className="rounded-lg" src="/images/ban-gray.webp" alt="" />
+    <div className=" ">
+      <img className="" src="/images/ban-gray.webp" alt="" />
 
       <div className=" pt-16 px-5 pb-16">
         <section className="grid col-auto">
@@ -91,8 +92,48 @@ const Product = () => {
         </Accordion>
       </section>
 
-      <section className="pt-14 px-5">
-        <h2>Selected Products</h2>
+      <section className="pt-14 px-5 pb-14">
+        <div className="grid row-span-3 gap-y-9">
+          <div>
+            <p className=" text-4xl font-helvetica font-medium">
+              Selected Products
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 grid-flow-row  gap-x-5 gap-y-9">
+            <CardDiv text="BAN - Black" align="center">
+              <Card size="sm">
+                <CardImage src="/images/ban-gray.webp" />
+              </Card>
+            </CardDiv>
+            <CardDiv text="BAN - Black" align="center">
+              <Card size="sm">
+                <CardImage src="/images/ban-gray.webp" />
+              </Card>
+            </CardDiv>
+            <CardDiv text="BAN - Black" align="center">
+              <Card size="sm">
+                <CardImage src="/images/ban-gray.webp" />
+              </Card>
+            </CardDiv>
+            <CardDiv text="BAN - Black" align="center">
+              <Card size="sm">
+                <CardImage src="/images/ban-gray.webp" />
+              </Card>
+            </CardDiv>
+            <CardDiv text="BAN - Black" align="center">
+              <Card size="sm">
+                <CardImage src="/images/ban-gray.webp" />
+              </Card>
+            </CardDiv>
+          </div>
+
+          <div className="w-full text-center">
+            <Link className="" to="collections/pion">
+              See All
+            </Link>
+          </div>
+        </div>
       </section>
     </div>
   );

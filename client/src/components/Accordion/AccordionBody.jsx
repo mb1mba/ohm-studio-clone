@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useToggleContext } from "./AccordionContext";
 
 const AccordionBody = ({ text, index }) => {
-  const { toggle, setToggle } = useToggleContext();
+  const { toggle } = useToggleContext();
   return (
     <AnimatePresence>
       {toggle === index && (
@@ -12,7 +12,7 @@ const AccordionBody = ({ text, index }) => {
           animate={{ height: "auto" }}
           exit={{ height: 0 }}
           transition={{ ease: "easeInOut", duration: 0.4 }}
-          className="overflow-hidden pb-4"
+          className="overflow-hidden "
         >
           <p>{text}</p>
         </motion.div>
