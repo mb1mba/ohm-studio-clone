@@ -12,7 +12,7 @@ const AccordionBody = ({ text, index }) => {
           animate={{ height: "auto" }}
           exit={{ height: 0 }}
           transition={{ ease: "easeInOut", duration: 0.4 }}
-          className="overflow-hidden"
+          className="overflow-hidden pb-4"
         >
           <p>{text}</p>
         </motion.div>

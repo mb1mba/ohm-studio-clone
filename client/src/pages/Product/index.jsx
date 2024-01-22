@@ -83,7 +83,7 @@ const Product = () => {
       <section className="bg-[#e3e3e3] pt-14 px-5 pb-14">
         <Accordion>
           {productsData.map((obj, index) => (
-            <div className="border-b border-black">
+            <div className="border-b border-[#8e91944d]">
               <AccordionHeader title={obj.title} index={index} />
               <AccordionBody text={obj.text} index={index} />
             </div>
