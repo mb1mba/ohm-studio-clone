@@ -4,6 +4,9 @@ const products = require("./routes/product");
 const app = express();
 
 connectDB();
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 app.use("/api/products", products);
 app.listen(5000, () => {
   console.log(`Listening server ${5000}`);

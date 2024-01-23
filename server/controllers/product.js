@@ -1,29 +1,27 @@
 const asyncHandler = require("express-async-handler");
-const { Product } = require("../models/productModels");
-const uuid = require("uuid");
-const productId = uuid.v4();
+const Product = require("../models/productModels");
 
 const createProduct = asyncHandler(async (req, res) => {
   const { productName } = req.body;
 
-  const productExist = await Product.findOne({ productName });
+  // Check if the product already exists
+  const productExist = await Product.findOne({ name: productName });
 
   if (productExist) {
-    res.status(400).json({ message: "This product already exist" });
+    return res.status(400).json({ message: "This product already exists" });
   }
 
   try {
-    const newProduct = await Product.create({
-      ...req.body,
-      variantId: productId,
-    });
+    // Create a new product with the generated productId
+    const newProduct = await Product.create(req.body);
     if (newProduct) {
       res.status(201).json(newProduct);
     } else {
       res.status(400).json({ message: "Invalid product data" });
     }
   } catch (error) {
-    res.status(500).send;
+    // Handle errors and send a specific error message
+    res.status(500).send(error.message);
   }
 });
 

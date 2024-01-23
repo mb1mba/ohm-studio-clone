@@ -1,19 +1,17 @@
 const mongoose = require("mongoose");
-const uuid = require("uuid");
-
-function generateVariantId() {
-  return uuid.v4(); // Generates a random UUID
-}
 
 const productSchema = new mongoose.Schema({
   productName: { type: String, required: true },
   productPrice: { type: Number, required: true },
   productVariants: [
     {
-      variantId: { type: String, unique: true },
-      deliveryTime: { type: Number, required: true },
+      name: { type: String, require: true },
+      deliveryTime: { type: String, required: true },
       images: { type: Array, required: true },
-      color: { type: String, required: true },
+      color: {
+        name: { type: String },
+        hex: { type: String },
+      },
     },
   ],
   productDescription: { type: String, required: true },
