@@ -34,20 +34,22 @@ const CustomMenuLink = ({ object, index }) => {
   const { productName } = useParams();
 
   return (
-    <Link
-      to={object.path}
-      onClick={() => setActive(index)}
-      className="rounded-md w-[6.25rem]"
-    >
-      <h3
-        className={`${
-          productName.slice(0, object.title.length) ===
-            object.title.toLowerCase() && "bg-white"
-        } text-4xl font-bold`}
+    productName && (
+      <Link
+        to={object.path}
+        onClick={() => setActive(index)}
+        className="rounded-md w-[6.25rem]"
       >
-        {object.title}
-      </h3>
-    </Link>
+        <h3
+          className={`${
+            productName.slice(0, object.title.length) ===
+              object.title.toLowerCase() && "bg-white"
+          } text-4xl font-bold`}
+        >
+          {object.title}
+        </h3>
+      </Link>
+    )
   );
 };
 
