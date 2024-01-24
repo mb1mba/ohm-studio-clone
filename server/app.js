@@ -15,12 +15,11 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
+app.use("/uploads", express.static("uploads"));
+app.use("/api/products", products);
 app.listen(5500, () => {
   console.log(`Listening server ${5500}`);
 });
-
-app.use("/api/products", products);
-app.use("/uploads", express.static("uploads"));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
