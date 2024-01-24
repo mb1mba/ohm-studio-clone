@@ -2,10 +2,10 @@ const asyncHandler = require("express-async-handler");
 const Product = require("../models/productModels");
 
 const createProduct = asyncHandler(async (req, res) => {
-  const { productName } = req.body;
-
+  const { name } = req.body;
+  const files = req.files;
   // Check if the product already exists
-  const productExist = await Product.findOne({ name: productName });
+  const productExist = await Product.findOne({ name });
 
   if (productExist) {
     return res.status(400).json({ message: "This product already exists" });
@@ -13,7 +13,10 @@ const createProduct = asyncHandler(async (req, res) => {
 
   try {
     // Create a new product with the generated productId
-    const newProduct = await Product.create(req.body);
+    const newProduct = await Product.create({
+      ...req.body,
+      images: files?.map((file) => file.path),
+    });
     if (newProduct) {
       res.status(201).json(newProduct);
     } else {
