@@ -4,7 +4,7 @@ import { CustomMenu, Button } from "/src/components/Header";
 const Header = () => {
   return (
     <>
-      <CustomMenu />
+      {/* <CustomMenu /> */}
 
       <header className="fixed w-full px-5 pt-10  ">
         <nav className="flex justify-between min-h-20">

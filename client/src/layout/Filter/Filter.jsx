@@ -1,10 +1,11 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React, { useEffect } from "react";
+import { NavLink, useParams } from "react-router-dom";
 import { Outlet } from "react-router-dom";
+
 const links = [
   {
     title: "Pion",
-    path: "collections/pions",
+    path: "collections/pion",
   },
   {
     title: "Ban",
@@ -16,13 +17,23 @@ const links = [
   },
 ];
 
-const element = links.map((link) => (
-  <li>
-    <NavLink to={link.path}>{link.title}</NavLink>
-  </li>
-));
-
 const Filter = () => {
+  const { collectionName } = useParams();
+
+  const element = links.map((link) => {
+    const style = ` hover:underline hover:underline-offset-4  ${
+      collectionName === link.title.toLowerCase() &&
+      "underline underline-offset-4"
+    }`;
+    return (
+      <li>
+        <NavLink className={style} to={link.path}>
+          {link.title}
+        </NavLink>
+      </li>
+    );
+  });
+
   return (
     <>
       <div className="pt-44 px-5 pb-16 ">
