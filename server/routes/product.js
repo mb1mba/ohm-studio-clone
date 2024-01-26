@@ -13,9 +13,14 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-const { createProduct, getProducts } = require("../controllers/product");
+const {
+  createProduct,
+  getProducts,
+  getProduct,
+} = require("../controllers/product");
 
 router.post("/add", upload.array("images"), createProduct);
 router.get("/", getProducts);
+router.get("/:productName", getProduct);
 
 module.exports = router;

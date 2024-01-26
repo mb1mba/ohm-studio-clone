@@ -38,4 +38,21 @@ const getProducts = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { createProduct, getProducts };
+const getProduct = asyncHandler(async (req, res) => {
+  const { productName } = req.params;
+  const product = await Product.find({
+    name: productName
+      .replace("-", " ")
+      .split(" ")
+      .map((word) => word[0].toUpperCase() + word.slice(1))
+      .join(" "),
+  });
+
+  if (product) {
+    res.status(200).json(product);
+  } else {
+    res.status(400).json({ message: "No product found." });
+  }
+});
+
+module.exports = { createProduct, getProducts, getProduct };
