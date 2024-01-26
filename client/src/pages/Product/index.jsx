@@ -7,6 +7,7 @@ import AccordionHeader from "/src/components/Accordion/AccordionHeader";
 import { Link, useParams } from "react-router-dom";
 import { CardImage, Card, CardDiv } from "/src/components/Shared";
 import { productNameFormatter } from "/src/utils";
+import { TextReveal } from "/src/components/Reveal";
 
 const Product = () => {
   const { productName } = useParams();
@@ -31,22 +32,36 @@ const Product = () => {
         <div className=" pt-16 px-5 pb-16">
           <section className="grid col-auto">
             <h1 className=" pb-8 relative">
-              <span className="font-garamond text-4xl">
-                — Raw aluminum chair&nbsp;
-              </span>
-              <span className=" font-helvetica text-3xl block">
-                made in France.
-              </span>
-              <span className="font-helvetica text-3xl block">
-                1 metal sheet, 2 pleats, 4 screws, to make something better with
-                less.
-              </span>
-              <Drawline />
+              <TextReveal>
+                <span className="font-garamond text-4xl">
+                  — Solid ash coffee&nbsp;
+                </span>
+              </TextReveal>
+              <TextReveal>
+                <span className=" font-helvetica text-3xl block">
+                  stackable, handmade
+                </span>
+              </TextReveal>
+              <TextReveal>
+                <span className="font-helvetica text-3xl block">
+                  in our french workshop
+                </span>
+              </TextReveal>
+              <TextReveal>
+                <span className="font-helvetica text-3xl block">
+                  and then varnished.
+                </span>
+              </TextReveal>
             </h1>
 
             <div className="flex justify-between py-7 relative">
-              <p>Price</p>
-              <p>&#8364;{product[0].price.toFixed(2)}</p>
+              <TextReveal>
+                <p>Price</p>
+              </TextReveal>
+              <TextReveal>
+                <p>&#8364;{product[0].price.toFixed(2)}</p>
+              </TextReveal>
+
               <Drawline />
             </div>
 
@@ -98,14 +113,29 @@ const Product = () => {
         </div>
 
         <section className="bg-[#e3e3e3] pt-14 px-5 pb-14">
-          {/* <Accordion>
-          {Object.keys(product.info).map((obj, index) => (
-            <div className="border-b border-[#8e91944d]">
-              <AccordionHeader title={obj} index={index} />
-              <AccordionBody text={product.info[obj]} index={index} />
-            </div>
-          ))}
-        </Accordion> */}
+          <Accordion>
+            {Object.keys(product[0].info).map((obj, index) => (
+              <div className="border-b border-[#8e91944d]">
+                <AccordionHeader title={obj} index={index} />
+                {typeof product[0].info[obj] === "object" ? (
+                  <AccordionBody
+                    text={Object.keys(product[0].info[obj]).map((ob) => (
+                      <div className="flex justify-between">
+                        <p>{ob.charAt(0).toUpperCase() + ob.slice(1)}</p>
+                        <p>{product[0].info[obj][ob]}</p>
+                      </div>
+                    ))}
+                    index={index}
+                  />
+                ) : (
+                  <AccordionBody
+                    text={<p>{product[0].info[obj]}</p>}
+                    index={index}
+                  />
+                )}
+              </div>
+            ))}
+          </Accordion>
         </section>
 
         <section className="pt-14 px-5 pb-14">
