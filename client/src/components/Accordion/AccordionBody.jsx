@@ -14,7 +14,7 @@ const AccordionBody = ({ text, index }) => {
           transition={{ ease: "easeInOut", duration: 0.4 }}
           className="overflow-hidden "
         >
-          <p>{text}</p>
+          {text}
         </motion.div>
       )}
     </AnimatePresence>
