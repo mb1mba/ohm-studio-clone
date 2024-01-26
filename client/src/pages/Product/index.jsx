@@ -27,14 +27,18 @@ const Product = () => {
   return (
     product && (
       <div className=" ">
-        <img className="" src="/images/ban-gray.webp" alt="" />
+        <img
+          className="rounded-2xl object-cover w-full h-[450px]"
+          src="/images/ban-gray.webp"
+          alt=""
+        />
 
         <div className=" pt-16 px-5 pb-16">
           <section className="grid col-auto">
             <h1 className=" pb-8 relative">
               <TextReveal>
                 <span className="font-garamond text-4xl">
-                  — Solid ash coffee&nbsp;
+                  — Solid ash coffee table&nbsp;
                 </span>
               </TextReveal>
               <TextReveal>
@@ -66,19 +70,23 @@ const Product = () => {
             </div>
 
             <div className="flex justify-between py-7 relative">
-              <p>Color</p>
+              <TextReveal>
+                <p>Color</p>
+              </TextReveal>
               <div className="flex gap-2">
                 {product[0].variants.map((variant) => {
                   return (
-                    <Link
-                      className={`h-6 w-6 flex items-center justify-center ${"rounded-full border border-solid border-red-600"}`}
-                      to={`/products/${productNameFormatter(variant.name)}`}
-                    >
-                      <div
-                        style={{ backgroundColor: variant.color }}
-                        className=" rounded-full h-4 w-4  "
-                      ></div>
-                    </Link>
+                    <TextReveal>
+                      <Link
+                        className={`h-6 w-6 flex items-center justify-center ${"rounded-full border border-solid border-red-600"}`}
+                        to={`/products/${productNameFormatter(variant.name)}`}
+                      >
+                        <div
+                          style={{ backgroundColor: variant.color }}
+                          className=" rounded-full h-4 w-4  "
+                        ></div>
+                      </Link>
+                    </TextReveal>
                   );
                 })}
               </div>
@@ -86,8 +94,12 @@ const Product = () => {
             </div>
 
             <div className="flex justify-between py-7 relative">
-              <p>Delivery Time</p>
-              <p>{product[0].deliveryTime}</p>
+              <TextReveal>
+                <p>Delivery Time</p>
+              </TextReveal>
+              <TextReveal>
+                <p>{product[0].deliveryTime}</p>
+              </TextReveal>
             </div>
 
             <div>
