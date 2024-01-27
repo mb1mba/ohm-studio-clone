@@ -8,51 +8,72 @@ import { Link, useParams } from "react-router-dom";
 import { CardImage, Card, CardDiv } from "/src/components/Shared";
 import { productNameFormatter } from "/src/utils";
 import { TextReveal } from "/src/components/Reveal";
-
+import { useProductsContext } from "/src/context/productsContext";
+import { transition } from "/src/components/Transition";
 const Product = () => {
   const { productName } = useParams();
-  const [product, setProduct] = useState();
-  const [loading, setLoading] = useState(true);
+  const { products, setProducts } = useProductsContext();
+  const [product, setProduct] = useState({});
 
   useEffect(() => {
-    axios
-      .get(`/products/${productName}`)
-      .then((res) => {
-        setProduct(res.data);
-        setLoading(false);
-      })
-      .catch((err) => console.log(err));
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("/products");
+        setProducts(response.data);
+        const filteredProduct = response.data.filter(
+          (prod) => productNameFormatter(prod.name) === productName
+        );
+        setProduct(filteredProduct);
+      } catch (error) {
+        console.error("Error fetching product data:", error);
+      }
+    };
+
+    if (!products.length) {
+      fetchData();
+    } else {
+      const filteredProduct = products.filter((prod) => {
+        return productNameFormatter(prod.name) === productName;
+      });
+      setProduct(filteredProduct);
+    }
   }, [productName]);
 
+  console.log(product);
+  if (!product) {
+    return <div>Loading...</div>;
+  }
+
   return (
-    product && (
+    product[0] && (
       <div className=" ">
         <img
           className="rounded-2xl object-cover w-full h-[450px]"
-          src="/images/ban-gray.webp"
+          src={`http://localhost:5500/${product[0].images?.[0]}`}
           alt=""
+          loading="lazy"
         />
 
-        <div className=" pt-16 px-5 pb-16">
+        <div className=" pt-10 px-5 pb-16">
           <section className="grid col-auto">
-            <h1 className=" pb-8 relative">
+            <h1 className="pb-8 relative">
               <TextReveal>
-                <span className="font-garamond text-4xl">
+                <span className="font-garamond text-4xl leading-snug">
                   — Solid ash coffee table&nbsp;
                 </span>
               </TextReveal>
               <TextReveal>
-                <span className=" font-helvetica text-3xl block">
+                <span className=" font-helvetica text-3xl block leading-snug">
                   stackable, handmade
                 </span>
               </TextReveal>
               <TextReveal>
-                <span className="font-helvetica text-3xl block">
+                <span className="font-helvetica text-3xl block leading-snug">
                   in our french workshop
                 </span>
               </TextReveal>
               <TextReveal>
-                <span className="font-helvetica text-3xl block">
+                <span className="font-helvetica text-3xl block leading-snug">
                   and then varnished.
                 </span>
               </TextReveal>
@@ -63,7 +84,7 @@ const Product = () => {
                 <p>Price</p>
               </TextReveal>
               <TextReveal>
-                <p>&#8364;{product[0].price.toFixed(2)}</p>
+                <p>&#8364;{product[0].price?.toFixed(2)}</p>
               </TextReveal>
 
               <Drawline />
@@ -74,11 +95,15 @@ const Product = () => {
                 <p>Color</p>
               </TextReveal>
               <div className="flex gap-2">
-                {product[0].variants.map((variant) => {
+                {product[0].variants?.map((variant) => {
                   return (
                     <TextReveal>
                       <Link
-                        className={`h-6 w-6 flex items-center justify-center ${"rounded-full border border-solid border-red-600"}`}
+                        className={`h-6 w-6 flex items-center justify-center ${
+                          productName === productNameFormatter(variant.name)
+                            ? "rounded-full border border-solid border-[#8e919499]"
+                            : ""
+                        }`}
                         to={`/products/${productNameFormatter(variant.name)}`}
                       >
                         <div
@@ -126,22 +151,22 @@ const Product = () => {
 
         <section className="bg-[#e3e3e3] pt-14 px-5 pb-14">
           <Accordion>
-            {Object.keys(product[0].info).map((obj, index) => (
-              <div className="border-b border-[#8e91944d]">
+            {Object.keys(product[0]?.info)?.map((obj, index) => (
+              <div className="border-b border-[#8e91944d]" key={index}>
                 <AccordionHeader title={obj} index={index} />
-                {typeof product[0].info[obj] === "object" ? (
+                {typeof product[0]?.info[obj] === "object" ? (
                   <AccordionBody
-                    text={Object.keys(product[0].info[obj]).map((ob) => (
-                      <div className="flex justify-between">
+                    text={Object.keys(product[0]?.info[obj]).map((ob) => (
+                      <div className="flex justify-between" key={ob}>
                         <p>{ob.charAt(0).toUpperCase() + ob.slice(1)}</p>
-                        <p>{product[0].info[obj][ob]}</p>
+                        <p>{product[0]?.info[obj][ob]}</p>
                       </div>
                     ))}
                     index={index}
                   />
                 ) : (
                   <AccordionBody
-                    text={<p>{product[0].info[obj]}</p>}
+                    text={<p>{product[0]?.info[obj]}</p>}
                     index={index}
                   />
                 )}
@@ -159,31 +184,19 @@ const Product = () => {
             </div>
 
             <div className="grid grid-cols-2 grid-flow-row  gap-x-5 gap-y-9">
-              <CardDiv text="BAN - Black" align="center">
-                <Card size="sm">
-                  <CardImage src="/images/ban-gray.webp" />
-                </Card>
-              </CardDiv>
-              <CardDiv text="BAN - Black" align="center">
-                <Card size="sm">
-                  <CardImage src="/images/ban-gray.webp" />
-                </Card>
-              </CardDiv>
-              <CardDiv text="BAN - Black" align="center">
-                <Card size="sm">
-                  <CardImage src="/images/ban-gray.webp" />
-                </Card>
-              </CardDiv>
-              <CardDiv text="BAN - Black" align="center">
-                <Card size="sm">
-                  <CardImage src="/images/ban-gray.webp" />
-                </Card>
-              </CardDiv>
-              <CardDiv text="BAN - Black" align="center">
-                <Card size="sm">
-                  <CardImage src="/images/ban-gray.webp" />
-                </Card>
-              </CardDiv>
+              {products
+                ?.filter((product) => product.isSelected)
+                ?.map((product) => (
+                  <Link to={`/products/${productNameFormatter(product.name)}`}>
+                    <CardDiv text={product.name} align="center">
+                      <Card size="md">
+                        <CardImage
+                          src={`http://localhost:5500/${product.images[0]}`}
+                        />
+                      </Card>
+                    </CardDiv>
+                  </Link>
+                ))}
             </div>
 
             <div className="w-full text-center">
@@ -198,4 +211,4 @@ const Product = () => {
   );
 };
 
-export default Product;
+export default transition(Product);

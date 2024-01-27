@@ -1,8 +1,12 @@
-import Routers from "./routes/Routers"
+import Routers from "./routes/Routers";
+import { ProductsProvider } from "./context/productsContext";
+
 function App() {
   return (
-    <Routers />
-  )
+    <ProductsProvider>
+      <Routers />
+    </ProductsProvider>
+  );
 }
 
-export default App
+export default App;

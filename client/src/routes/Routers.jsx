@@ -1,12 +1,19 @@
-import { Home, Login, Register, Product, Products } from "../pages";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Layout from "../layout";
-import { Filter } from "../layout";
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
+import { Filter, Layout } from "/src/layout";
+import { Login, Register, Home, Product, Products } from "/src/pages";
+import { AnimatePresence } from "framer-motion";
 
-const Routers = () => {
+const AppRoutes = () => {
+  const location = useLocation();
   return (
-    <Router>
-      <Routes>
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
           <Route path="/collections" element={<Products />} />
@@ -19,6 +26,14 @@ const Routers = () => {
           <Route path="/register" element={<Register />} />
         </Route>
       </Routes>
+    </AnimatePresence>
+  );
+};
+
+const Routers = () => {
+  return (
+    <Router>
+      <AppRoutes />
     </Router>
   );
 };

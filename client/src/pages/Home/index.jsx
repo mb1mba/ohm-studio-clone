@@ -7,6 +7,7 @@ import {
   CardText,
   CardImage,
 } from "/src/components/Shared";
+import { transition } from "/src/components/Transition";
 
 const Home = () => {
   return (
@@ -262,4 +263,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default transition(Home);
