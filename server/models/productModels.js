@@ -17,6 +17,7 @@ const productSchema = new mongoose.Schema({
     dimensions: { type: Object, required: true },
     materials: { type: String, required: true },
   },
+  isSelected: { type: Boolean },
 });
 
 module.exports = mongoose.model("Product", productSchema);
