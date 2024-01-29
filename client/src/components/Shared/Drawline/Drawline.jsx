@@ -1,7 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-
-const Drawline = () => {
+const Drawline = ({ isAnimate = true }) => {
   return (
     <motion.div
       variants={{
@@ -10,8 +9,8 @@ const Drawline = () => {
       }}
       initial="hidden"
       animate="visible"
-      transition={{ duration: 0.75, ease: "linear" }}
-      className="absolute bg-[#8e91944d] h-[1px] w-full bottom-0"
+      transition={isAnimate && { duration: 0.75, ease: "linear" }}
+      className=" bg-[#8e91944d] h-[1px]"
     ></motion.div>
   );
 };
