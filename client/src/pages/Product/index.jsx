@@ -10,11 +10,12 @@ import { productNameFormatter } from "/src/utils";
 import { TextReveal } from "/src/components/Reveal";
 import { useProductsContext } from "/src/context/productsContext";
 import { transition } from "/src/components/Transition";
-
+import { useCartContext } from "/src/context/cartContext";
 const Product = () => {
   const { productName } = useParams();
   const { products, setProducts } = useProductsContext();
   const [product, setProduct] = useState({});
+  const { addToCart } = useCartContext();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -130,7 +131,7 @@ const Product = () => {
             </div>
 
             <div>
-              <form className="flex gap-4">
+              <div className="flex gap-4">
                 <div className="flex bg-[#e3e3e3] w-[35vw] min-w-36 px-7 py-4 rounded-xl">
                   <div className="cursor-pointer">-</div>
                   <input
@@ -141,12 +142,14 @@ const Product = () => {
                   />
                   <div className="cursor-pointer">+</div>
                 </div>
-                <input
+                <button
+                  onClick={() => addToCart(product[0])}
                   className="bg-[#e3e3e3] text-center w-full basis-auto rounded-lg"
-                  type="submit"
                   value="Shop Now"
-                />
-              </form>
+                >
+                  Add to cart
+                </button>
+              </div>
             </div>
           </section>
         </div>

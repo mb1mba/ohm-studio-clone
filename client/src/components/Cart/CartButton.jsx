@@ -1,0 +1,1 @@
+const CartButton = ({ type, text }) => {};

@@ -10,10 +10,12 @@ import {
   MenuSection,
 } from "/src/components/Menu";
 import { TextReveal } from "/src/components/Reveal";
-
+import { useCartContext } from "/src/context/cartContext";
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const { cart, addToCart } = useCartContext();
+  console.log(cart);
   const links = {
     Shop: [
       {
@@ -57,7 +59,6 @@ const Header = () => {
           setIsSectionOpen((prev) => {
             const newState = [...prev];
             newState[index] = !newState[index];
-            console.log(newState[index]);
             return newState;
           });
         }}
@@ -84,8 +85,10 @@ const Header = () => {
           <Button onClick={() => setIsMenuOpen((prev) => !prev)}>
             {isMenuOpen ? "Close" : "Menu"}
           </Button>
-          {!isMenuOpen ? <Button>Cart</Button> : null}
+
+          <Button onClick={() => setIsCartOpen((prev) => !prev)}>Cart</Button>
         </nav>
+
         {isMenuOpen && (
           <Menu>
             {menuElement}
@@ -105,6 +108,50 @@ const Header = () => {
               </TextReveal>
             </div>
           </Menu>
+        )}
+
+        {isCartOpen && (
+          <div className="absolute top-0 left-0 bg-white h-screen w-full  px-5 pt-10">
+            <div className="grid gap-3">
+              <div className="flex justify-between min-h-20 items-center">
+                <h3 className="text-[8vw] font-helvetica">Cart</h3>
+                <Button onClick={() => setIsCartOpen(false)}>Close</Button>
+              </div>
+              <Drawline />
+            </div>
+            <div>
+              {cart.map((item) => {
+                return (
+                  <>
+                    <div className="grid grid-cols-2 gap-2 py-11">
+                      <img
+                        className="w-full object-cover rounded-lg"
+                        src={`http://localhost:5500/${item.images[0]}`}
+                      />
+                      <div className="grid">
+                        <div className="grid grid-row-3 h-20 gap-2 text-gray-400 font-helvetica ">
+                          <span className=" text-black  ">{item.name}</span>
+                          <span>{item.price}</span>
+                          <div className="grid grid-rows-1 grid-cols-2 gap-2">
+                            <p className="">Quantity</p>
+                            <div className="flex w-full items-start justify-between ">
+                              <button>-</button>
+                              <p>{item.quantity}</p>
+                              <button onClick={() => addToCart(item)}>+</button>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="flex  items-end pb-3">
+                          <button>Delete</button>
+                        </div>
+                      </div>
+                    </div>
+                    <Drawline />
+                  </>
+                );
+              })}
+            </div>
+          </div>
         )}
       </header>
     </>
