@@ -10,6 +10,7 @@ import { productNameFormatter } from "/src/utils";
 import { TextReveal } from "/src/components/Reveal";
 import { useProductsContext } from "/src/context/productsContext";
 import { transition } from "/src/components/Transition";
+
 const Product = () => {
   const { productName } = useParams();
   const { products, setProducts } = useProductsContext();
@@ -39,7 +40,6 @@ const Product = () => {
     }
   }, [productName]);
 
-  console.log(product);
   if (!product) {
     return <div>Loading...</div>;
   }
@@ -79,41 +79,43 @@ const Product = () => {
               </TextReveal>
             </h1>
 
-            <div className="flex justify-between py-7 relative">
-              <TextReveal>
-                <p>Price</p>
-              </TextReveal>
-              <TextReveal>
-                <p>&#8364;{product[0].price?.toFixed(2)}</p>
-              </TextReveal>
-
+            <div className="grid py-7 relative gap-1">
+              <div className="flex justify-between">
+                <TextReveal>
+                  <p>Price</p>
+                </TextReveal>
+                <TextReveal>
+                  <p>&#8364;{product[0].price?.toFixed(2)}</p>
+                </TextReveal>
+              </div>
               <Drawline />
             </div>
-
-            <div className="flex justify-between py-7 relative">
-              <TextReveal>
-                <p>Color</p>
-              </TextReveal>
-              <div className="flex gap-2">
-                {product[0].variants?.map((variant) => {
-                  return (
-                    <TextReveal>
-                      <Link
-                        className={`h-6 w-6 flex items-center justify-center ${
-                          productName === productNameFormatter(variant.name)
-                            ? "rounded-full border border-solid border-[#8e919499]"
-                            : ""
-                        }`}
-                        to={`/products/${productNameFormatter(variant.name)}`}
-                      >
-                        <div
-                          style={{ backgroundColor: variant.color }}
-                          className=" rounded-full h-4 w-4  "
-                        ></div>
-                      </Link>
-                    </TextReveal>
-                  );
-                })}
+            <div className="grid py-7 relative gap-1">
+              <div className="flex justify-between">
+                <TextReveal>
+                  <p>Color</p>
+                </TextReveal>
+                <div className="flex gap-2">
+                  {product[0].variants?.map((variant) => {
+                    return (
+                      <TextReveal>
+                        <Link
+                          className={`h-6 w-6 flex items-center justify-center ${
+                            productName === productNameFormatter(variant.name)
+                              ? "rounded-full border border-solid border-[#8e919499]"
+                              : ""
+                          }`}
+                          to={`/products/${productNameFormatter(variant.name)}`}
+                        >
+                          <div
+                            style={{ backgroundColor: variant.color }}
+                            className=" rounded-full h-4 w-4  "
+                          ></div>
+                        </Link>
+                      </TextReveal>
+                    );
+                  })}
+                </div>
               </div>
               <Drawline />
             </div>
