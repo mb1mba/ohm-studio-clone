@@ -57,7 +57,7 @@ const Product = () => {
 
         <div className=" pt-10 px-5 pb-16">
           <section className="grid col-auto">
-            <h1 className="pb-8 relative">
+            <h1 className="pb-8">
               <TextReveal>
                 <span className="font-garamond text-4xl leading-snug">
                   — Solid ash coffee table&nbsp;
@@ -80,7 +80,7 @@ const Product = () => {
               </TextReveal>
             </h1>
 
-            <div className="grid py-7 relative gap-1">
+            <div className="grid py-7  gap-1">
               <div className="flex justify-between">
                 <TextReveal>
                   <p>Price</p>
@@ -91,7 +91,7 @@ const Product = () => {
               </div>
               <Drawline />
             </div>
-            <div className="grid py-7 relative gap-1">
+            <div className="grid py-7  gap-1">
               <div className="flex justify-between">
                 <TextReveal>
                   <p>Color</p>
@@ -121,7 +121,7 @@ const Product = () => {
               <Drawline />
             </div>
 
-            <div className="flex justify-between py-7 relative">
+            <div className="flex justify-between py-7 ">
               <TextReveal>
                 <p>Delivery Time</p>
               </TextReveal>

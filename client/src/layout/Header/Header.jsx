@@ -80,7 +80,7 @@ const Header = () => {
   return (
     <>
       {/* <CustomMenu /> */}
-      <header className="fixed w-full px-5 pt-10">
+      <header className="fixed w-full px-5 pt-10 top-0">
         <nav className="flex justify-between min-h-20 relative">
           <Button onClick={() => setIsMenuOpen((prev) => !prev)}>
             {isMenuOpen ? "Close" : "Menu"}
@@ -111,15 +111,13 @@ const Header = () => {
         )}
 
         {isCartOpen && (
-          <div className="absolute top-0 left-0 bg-white h-screen w-full  px-5 pt-10">
-            <div className="grid gap-3">
-              <div className="flex justify-between min-h-20 items-center">
-                <h3 className="text-[8vw] font-helvetica">Cart</h3>
-                <Button onClick={() => setIsCartOpen(false)}>Close</Button>
-              </div>
-              <Drawline />
+          <div className="absolute top-0 left-0 bg-white h-screen w-full  px-5 pt-10 ">
+            <div className=" fixed top-0 flex justify-between min-h-20 items-center w-full">
+              <h3 className="text-[8vw] font-helvetica">Cart</h3>
+              <Button onClick={() => setIsCartOpen(false)}>Close</Button>
             </div>
-            <div>
+
+            <div className="h-screen">
               {cart.map((item) => {
                 return (
                   <>
@@ -150,6 +148,12 @@ const Header = () => {
                   </>
                 );
               })}
+            </div>
+            <div className="grid gap-3 fixed bottom-0">
+              <div className="flex justify-between min-h-20 items-center">
+                <h3 className="text-[8vw] font-helvetica">Cart</h3>
+                <Button onClick={() => setIsCartOpen(false)}>Close</Button>
+              </div>
             </div>
           </div>
         )}

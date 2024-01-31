@@ -8,7 +8,7 @@ const AccordionHeader = ({ title, index, children }) => {
     <>
       <div
         onClick={() => setToggle(index)}
-        className="flex justify-between items-center relative  py-5 cursor-pointer"
+        className="flex justify-between items-center   py-5 cursor-pointer"
       >
         <p className=" font-helvetica text-lg ">{title}</p>
         <svg

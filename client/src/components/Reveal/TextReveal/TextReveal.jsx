@@ -3,7 +3,7 @@ import { motion, useInView, useAnimation } from "framer-motion";
 
 const TextReveal = ({ children, width = "fit-content" }) => {
   return (
-    <div style={{ position: "relative", width, overflow: "hidden" }}>
+    <div style={{ width, overflow: "hidden" }}>
       <motion.div
         variants={{
           hidden: { opacity: 0, y: 100 },
