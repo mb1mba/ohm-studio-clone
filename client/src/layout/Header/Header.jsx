@@ -14,8 +14,9 @@ import { useCartContext } from "/src/context/cartContext";
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const { cart, addToCart } = useCartContext();
-  console.log(cart);
+  const { cart, addToCart, removeFromCart, decreaseQuantity, getCartTotal } =
+    useCartContext();
+
   const links = {
     Shop: [
       {
@@ -111,17 +112,17 @@ const Header = () => {
         )}
 
         {isCartOpen && (
-          <div className="absolute top-0 left-0 bg-white h-screen w-full  px-5 pt-10 ">
-            <div className=" fixed top-0 flex justify-between min-h-20 items-center w-full">
-              <h3 className="text-[8vw] font-helvetica">Cart</h3>
+          <div className="absolute top-0 left-0 bg-white h-screen w-full px-5 pt-10 ">
+            <div className="top-0 flex  w-full min-h-20 items-center justify-between">
+              <h3 className="text-[8vw] font-helvetica ">Cart</h3>
               <Button onClick={() => setIsCartOpen(false)}>Close</Button>
             </div>
 
-            <div className="h-screen">
+            <div className="h-screen overflow-y-auto pb-20">
               {cart.map((item) => {
                 return (
                   <>
-                    <div className="grid grid-cols-2 gap-2 py-11">
+                    <div className="grid grid-cols-2 gap-2 py-11 ">
                       <img
                         className="w-full object-cover rounded-lg"
                         src={`http://localhost:5500/${item.images[0]}`}
@@ -133,14 +134,18 @@ const Header = () => {
                           <div className="grid grid-rows-1 grid-cols-2 gap-2">
                             <p className="">Quantity</p>
                             <div className="flex w-full items-start justify-between ">
-                              <button>-</button>
+                              <button onClick={() => decreaseQuantity(item)}>
+                                -
+                              </button>
                               <p>{item.quantity}</p>
                               <button onClick={() => addToCart(item)}>+</button>
                             </div>
                           </div>
                         </div>
                         <div className="flex  items-end pb-3">
-                          <button>Delete</button>
+                          <button onClick={() => removeFromCart(item)}>
+                            Delete
+                          </button>
                         </div>
                       </div>
                     </div>
@@ -149,11 +154,11 @@ const Header = () => {
                 );
               })}
             </div>
-            <div className="grid gap-3 fixed bottom-0">
-              <div className="flex justify-between min-h-20 items-center">
-                <h3 className="text-[8vw] font-helvetica">Cart</h3>
-                <Button onClick={() => setIsCartOpen(false)}>Close</Button>
-              </div>
+            <div className="fixed bottom-0 left-0 w-full p-5 bg-white">
+              <button className=" bg-[#e3e3e3]  h-14 w-full text-center rounded-xl">
+                <span>Checkout </span>
+                <span className="text-[#8e9194]">{`(€${getCartTotal()})`}</span>
+              </button>
             </div>
           </div>
         )}
