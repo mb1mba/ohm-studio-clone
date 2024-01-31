@@ -22,9 +22,9 @@ const AppRoutes = () => {
             <Route path="collections/:collectionName" element={<Products />} />
           </Route>
           <Route path="/products/:productName" element={<Product />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
         </Route>
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </AnimatePresence>
   );
