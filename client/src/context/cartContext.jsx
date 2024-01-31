@@ -23,7 +23,21 @@ const CartProvider = ({ children }) => {
     }
   };
 
-  const removeFromCart = (item) => {};
+  const removeFromCart = (item) => {
+    setCart((prevCart) =>
+      prevCart.filter((cartItem) => cartItem._id !== item._id)
+    );
+  };
+
+  const decreaseQuantity = (item) => {
+    setCart((prevCart) =>
+      prevCart.map((cartItem) => {
+        if (cartItem._id === item._id) {
+          return { ...item, quantity: item.quantity - 1 };
+        }
+      })
+    );
+  };
 
   const cleanCart = () => {
     setCart([]);
@@ -54,6 +68,7 @@ const CartProvider = ({ children }) => {
         removeFromCart,
         cleanCart,
         getCartTotal,
+        decreaseQuantity,
       }}
     >
       {children}
