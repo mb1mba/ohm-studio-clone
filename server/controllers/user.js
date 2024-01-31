@@ -4,6 +4,10 @@ const User = require("../models/userModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
+//@desc Register
+//@route POST /api/users/add
+//@access public
+
 const registerUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
   const userExist = await User.findOne({ email });
@@ -26,6 +30,10 @@ const registerUser = asyncHandler(async (req, res) => {
     res.status(500).send();
   }
 });
+
+//@desc Login
+//@route POST /api/users/login
+//@access public
 
 const loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
@@ -80,6 +88,7 @@ const loginUser = asyncHandler(async (req, res) => {
 //@desc Current user info
 //@route POST /api/users/current
 //@access private
+
 const currentUser = asyncHandler(async (req, res) => {
   res.json(req.user);
 });
