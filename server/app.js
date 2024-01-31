@@ -3,7 +3,7 @@ const express = require("express");
 const cors = require("cors");
 const connectDB = require("./config/db");
 const products = require("./routes/product");
-const Product = require("./models/productModels");
+const user = require("./routes/user");
 const app = express();
 connectDB();
 
@@ -21,6 +21,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/uploads", express.static("uploads"));
 app.use("/api/products", products);
+app.use("/api/users", user);
 app.listen(5500, () => {
   console.log(`Listening server ${5500}`);
 });
