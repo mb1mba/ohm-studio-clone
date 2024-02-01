@@ -9,7 +9,7 @@ const jwt = require("jsonwebtoken");
 //@access public
 
 const registerUser = asyncHandler(async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password, name } = req.body;
   const userExist = await User.findOne({ email });
 
   if (userExist) {
@@ -18,6 +18,11 @@ const registerUser = asyncHandler(async (req, res) => {
     });
   }
 
+  if (email.length === 0 || password.length === 0 || name.length === 0) {
+    res.status(400).json({
+      message: "Please make sure to provide your email, password, and name.",
+    });
+  }
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = await User.create({ ...req.body, password: hashedPassword });
@@ -44,7 +49,9 @@ const loginUser = asyncHandler(async (req, res) => {
 
   const user = await User.findOne({ email });
   if (!user) {
-    return res.status(400).json({ error: "Cannot find user" });
+    return res
+      .status(400)
+      .json({ message: "Please verify your email and password." });
   }
 
   try {
@@ -54,30 +61,36 @@ const loginUser = asyncHandler(async (req, res) => {
         {
           user: {
             id: user._id,
+            email: user.email,
+            name: user.name,
           },
         },
         process.env.ACCESS_TOKEN_SECRET,
         { expiresIn: "10m" }
       );
 
-      // const refreshToken = jwt.sign(
-      //   {
-      //     user: {
-      //       id: user._id,
-      //     },
-      //   },
-      //   process.env.REFRESH_TOKEN_SECRET,
-      //   { expiresIn: "1d" }
-      // );
+      const refreshToken = jwt.sign(
+        {
+          user: {
+            id: user._id,
+            email: user.email,
+            name: user.name,
+          },
+        },
+        process.env.REFRESH_TOKEN_SECRET,
+        { expiresIn: "1d" }
+      );
 
-      // res.cookie("jwt", refreshToken, {
-      //   httpOnly: true,
-      //   maxAge: 24 * 60 * 60 * 1000,
-      // });
+      res.cookie("jwt", refreshToken, {
+        httpOnly: true,
+        maxAge: 24 * 60 * 60 * 1000,
+      });
 
       res.status(200).json({ accessToken });
     } else {
-      res.status(401).json({ error: "Unauthorized" });
+      res.status(401).json({
+        message: "Unauthorized. Please verify your email and password.",
+      });
     }
   } catch (err) {
     console.log(err);
@@ -93,4 +106,20 @@ const currentUser = asyncHandler(async (req, res) => {
   res.json(req.user);
 });
 
-module.exports = { registerUser, loginUser, currentUser };
+//@desc Get user info by Id
+//@route POST /api/users/:id
+//@access private
+
+const getUserById = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+
+  const user = await User.findById(id);
+
+  if (user) {
+    res.status(200).json(user);
+  } else {
+    res.status(404).json({ message: "User not found" });
+  }
+});
+
+module.exports = { registerUser, loginUser, currentUser, getUserById };

@@ -32,19 +32,25 @@ const Register = () => {
       if (response) {
         navigate("/login");
       } else {
-        toast.error("Registration failed. Please try again.");
+        console.log("Registration failed. Please try again.");
       }
     } catch (err) {
+      toast.error(err.response.data.message);
       console.log(err);
     }
   };
   return (
     <div className="h-screen flex flex-col items-center justify-center px-5 w-full bg-white ">
+      <Toaster />
       <h1 className="text-3xl font-helvetica mb-5 text-center">
         Create an account
       </h1>
 
-      <form method="POST" onSubmit={handleSubmit} className="mb-5 w-full">
+      <form
+        method="POST"
+        onSubmit={handleSubmit}
+        className="mb-5 w-full max-w-md"
+      >
         <div className="grid h-20 mb-5">
           <label htmlFor="name">Name</label>
           <input

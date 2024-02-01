@@ -1,13 +1,16 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "/src/api/axios";
+import { useUserContext } from "/src/context/authContext";
+import toast, { Toaster } from "react-hot-toast";
+
 const Login = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
-  const [error, setError] = useState("");
   const navigate = useNavigate();
+  const { user, setUser } = useUserContext();
 
   const onChange = (e) => {
     setFormData((prevForm) => ({
@@ -35,9 +38,16 @@ const Login = () => {
           withCredentials: true,
         });
 
-        // navigate("/");
+        if (currentUser.status === 200) {
+          const data = currentUser.data;
+          setUser({ user: data, accessToken });
+          toast.success("Connection successful");
+          navigate("/account");
+        } else {
+          toast.error("An error occurred while fetching current user data.");
+        }
       } else {
-        setError(response.data.error);
+        console.log("An error occurred. Please try again.");
       }
     } catch (err) {
       console.log(err);
@@ -46,11 +56,16 @@ const Login = () => {
 
   return (
     <div className="h-screen flex flex-col items-center justify-center px-5 w-full bg-white ">
+      <Toaster />
       <h1 className="text-3xl font-helvetica mb-5 text-center">
         Login to your account
       </h1>
 
-      <form method="POST" onSubmit={handleSubmit} className="mb-5 w-full">
+      <form
+        method="POST"
+        onSubmit={handleSubmit}
+        className="mb-5 w-full max-w-md"
+      >
         <div className="grid  h-[4.25rem] mb-5">
           <label htmlFor="email">Email</label>
           <input
