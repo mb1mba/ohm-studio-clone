@@ -33,7 +33,8 @@ const Products = () => {
             align="between"
           >
             <Card size="md">
-              <CardImage src={`${BASE_URL}/${product.images[0]}`} />
+              <CardImage src={`${BASE_URL}/${product.images[0]}`} type="visible" />
+              <CardImage src={`${BASE_URL}/${product.images[1]}`} type="hidden"/>
             </Card>
           </CardDiv>
         </Link>
@@ -49,7 +50,13 @@ const Products = () => {
       )
     : createCards(products);
 
-  return displayedElement && <div className="">{displayedElement}</div>;
+  return (
+    displayedElement && (
+      <div className="grid row-auto sm:grid-cols-2 md:grid-cols-4 gap-8">
+        {displayedElement}
+      </div>
+    )
+  );
 };
 
 export default transition(Products);

@@ -8,7 +8,10 @@ export default {
         garamond: ["EB Garamond"],
         helvetica: ["Helvetica Neue"],
       },
+      gridTemplateAreas: {
+        card: ["images", "text"],
+      },
     },
   },
-  plugins: [],
+  plugins: [require("@savvywombat/tailwindcss-grid-areas")],
 };

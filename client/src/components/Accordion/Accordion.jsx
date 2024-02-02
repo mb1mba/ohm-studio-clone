@@ -3,7 +3,7 @@ import AccordionContext from "./AccordionContext";
 const Accordion = ({ children }) => {
   return (
     <AccordionContext>
-      <div className=" ">{children}</div>
+      <div className="md:hidden">{children}</div>
     </AccordionContext>
   );
 };

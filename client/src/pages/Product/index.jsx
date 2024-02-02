@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import axios from "/src/api/axios";
 import { Drawline } from "/src/components/Shared";
-import { Accordion } from "/src/components/Accordion";
-import AccordionBody from "/src/components/Accordion/AccordionBody";
-import AccordionHeader from "/src/components/Accordion/AccordionHeader";
+import {
+  Accordion,
+  AccordionBody,
+  AccordionHeader,
+} from "/src/components/Accordion";
+import { Info, InfoBody, InfoTitle } from "/src/components/VerticalProductInfo";
 import { Link, useParams } from "react-router-dom";
 import { CardImage, Card, CardDiv } from "/src/components/Shared";
 import { productNameFormatter } from "/src/utils";
@@ -11,6 +14,7 @@ import { TextReveal } from "/src/components/Reveal";
 import { useProductsContext } from "/src/context/productsContext";
 import { transition } from "/src/components/Transition";
 import { useCartContext } from "/src/context/cartContext";
+
 const Product = () => {
   const { productName } = useParams();
   const { products, setProducts } = useProductsContext();
@@ -47,16 +51,26 @@ const Product = () => {
 
   return (
     product[0] && (
-      <div className=" ">
-        <img
-          className="rounded-2xl object-cover w-full h-[450px]"
-          src={`http://localhost:5500/${product[0].images?.[0]}`}
-          alt=""
-          loading="lazy"
-        />
+      <>
+        <section className="grid md:grid-cols-2 gap-4 ">
+          <img
+            className="rounded-2xl object-cover w-full h-[450px] md:hidden"
+            src={`http://localhost:5500/${product[0].images?.[0]}`}
+            alt=""
+            loading="lazy"
+          />
 
-        <div className=" pt-10 px-5 pb-16">
-          <section className="grid col-auto">
+          <div className={`md:grid`}>
+            {product[0].images.map((image) => (
+              <img
+                className="hidden object-cover w-full md:h-[460px] md:block lg:h-screen"
+                src={`http://localhost:5500/${image}`}
+                loading="lazy"
+              />
+            ))}
+          </div>
+
+          <div className=" pt-10 px-5 pb-16 md:h-[50rem] md:sticky md:top-0 md:py-28 ">
             <h1 className="pb-8">
               <TextReveal>
                 <span className="font-garamond text-4xl leading-snug">
@@ -80,7 +94,7 @@ const Product = () => {
               </TextReveal>
             </h1>
 
-            <div className="grid py-7  gap-1">
+            <div className="grid py-7 gap-1">
               <div className="flex justify-between">
                 <TextReveal>
                   <p>Price</p>
@@ -151,10 +165,10 @@ const Product = () => {
                 </button>
               </div>
             </div>
-          </section>
-        </div>
+          </div>
+        </section>
 
-        <section className="bg-[#e3e3e3] pt-14 px-5 pb-14">
+        <section className="bg-[#e3e3e3] py-14 px-5 items md:h-auto ">
           <Accordion>
             {Object.keys(product[0]?.info)?.map((obj, index) => (
               <div className="border-b border-[#8e91944d]" key={index}>
@@ -178,6 +192,23 @@ const Product = () => {
               </div>
             ))}
           </Accordion>
+
+          <Info>
+            <div className="grid rows-1 h-24 pl-5 max-w-fit">
+              {Object.keys(product[0]?.info)?.map((obj, index) => (
+                <InfoTitle title={obj} />
+              ))}
+            </div>
+
+            <div className="md:text-2xl lg:text-3xl leading-5 font-helvetica max-w-[25vw]">
+              Directly inspired by trivial everyday objects, PION is the first
+              piece in a collection which, through color and simplicity of form,
+              attempts to reconcile the adult and the child. With a minimalist
+              look, the piece of furniture is not limited to a single use. Thus
+              PION can be a stool, a side table or a bedside table. Solo
+              monochrome or well accompanied polychrome.
+            </div>
+          </Info>
         </section>
 
         <section className="pt-14 px-5 pb-14">
@@ -211,7 +242,7 @@ const Product = () => {
             </div>
           </div>
         </section>
-      </div>
+      </>
     )
   );
 };

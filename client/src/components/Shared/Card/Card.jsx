@@ -9,7 +9,7 @@ const Card = ({ size, children }) => {
 
   const style = cardStyles[size];
 
-  return <div className={`${style}`}>{children}</div>;
+  return <div className={`${style} grid`}>{children}</div>;
 };
 
 export default Card;
