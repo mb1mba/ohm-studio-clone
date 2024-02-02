@@ -18,14 +18,17 @@ const handleRefreshToken = async (req, res) => {
     refreshToken,
     process.env.REFRESH_TOKEN_SECRET,
     async (err, decoded) => {
+      if (err) return res.sendStatus(403);
+
       const user = decoded.user;
 
       const foundUser = await User.findOne({ email: user.email });
       if (!foundUser) return res.status(403).json({ message: "Not found" });
 
-      if (err || foundUser.email !== user.email) {
+      if (foundUser.email !== user.email) {
         return res.sendStatus(403);
       }
+
       const accessToken = jwt.sign(
         { user: decoded.user },
         process.env.ACCESS_TOKEN_SECRET,
