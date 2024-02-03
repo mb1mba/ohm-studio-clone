@@ -1,14 +1,18 @@
 import React from "react";
 
-const CardImage = ({ src, type }) => {
+const CardImage = ({ src, height = "100%", type }) => {
   const styles = {
     visible: "opacity-1",
-    hidden:"opacity-0 hover:opacity-100"
+    hidden: "hidden md:block md:opacity-0 md:hover:opacity-100",
   };
-  
-  const style = styles[type]
+
+  const style = styles[type];
   return (
-    <img className={`rounded-xl w-full object-cover md:grid-in-images ${style}`} src={src} alt="" />
+    <img
+      className={`rounded-xl w-full object-cover md:grid-in-images ${style} h-[${height}]`}
+      src={src}
+      alt=""
+    />
   );
 };
 

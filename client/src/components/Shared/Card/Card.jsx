@@ -4,12 +4,12 @@ const Card = ({ size, children }) => {
   const cardStyles = {
     sm: "w-[40vw] max-w-52",
     md: "w-[86vw] w-full ",
-    lg: "w-full max-h-[350px]",
+    lg: "w-[40vw] max-w-52",
   };
 
   const style = cardStyles[size];
 
-  return <div className={`${style} grid`}>{children}</div>;
+  return <div className={`${style} grid `}>{children}</div>;
 };
 
 export default Card;

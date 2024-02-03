@@ -211,23 +211,31 @@ const Product = () => {
           </Info>
         </section>
 
-        <section className="pt-14 px-5 pb-14">
-          <div className="grid row-span-3 gap-y-9">
-            <div>
-              <p className=" text-4xl font-helvetica font-medium">
-                Selected Products
-              </p>
-            </div>
+        <section className="pt-14 px-5 pb-14 ">
+          <div className="grid gap-y-9 w-full">
+            <p className="text-4xl font-helvetica font-medium">
+              Selected Products
+            </p>
 
-            <div className="grid grid-cols-2 grid-flow-row  gap-x-5 gap-y-9">
+            <div className="grid grid-cols-2 md:flex md:min-w-0 gap-x-5 gap-y-9 ">
               {products
                 ?.filter((product) => product.isSelected)
                 ?.map((product) => (
-                  <Link to={`/products/${productNameFormatter(product.name)}`}>
+                  <Link
+                    className="basis-full h-[120%]"
+                    to={`/products/${productNameFormatter(product.name)}`}
+                  >
                     <CardDiv text={product.name} align="center">
                       <Card size="md">
                         <CardImage
                           src={`http://localhost:5500/${product.images[0]}`}
+                          type="visible"
+                          height="120%"
+                        />
+                        <CardImage
+                          height="120%"
+                          type="hidden"
+                          src={`http://localhost:5500/${product.images[1]}`}
                         />
                       </Card>
                     </CardDiv>
