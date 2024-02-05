@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { CustomMenu, Button } from "/src/components/Header";
+import { motion, AnimatePresence } from "framer-motion";
+import { CustomMenu, Button, links } from "/src/components/Header";
 import { Drawline } from "/src/components/Shared";
 import { Link } from "react-router-dom";
 import {
@@ -11,46 +12,48 @@ import {
 } from "/src/components/Menu";
 import { TextReveal } from "/src/components/Reveal";
 import { useCartContext } from "/src/context/cartContext";
+
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const { cart, addToCart, removeFromCart, decreaseQuantity, getCartTotal } =
     useCartContext();
-
-  const links = {
-    Shop: [
-      {
-        name: "Pion",
-        path: "/collections/pion",
-      },
-      {
-        name: "Bloc",
-        path: "/collections/bloc",
-      },
-      {
-        name: "Ban",
-        path: "/collections/ban",
-      },
-    ],
-    About: [
-      {
-        name: "Who we are",
-        path: "#",
-      },
-      {
-        name: "Press",
-        path: "#",
-      },
-      {
-        name: "Dealers",
-        path: "#",
-      },
-    ],
-  };
+  const [isHover, setIsHover] = useState("");
 
   const [isSectionOpen, setIsSectionOpen] = useState(
     Array(links.length).fill(false)
   );
+  // initial={{ scaleY: 0 }}
+  // animate={{
+  //   scaleY: isHover ? 1 : 0,
+  //   transition: {
+  //     ease: "easeInOut",
+  //     duration: 0.4,
+  //     delayChildren: 2,
+  //   },
+  // }}
+  // exit={{ scaleY: 0 }}
+
+  const parentVariants = {
+    open: {
+      scaleY: 1,
+      transition: {
+        ease: "easeInOut",
+        duration: 0.4,
+        when: "beforeChildren",
+        staggerChildren: 0.2,
+      },
+    },
+    hidden: { scaleY: 0, when: "afterChildren" },
+  };
+
+  const childrenVariants = {
+    animate: {
+      transition: {
+        staggerChildren: 0.2,
+      },
+    },
+  };
 
   const menuElement = Object.keys(links).map((category, index) => {
     return (
@@ -81,14 +84,137 @@ const Header = () => {
   return (
     <>
       {/* <CustomMenu /> */}
-      <header className="fixed w-full px-5 pt-10 top-0">
-        <nav className="flex justify-between min-h-20 relative">
+      <header className="fixed w-full px-5 md:px-10 pt-10 top-0 md:z-10">
+        {/* Nav for mobile */}
+        <nav className="flex justify-between min-h-20 relative md:hidden">
           <Button onClick={() => setIsMenuOpen((prev) => !prev)}>
             {isMenuOpen ? "Close" : "Menu"}
           </Button>
 
           <Button onClick={() => setIsCartOpen((prev) => !prev)}>Cart</Button>
         </nav>
+
+        {/* Nav for tablet and bigger screen */}
+        <nav className="hidden md:flex font-helvetica z-10">
+          <div className=" mx-auto basis-full">costum menu</div>
+          <ul className="flex gap-8 text-xl">
+            <motion.li
+              onHoverStart={() => setIsHover(true)}
+              className="cursor-pointer"
+            >
+              <Link to="/products">Shop</Link>
+            </motion.li>
+
+            <motion.li
+              onHoverStart={() => setIsHover(true)}
+              className="cursor-pointer"
+            >
+              <Link className="cursor-pointer" to="/products">
+                About
+              </Link>
+            </motion.li>
+          </ul>
+        </nav>
+
+        <motion.nav
+          initial="hidden"
+          variants={parentVariants}
+          animate={isHover ? "open" : "hidden"}
+          onMouseLeave={() => setIsHover(false)}
+          className=" max-h-60 min-h-60 w-full bg-black origin-top"
+        >
+          <AnimatePresence mode="wait">
+            <nav className="hidden md:flex font-helvetica z-10">
+              <div className=" mx-auto basis-full">costum menu</div>
+              <ul className="flex gap-8 text-xl">
+                <motion.li
+                  onHoverStart={() => setIsHover(true)}
+                  className="cursor-pointer"
+                >
+                  <Link to="/products">Shop</Link>
+                </motion.li>
+
+                <motion.li
+                  onHoverStart={() => setIsHover(true)}
+                  className="cursor-pointer"
+                >
+                  <Link className="cursor-pointer" to="/products">
+                    About
+                  </Link>
+                </motion.li>
+              </ul>
+            </nav>
+
+            <motion.nav
+              initial="hidden"
+              variants={parentVariants}
+              animate={isHover ? "open" : "hidden"}
+              onMouseLeave={() => setIsHover(false)}
+              className=" max-h-60 min-h-60 w-full bg-black origin-top"
+            >
+              <AnimatePresence mode="wait">
+                {isHover && (
+                  <motion.ul key="ap" className="flex">
+                    <Link className="basis-full" to="/collections/pion">
+                      PION
+                    </Link>
+                    <div>
+                      <motion.div
+                        initial={{ scaleY: 0, opacity: 0 }}
+                        animate={{
+                          scaleY: 1,
+                          opacity: 1,
+                          transition: {
+                            ease: "easeInOut",
+                            delay: 0.5,
+                          },
+                        }}
+                        exit={{ scaleY: 0, opacity: 0 }}
+                        className="flex gap-5 px-5"
+                      >
+                        <Link>
+                          <motion.img
+                            variants={parentVariants}
+                            src="http://localhost:5500/uploads/red-small.avif"
+                          ></motion.img>
+                        </Link>
+                        <Link>
+                          <motion.img
+                            variants={parentVariants}
+                            src="http://localhost:5500/uploads/red-small.avif"
+                          ></motion.img>
+                        </Link>
+                        <Link>
+                          <motion.img
+                            variants={parentVariants}
+                            src="http://localhost:5500/uploads/red-small.avif"
+                          ></motion.img>
+                        </Link>
+                        <Link>
+                          <motion.img
+                            variants={parentVariants}
+                            src="http://localhost:5500/uploads/red-small.avif"
+                          ></motion.img>
+                        </Link>
+                        <Link>
+                          <motion.img
+                            variants={parentVariants}
+                            src="http://localhost:5500/uploads/red-small.avif"
+                          ></motion.img>
+                        </Link>
+                      </motion.div>
+
+                      <Link></Link>
+                      <Link></Link>
+                      <Link></Link>
+                      <Link></Link>
+                    </div>
+                  </motion.ul>
+                )}
+              </AnimatePresence>
+            </motion.nav>
+          </AnimatePresence>
+        </motion.nav>
 
         {isMenuOpen && (
           <Menu>

@@ -13,10 +13,14 @@ const Home = () => {
   return (
     <>
       <section className="grid w-full justify-center">
-        <img
-          className=" rounded-t-xl"
-          src="images/Session_studio_OHM-256-2.webp"
-        />
+        <picture className="md:hidden">
+          <img
+            className=" rounded-t-xl w-full"
+            src="images/Session_studio_OHM-256-2.webp"
+          />
+        </picture>
+
+        <picture></picture>
         <div className="w-full bg-[#f2eef0]">
           <div className=" max-w-[86.67%] m-auto grid row-span-2 gap-10 pb-16">
             <div className=" text-4xl">
