@@ -44,15 +44,7 @@ const Header = () => {
         staggerChildren: 0.2,
       },
     },
-    hidden: { scaleY: 0, when: "afterChildren" },
-  };
-
-  const childrenVariants = {
-    animate: {
-      transition: {
-        staggerChildren: 0.2,
-      },
-    },
+    hidden: { scaleY: 0, transition: { delay: 1 } },
   };
 
   const menuElement = Object.keys(links).map((category, index) => {
@@ -154,12 +146,12 @@ const Header = () => {
             >
               <AnimatePresence mode="wait">
                 {isHover && (
-                  <motion.ul key="ap" className="flex">
+                  <motion.ul className="flex">
                     <Link className="basis-full" to="/collections/pion">
                       PION
                     </Link>
                     <div>
-                      <motion.div
+                      <motion.li
                         initial={{ scaleY: 0, opacity: 0 }}
                         animate={{
                           scaleY: 1,
@@ -170,44 +162,44 @@ const Header = () => {
                           },
                         }}
                         exit={{ scaleY: 0, opacity: 0 }}
-                        className="flex gap-5 px-5"
+                        className="flex gap-5 px-5 overflow-hidden max-h-16 origin-bottom"
                       >
-                        <Link>
+                        <Link className="">
                           <motion.img
+                            whileHover={{ y: 10 }}
                             variants={parentVariants}
                             src="http://localhost:5500/uploads/red-small.avif"
                           ></motion.img>
                         </Link>
                         <Link>
                           <motion.img
+                            whileHover={{ y: 10 }}
                             variants={parentVariants}
                             src="http://localhost:5500/uploads/red-small.avif"
                           ></motion.img>
                         </Link>
                         <Link>
                           <motion.img
+                            whileHover={{ y: 10 }}
                             variants={parentVariants}
                             src="http://localhost:5500/uploads/red-small.avif"
                           ></motion.img>
                         </Link>
                         <Link>
                           <motion.img
+                            whileHover={{ y: 10 }}
                             variants={parentVariants}
                             src="http://localhost:5500/uploads/red-small.avif"
                           ></motion.img>
                         </Link>
                         <Link>
                           <motion.img
+                            whileHover={{ y: 10 }}
                             variants={parentVariants}
                             src="http://localhost:5500/uploads/red-small.avif"
                           ></motion.img>
                         </Link>
-                      </motion.div>
-
-                      <Link></Link>
-                      <Link></Link>
-                      <Link></Link>
-                      <Link></Link>
+                      </motion.li>
                     </div>
                   </motion.ul>
                 )}
