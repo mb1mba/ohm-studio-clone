@@ -1,3 +1,4 @@
+import React from "react";
 import AccordionContext from "./AccordionContext";
 
 const Accordion = ({ children }) => {

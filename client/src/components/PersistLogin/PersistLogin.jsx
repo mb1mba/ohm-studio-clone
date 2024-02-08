@@ -1,3 +1,4 @@
+import React from "react";
 import { Outlet } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useUserContext } from "/src/context/authContext";
