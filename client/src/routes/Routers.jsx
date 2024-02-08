@@ -1,3 +1,4 @@
+import React from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -33,6 +34,7 @@ const AppRoutes = () => {
           <Route element={<RequireAuth />}>
             <Route path="/account" element={<Profile />} />
           </Route>
+          <Route path="/checkout-success" element={<h2>Success</h2>} />
         </Route>
       </Routes>
     </AnimatePresence>

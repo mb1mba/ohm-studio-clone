@@ -1,5 +1,6 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import axios from "/src/api/axios";
 import { CustomMenu, Button, links } from "/src/components/Header";
 import { Drawline } from "/src/components/Shared";
 import { Link } from "react-router-dom";
@@ -12,17 +13,36 @@ import {
 } from "/src/components/Menu";
 import { TextReveal } from "/src/components/Reveal";
 import { useCartContext } from "/src/context/cartContext";
+import { useUserContext } from "/src/context/authContext";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const { cart, addToCart, removeFromCart, decreaseQuantity, getCartTotal } =
     useCartContext();
+  const { user } = useUserContext();
   const [isHover, setIsHover] = useState("");
 
   const [isSectionOpen, setIsSectionOpen] = useState(
     Array(links.length).fill(false)
   );
+
+  const handleCheckout = (cartItems) => {
+    axios
+      .post("/stripe/create-checkout-session", {
+        name: user.name,
+        cartItems,
+        userId: user.user._id,
+      })
+      .then((res) => {
+        if (res.data.url) {
+          window.location.href = res.data.url;
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   // initial={{ scaleY: 0 }}
   // animate={{
   //   scaleY: isHover ? 1 : 0,
@@ -177,7 +197,7 @@ const Header = () => {
                           <Link className=" pb-4 overflow-hidden">
                             <motion.img
                               whileHover={{ y: 7 }}
-                              src="http://localhost:5500/uploads/red-small.avif"
+                              src="https://localhost:5500/uploads/red-small.avif"
                             ></motion.img>
                           </Link>
                         </motion.li>
@@ -207,7 +227,7 @@ const Header = () => {
                           <Link className="">
                             <motion.img
                               whileHover={{ y: 7 }}
-                              src="http://localhost:5500/uploads/red-small.avif"
+                              src="https://localhost:5500/uploads/red-small.avif"
                             ></motion.img>
                           </Link>
                         </motion.li>
@@ -236,7 +256,7 @@ const Header = () => {
                           <Link className="">
                             <motion.img
                               whileHover={{ y: 7 }}
-                              src="http://localhost:5500/uploads/red-small.avif"
+                              src="https://localhost:5500/uploads/red-small.avif"
                             ></motion.img>
                           </Link>
                         </motion.li>
@@ -265,7 +285,7 @@ const Header = () => {
                           <Link className="">
                             <motion.img
                               whileHover={{ y: 7 }}
-                              src="http://localhost:5500/uploads/red-small.avif"
+                              src="https://localhost:5500/uploads/red-small.avif"
                             ></motion.img>
                           </Link>
                         </motion.li>
@@ -294,7 +314,7 @@ const Header = () => {
                           <Link className="">
                             <motion.img
                               whileHover={{ y: 7 }}
-                              src="http://localhost:5500/uploads/red-small.avif"
+                              src="https://localhost:5500/uploads/red-small.avif"
                             ></motion.img>
                           </Link>
                         </motion.li>
@@ -330,7 +350,7 @@ const Header = () => {
                           <Link className=" pb-4 overflow-hidden">
                             <motion.img
                               whileHover={{ y: 7 }}
-                              src="http://localhost:5500/uploads/red-small.avif"
+                              src="https://localhost:5500/uploads/red-small.avif"
                             ></motion.img>
                           </Link>
                         </motion.li>
@@ -360,7 +380,7 @@ const Header = () => {
                           <Link className="">
                             <motion.img
                               whileHover={{ y: 7 }}
-                              src="http://localhost:5500/uploads/red-small.avif"
+                              src="https://localhost:5500/uploads/red-small.avif"
                             ></motion.img>
                           </Link>
                         </motion.li>
@@ -389,7 +409,7 @@ const Header = () => {
                           <Link className="">
                             <motion.img
                               whileHover={{ y: 7 }}
-                              src="http://localhost:5500/uploads/red-small.avif"
+                              src="https://localhost:5500/uploads/red-small.avif"
                             ></motion.img>
                           </Link>
                         </motion.li>
@@ -418,7 +438,7 @@ const Header = () => {
                           <Link className="">
                             <motion.img
                               whileHover={{ y: 7 }}
-                              src="http://localhost:5500/uploads/red-small.avif"
+                              src="https://localhost:5500/uploads/red-small.avif"
                             ></motion.img>
                           </Link>
                         </motion.li>
@@ -447,7 +467,7 @@ const Header = () => {
                           <Link className="">
                             <motion.img
                               whileHover={{ y: 7 }}
-                              src="http://localhost:5500/uploads/red-small.avif"
+                              src="https://localhost:5500/uploads/red-small.avif"
                             ></motion.img>
                           </Link>
                         </motion.li>
@@ -495,7 +515,7 @@ const Header = () => {
                     <div className="grid grid-cols-2 gap-2 py-11 ">
                       <img
                         className="w-full object-cover rounded-lg"
-                        src={`http://localhost:5500/${item.images[0]}`}
+                        src={`http://localhost:5500/${item.image}`}
                       />
                       <div className="grid">
                         <div className="grid grid-row-3 h-20 gap-2 text-gray-400 font-helvetica ">
@@ -525,7 +545,10 @@ const Header = () => {
               })}
             </div>
             <div className="fixed bottom-0 left-0 w-full p-5 bg-white">
-              <button className=" bg-[#e3e3e3]  h-14 w-full text-center rounded-xl">
+              <button
+                onClick={() => handleCheckout(cart)}
+                className=" bg-[#e3e3e3]  h-14 w-full text-center rounded-xl"
+              >
                 <span>Checkout </span>
                 <span className="text-[#8e9194]">{`(€${getCartTotal()})`}</span>
               </button>

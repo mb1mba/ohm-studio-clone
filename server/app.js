@@ -3,14 +3,16 @@ const cookieParser = require("cookie-parser");
 const express = require("express");
 const cors = require("cors");
 const connectDB = require("./config/db");
+const Product = require("./models/productModels");
 const products = require("./routes/product");
 const user = require("./routes/user");
+const stripe = require("./routes/stripe");
 const refresh = require("./routes/refresh");
 const app = express();
 connectDB();
 
 const corsOptions = {
-  origin: `http://localhost:5173`,
+  origin: "http://localhost:5173",
   allowedHeaders: ["sessionID", "Authorization", "Content-Type"],
   credentials: true,
   optionsSuccessStatus: 200,
@@ -26,6 +28,7 @@ app.use("/uploads", express.static("uploads"));
 app.use("/api/refresh", refresh);
 app.use("/api/products", products);
 app.use("/api/users", user);
+app.use("/api/stripe", stripe);
 
 app.listen(5500, () => {
   console.log(`Listening server ${5500}`);
