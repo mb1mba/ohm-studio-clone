@@ -5,6 +5,11 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const _ = require("lodash");
 
+const getHashedPassword = async (password) => {
+  const hashedPassword = await bcrypt.hash(password, 10);
+  return hashedPassword;
+};
+
 //@desc Register
 //@route POST /api/users/add
 //@access public
@@ -25,8 +30,10 @@ const registerUser = asyncHandler(async (req, res) => {
     });
   }
   try {
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const user = await User.create({ ...req.body, password: hashedPassword });
+    const user = await User.create({
+      ...req.body,
+      password: getHashedPassword(password),
+    });
     if (user) {
       res.status(201).json(user);
     } else {
@@ -176,6 +183,32 @@ const updateUser = asyncHandler(async (req, res) => {
   }
 });
 
+//@desc Update password
+//@route PUT /api/users/:id/password
+//@access private
+
+const updateUserPassword = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const { password } = req.body;
+  const { user } = req;
+
+  if (user.isAdmin || user.id === id) {
+    const newPassword = await User.findByIdAndUpdate(id, {
+      $set: {
+        password: await getHashedPassword(password),
+      },
+    });
+
+    if (!newPassword) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    return res.status(200).json({ message: "Password updated successfully" });
+  }
+
+  return res.status(401).json({ message: "You are not authorized." });
+});
+
 module.exports = {
   registerUser,
   loginUser,
@@ -183,4 +216,5 @@ module.exports = {
   getUserById,
   getUsers,
   updateUser,
+  updateUserPassword,
 };

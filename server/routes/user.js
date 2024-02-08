@@ -7,6 +7,7 @@ const {
   getUserById,
   getUsers,
   updateUser,
+  updateUserPassword,
 } = require("../controllers/user");
 
 const validateTokenHandler = require("../middlewares/validateTokenHandler");
@@ -17,6 +18,6 @@ router.use(validateTokenHandler);
 
 router.get("/current", currentUser).get("/:id", getUserById).get("/", getUsers);
 
-router.put("/:id", updateUser);
+router.put("/:id", updateUser).put("/:id/password", updateUserPassword);
 
 module.exports = router;
