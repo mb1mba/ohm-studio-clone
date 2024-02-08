@@ -3,6 +3,7 @@ const asyncHandler = require("express-async-handler");
 const User = require("../models/userModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const _ = require("lodash");
 
 //@desc Register
 //@route POST /api/users/add
@@ -63,6 +64,7 @@ const loginUser = asyncHandler(async (req, res) => {
             id: user._id,
             email: user.email,
             name: user.name,
+            isAdmin: user.isAdmin,
           },
         },
         process.env.ACCESS_TOKEN_SECRET,
@@ -75,6 +77,7 @@ const loginUser = asyncHandler(async (req, res) => {
             id: user._id,
             email: user.email,
             name: user.name,
+            isAdmin: user.isAdmin,
           },
         },
         process.env.REFRESH_TOKEN_SECRET,
@@ -122,4 +125,62 @@ const getUserById = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { registerUser, loginUser, currentUser, getUserById };
+//@desc Get user all users
+//@route POST /api/users
+//@access private
+
+const getUsers = asyncHandler(async (req, res) => {
+  const users = await User.find({});
+  const { user } = req;
+
+  if (!user.isAdmin) {
+    res.status(401).json({ message: "You are not authorized." });
+  }
+
+  if (users) {
+    res.status(200).json(users);
+  } else {
+    res.status(404).json({ message: "Users not found" });
+  }
+});
+
+//@desc Edit one user
+//@route PUT /api/users/:id
+//@access private
+
+const updateUser = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const { user } = req;
+  const { name, email, gender } = req.body;
+
+  if (!user.isAdmin && user.id !== id) {
+    res.status(401).json({ message: "You are not authorized." });
+  }
+
+  const currentUser = await User.findByIdAndUpdate(
+    id,
+    {
+      $set: {
+        name,
+        email,
+        gender,
+      },
+    },
+    { new: true }
+  );
+
+  if (currentUser) {
+    res.status(200).json(currentUser);
+  } else {
+    res.status(404).json({ message: "Users not found" });
+  }
+});
+
+module.exports = {
+  registerUser,
+  loginUser,
+  currentUser,
+  getUserById,
+  getUsers,
+  updateUser,
+};
