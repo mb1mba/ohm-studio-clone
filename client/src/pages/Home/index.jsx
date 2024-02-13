@@ -1,6 +1,7 @@
-import React, { useRef, useCallback } from "react";
+import React, { useRef, useCallback, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { motion, useInView, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useAnimation } from "framer-motion";
+import { useInView } from "react-intersection-observer";
 import {
   Text,
   Card,
@@ -14,28 +15,34 @@ const Home = () => {
   const images = ["red.webp", "blue.webp", "green.webp", "yellow.webp"];
 
   const randomIndex = Math.floor(Math.random() * 4);
+  const animation = useAnimation();
+  const [ref, inView, entry] = useInView({ threshold: 0.05 });
 
-  const ref = useRef(null);
-  const isInView = useInView(ref);
+  // useEffect(() => {
+  //   if (inView) {
+  //     animation.start("visible");
+  //   } else {
+  //     animation.start("hidden");
+  //   }
+  // }, [animation, inView]);
 
   const imagesEl = images.map((image, i) => (
     <motion.img
       key={i}
       loading="lazy"
-      width="860"
-      height="960"
       src={`http://localhost:5500/uploads/${image}`}
+      height="963"
+      width="863"
+      className="max-w-full"
       style={{
         display: i !== randomIndex ? "none" : "block",
-        position: "absolute",
-        bottom: 0,
       }}
     />
   ));
 
   return (
     <>
-      <section className="grid w-full justify-center h-screen md:min-w-screen md:justify-stretch md:h-[200vw] md:bg-yellow-100 md:flex md:z-[1] md:fixed md:top-0 ">
+      <section className="grid w-full justify-center md:min-w-screen md:justify-stretch md:h-[300vw] md:z-[1] md:sticky md:top-0 bg-[#e3e3e3] ">
         <picture className="md:hidden">
           <img
             className=" rounded-t-xl w-full"
@@ -43,68 +50,86 @@ const Home = () => {
           />
         </picture>
 
-        <div className="w-full ">
-          <div className=" max-w-[86.67%] m-auto grid gap-10 pb-16 md:pt-40">
-            <div className=" text-4xl">
-              <div className="flex items-baseline w-full  ">
-                <Text>PION</Text>
-                <span className="flex font-garamond">
-                  &nbsp;—&nbsp;
-                  <span className=" flex lg:hidden">4</span>
-                  <span className=" hidden sm:flex">Four</span>
-                  &nbsp;colored
-                </span>
-              </div>
-              <span className="flex overflow-hidden">
-                <span className="font-garamond">
-                  stools&nbsp;
-                  <span className="font-helvetica text-3xl">
-                    made in France
+        <div className=" grid w-full h-screen relative max-w-[90%] mx-auto">
+          <div className="flex self-end">
+            <div className="grid gap-10 md:pt-40 md:pb-40">
+              <div className="text-4xl md:text-xl">
+                <div className="flex items-baseline w-full  ">
+                  <Text>PION</Text>
+                  <span className="flex font-garamond md:text-xl lg:text-3xl">
+                    &nbsp;—&nbsp;
+                    <span className=" flex md:hidden ">4</span>
+                    <span className=" hidden sm:flex">Four</span>
+                    &nbsp;colored
+                  </span>
+                </div>
+                <span className="flex overflow-hidden">
+                  <span className="font-garamond md:text-xl lg:text-3xl">
+                    stools&nbsp;
+                    <span className="font-helvetica text-3xl md:text-xl lg:text-3xl">
+                      made in France
+                    </span>
                   </span>
                 </span>
-              </span>
-              <span className="flex overflow-hidden">
-                <span className=" font-helvetica text-3xl">
-                  from recycled steel
+                <span className="flex overflow-hidden">
+                  <span className=" font-helvetica text-3xl md:text-xl lg:text-3xl">
+                    from recycled steel
+                  </span>
                 </span>
-              </span>
-              <span className="flex overflow-hidden">
-                <span className=" font-helvetica text-3xl">
-                  assembled by hand
+                <span className="flex overflow-hidden">
+                  <span className=" font-helvetica text-3xl md:text-xl lg:text-3xl">
+                    assembled by hand
+                  </span>
                 </span>
-              </span>
-              <span className="flex overflow-hidden">
-                <span className=" font-helvetica text-3xl">
-                  and then powder
+                <span className="flex overflow-hidden">
+                  <span className=" font-helvetica text-3xl md:text-xl lg:text-3xl">
+                    and then powder
+                  </span>
                 </span>
-              </span>
-              <span className=" font-helvetica text-3xl">coated.</span>
+                <span className=" font-helvetica text-3xl md:text-xl lg:text-3xl">
+                  coated.
+                </span>
+              </div>
+              <Link
+                className=" font-helvetica text-[#8e9194]"
+                to="collections/pion"
+              >
+                Shop Now
+              </Link>
             </div>
-            <Link
-              className=" font-helvetica text-[#8e9194]"
-              to="collections/pion"
-            >
-              Shop Now
-            </Link>
           </div>
+
+          <picture className="hidden absolute md:-bottom-24  lg:right-20 right-28  md:grid">
+            <img
+              sizes="(max-width: 1726px) 100vw, 1726px"
+              srcset="
+            http://localhost:5500/uploads/red_yzy5gv_c_scale,w_768.webp 768w,
+            http://localhost:5500/uploads/red_yzy5gv_c_scale,w_1096.webp 1024w,
+            http://localhost:5500/uploads/red_yzy5gv_c_scale,w_1404.webp 1404w,
+            http://localhost:5500/uploads/red_yzy5gv_c_scale,w_1668.webp 1668w,
+            http://localhost:5500/uploads/red_yzy5gv_c_scale,w_1726.webp 1726w"
+              src="red_yzy5gv_c_scale,w_1726.webp"
+              alt=""
+              className="w-[48vw] max-w-[865px]"
+            />
+          </picture>
         </div>
-        <div className=" basis-full">{imagesEl}</div>
       </section>
 
       <AnimatePresence>
         <motion.div
-          className="bg-red-200 rounded-t-3xl m-auto md:z-[2]  md:relative md:rounded-xl  md:mt-[200vh] "
           ref={ref}
-          initial={{ scale: 0.95 }}
-          animate={{
-            scale: isInView ? 1 : 0.95,
-            transition: { duration: 0.2, ease: "easeIn" },
-          }}
-          exit={{ scale: 0.95 }}
+          className="bg-white rounded-t-3xl m-auto md:z-[2] block md:relative md:rounded-xl   "
+          // initial={{ scale: 0.95 }}
+          // animate={{
+          //   scale: inView ? 1 : 0.95,
+          //   transition: { duration: 0.4, ease: [0.61, 1, 0.88, 1] },
+          // }}
+          // exit={{ scale: 0.95 }}
         >
-          <section className="block ">
-            <div className="  py-9 max-w-[86.67%] m-auto grid row-span-2 gap-10">
-              <div className="grid row-span-2 gap-4">
+          <section className="">
+            <div className=" py-9 mx-20 grid gap-10 md:grid-cols-2">
+              <div className="grid gap-4">
                 <p className=" font-helvetica text-xl">
                   The BLOC chair.
                   <br />1 metal sheet, 2 pleats, 4 screws.
@@ -133,7 +158,7 @@ const Home = () => {
           </section>
 
           <section>
-            <div className="py-9 max-w-[86.67%] m-auto grid row-span-2 gap-10">
+            <div className="py-9 mx-20 grid gap-10 md:grid-cols-2">
               <CardDiv text="BLOC - Raw " price="1.125,00">
                 <Card size="md">
                   <CardImage src="images/ban-gray.webp" />
@@ -149,7 +174,7 @@ const Home = () => {
           </section>
 
           <section>
-            <div className="py-9 max-w-[86.67%] m-auto grid row-auto gap-10">
+            <div className="py-9 mx-20 grid row-auto gap-10  md:grid-cols-2">
               <div className="inline">
                 <span className="font-garamond text-4xl">
                   — A traditional approach&nbsp;
@@ -176,7 +201,7 @@ const Home = () => {
           </section>
 
           <section>
-            <div className="  py-9 max-w-[86.67%] m-auto grid row-span-2 gap-10">
+            <div className="  py-9 mx-20 grid gap-10 md:grid-cols-2">
               <CardDiv text="Orange PION created for COLLECTIBLE 2023">
                 <Card size="md">
                   <CardImage src="images/pion.webp" />
@@ -191,7 +216,7 @@ const Home = () => {
           </section>
 
           <section>
-            <div className="  py-9 max-w-[86.67%] m-auto grid row-span-2 gap-10">
+            <div className="  py-9 mx-20 grid gap-10 md:grid-cols-2">
               <div className="grid row-span-2 gap-4">
                 <p className="font-helvetica text-xl">
                   OHM is a collectible furniture studio backed by a
@@ -217,7 +242,7 @@ const Home = () => {
           </section>
 
           <section>
-            <div className="  py-9 max-w-[86.67%] m-auto grid row-span-2 gap-10">
+            <div className="  py-9 mx-20 grid gap-10 md:grid-cols-2">
               <CardDiv text="Orange PION created for COLLECTIBLE 2023">
                 <Card size="md">
                   <CardImage src="images/pion.webp" />
@@ -232,7 +257,7 @@ const Home = () => {
           </section>
 
           <section>
-            <div className="max-w-[86.67%] m-auto grid row-span-3 gap-y-9">
+            <div className="mx-20 grid  gap-y-9">
               <div>
                 <p className=" text-4xl font-helvetica font-medium">
                   Selected Products
@@ -266,9 +291,9 @@ const Home = () => {
           </section>
 
           <section>
-            <div className="max-w-[86.67%] m-auto grid row-span-3 gap-y-9">
+            <div className="mx-20 grid gap-y-9 ">
               <CardDiv gap="20">
-                <div className="grid row-span-2 gap-6">
+                <div className="grid gap-6 md:grid-cols-1 md:grid-rows-1 w-full">
                   <Card size="lg">
                     <CardImage src="images/blue.webp" />
                   </Card>
