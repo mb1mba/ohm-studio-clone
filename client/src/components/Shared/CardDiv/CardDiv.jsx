@@ -3,7 +3,7 @@ import React from "react";
 const CardDiv = ({ children, text, price, gap = 4, align }) => {
   return (
     <div
-      className={`lg:grid gap-${gap} justify-center lg:grid-areas-card lg:grid-cols-card lg:grid-rows-card`}
+      className={`lg:grid gap-${gap} justify-center lg:grid-areas-card lg:grid-cols-card lg:grid-rows-card w-full`}
     >
       {children}
       <div
