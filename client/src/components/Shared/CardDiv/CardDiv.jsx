@@ -1,9 +1,11 @@
 import React from "react";
 
-const CardDiv = ({ children, text, price, gap = 4, align }) => {
+const CardDiv = ({ children, text, price, gap = 4, align, order }) => {
   return (
     <div
-      className={`lg:grid gap-${gap} justify-center lg:grid-areas-card lg:grid-cols-card lg:grid-rows-card w-full`}
+      className={`lg:grid gap-${gap} justify-center lg:grid-areas-card lg:grid-cols-card lg:grid-rows-card  md:sticky md:bottom-0 md:self-end md:${
+        order ? "justify-end" : "justify-start"
+      } ${order && `order-${order}`} `}
     >
       {children}
       <div

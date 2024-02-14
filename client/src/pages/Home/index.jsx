@@ -9,7 +9,9 @@ import {
   CardText,
   CardImage,
 } from "/src/components/Shared";
+import { TextReveal } from "/src/components/Reveal";
 import { transition } from "/src/components/Transition";
+import { SelectedProducts } from "/src/components/SelectedProducts";
 
 const Home = () => {
   const images = ["red.webp", "blue.webp", "green.webp", "yellow.webp"];
@@ -50,52 +52,65 @@ const Home = () => {
           />
         </picture>
 
-        <div className=" grid w-full h-screen relative max-w-[90%] mx-auto">
-          <div className="flex self-end">
-            <div className="grid gap-10 md:pt-40 md:pb-40">
+        <div className=" grid w-full md:h-screen relative max-w-[90%] mx-auto">
+          <div className="md:flex md:self-end">
+            <div className="grid gap-10 my-20 md:pt-40 md:pb-40">
               <div className="text-4xl md:text-xl">
                 <div className="flex items-baseline w-full  ">
-                  <Text>PION</Text>
-                  <span className="flex font-garamond md:text-xl lg:text-3xl">
-                    &nbsp;—&nbsp;
-                    <span className=" flex md:hidden ">4</span>
-                    <span className=" hidden sm:flex">Four</span>
-                    &nbsp;colored
-                  </span>
+                  <TextReveal>
+                    <Text>PION</Text>
+                  </TextReveal>
+                  <TextReveal>
+                    <span className="flex font-garamond md:text-xl lg:text-3xl xl:text-5xl ">
+                      &nbsp;—&nbsp;
+                      <span className=" flex md:hidden ">4</span>
+                      <span className=" hidden sm:flex">Four</span>
+                      &nbsp;colored
+                    </span>
+                  </TextReveal>
                 </div>
-                <span className="flex overflow-hidden">
-                  <span className="font-garamond md:text-xl lg:text-3xl">
+                <TextReveal>
+                  <span className="font-garamond md:text-xl lg:text-3xl xl:text-5xl 2xl:text-6xl">
                     stools&nbsp;
-                    <span className="font-helvetica text-3xl md:text-xl lg:text-3xl">
+                    <span className="font-helvetica text-3xl md:text-xl lg:text-3xl xl:text-5xl 2xl:text-6xl ">
                       made in France
                     </span>
                   </span>
-                </span>
-                <span className="flex overflow-hidden">
-                  <span className=" font-helvetica text-3xl md:text-xl lg:text-3xl">
+                </TextReveal>
+
+                <TextReveal>
+                  <span className=" font-helvetica text-3xl md:text-xl lg:text-3xl xl:text-5xl 2xl:text-6xl ">
                     from recycled steel
                   </span>
-                </span>
-                <span className="flex overflow-hidden">
-                  <span className=" font-helvetica text-3xl md:text-xl lg:text-3xl">
+                </TextReveal>
+
+                <TextReveal>
+                  <span className=" font-helvetica text-3xl md:text-xl lg:text-3xl xl:text-5xl 2xl:text-6xl ">
                     assembled by hand
                   </span>
-                </span>
-                <span className="flex overflow-hidden">
-                  <span className=" font-helvetica text-3xl md:text-xl lg:text-3xl">
+                </TextReveal>
+                <TextReveal>
+                  <span className=" font-helvetica text-3xl md:text-xl lg:text-3xl xl:text-5xl 2xl:text-6xl ">
                     and then powder
                   </span>
-                </span>
-                <span className=" font-helvetica text-3xl md:text-xl lg:text-3xl">
-                  coated.
-                </span>
+                </TextReveal>
+                <TextReveal>
+                  <span className=" font-helvetica text-3xl md:text-xl lg:text-3xl xl:text-5xl 2xl:text-6xl ">
+                    coated.
+                  </span>
+                </TextReveal>
               </div>
-              <Link
-                className=" font-helvetica text-[#8e9194]"
-                to="collections/pion"
-              >
-                Shop Now
-              </Link>
+
+              <TextReveal>
+                <Link
+                  className=" font-helvetica text-[#8e9194] relative max-w-fit overflow-hidden"
+                  to="collections/pion"
+                >
+                  <span className="before:h-[1px] before:w-full before:bg-[#8e9194] before:absolute before:bottom-0  before:left-0 before:origin-left before:scale-x-[-100%] hover:before:scale-x-[100%]  hover:before:origin-left before:delay-200 before:transition-transform before:duration-300  after:content-[' ']  after:h-[1px] after:w-full after:bg-[#8e9194] after:absolute after:bottom-0  after:left-0 before after:origin-right after:scale-x-[100%] hover:after:scale-x-[-100%] after:duration-700 hover:after:origin-right after:transition-transform">
+                    Shop Now
+                  </span>
+                </Link>
+              </TextReveal>
             </div>
           </div>
 
@@ -120,16 +135,16 @@ const Home = () => {
         <motion.div
           ref={ref}
           className="bg-white rounded-t-3xl m-auto md:z-[2] block md:relative md:rounded-xl   "
-          // initial={{ scale: 0.95 }}
-          // animate={{
-          //   scale: inView ? 1 : 0.95,
-          //   transition: { duration: 0.4, ease: [0.61, 1, 0.88, 1] },
-          // }}
-          // exit={{ scale: 0.95 }}
+          initial={{ scale: 0.95 }}
+          animate={{
+            scale: inView ? 1 : 0.95,
+            transition: { duration: 0.4, ease: [0.61, 1, 0.88, 1] },
+          }}
+          exit={{ scale: 0.95 }}
         >
           <section className="">
-            <div className=" py-9 mx-20 grid gap-10 md:grid-cols-2">
-              <div className="grid gap-4">
+            <div className=" py-[5vw]  mx-[5vw]  grid gap-20 md:grid-cols-2">
+              <div className="grid">
                 <p className=" font-helvetica text-xl">
                   The BLOC chair.
                   <br />1 metal sheet, 2 pleats, 4 screws.
@@ -158,23 +173,36 @@ const Home = () => {
           </section>
 
           <section>
-            <div className="py-9 mx-20 grid gap-10 md:grid-cols-2">
+            <div className="py-[5vw]  mx-[5vw] grid gap-20 md:grid-cols-auto*2 relative">
               <CardDiv text="BLOC - Raw " price="1.125,00">
                 <Card size="md">
-                  <CardImage src="images/ban-gray.webp" />
+                  <CardImage
+                    src="http://localhost:5500/uploads/bloc-brush01.webp"
+                    type="visible"
+                  />
+                  <CardImage
+                    src="http://localhost:5500/uploads/bloc-brush02.webp"
+                    type="hidden"
+                  />
                 </Card>
               </CardDiv>
 
-              <CardDiv text="BAN collection">
-                <Card size="md">
-                  <CardImage src="images/home-img2.webp" />
-                </Card>
-              </CardDiv>
+              <div className="grid justify-end">
+                <img
+                  src="/images/home-img2.webp"
+                  className=" w-full md:min-h-[550px] md:h-[75vw] flex rounded-lg justify-end"
+                />
+                <p className="flex justify-between w-full font-helvetica">
+                  <span className=" font-garamond font-semibold  text-[#8E9391] ">
+                    BLOC in OHM interiors
+                  </span>
+                </p>
+              </div>
             </div>
           </section>
 
           <section>
-            <div className="py-9 mx-20 grid row-auto gap-10  md:grid-cols-2">
+            <div className="py-[5vw] mx-[5vw]  grid gap-20 row-auto md:grid-cols-2">
               <div className="inline">
                 <span className="font-garamond text-4xl">
                   — A traditional approach&nbsp;
@@ -201,22 +229,43 @@ const Home = () => {
           </section>
 
           <section>
-            <div className="  py-9 mx-20 grid gap-10 md:grid-cols-2">
-              <CardDiv text="Orange PION created for COLLECTIBLE 2023">
+            <div className="py-[5vw] gap-20  mx-[5vw] grid  md:grid-cols-auto*2 relative">
+              <CardDiv
+                className="col-start-2"
+                text="PION - Orange"
+                price="600"
+                align="between"
+                order="2"
+                justify="justify-end"
+              >
                 <Card size="md">
-                  <CardImage src="images/pion.webp" />
+                  <CardImage
+                    src="http://localhost:5500/uploads/pion-orange.webp"
+                    type="visible"
+                  />
+                  <CardImage
+                    src="http://localhost:5500/uploads/pion-orange02.webp"
+                    type="hidden"
+                  />
                 </Card>
               </CardDiv>
-              <CardDiv text="PION - Orange" price="600">
-                <Card>
-                  <CardImage src="images/ban-gray.webp" />
-                </Card>
-              </CardDiv>
+
+              <div className="grid gap-4 justify-start">
+                <img
+                  src="http://localhost:5500/uploads/pion-collection.webp"
+                  className=" w-full md:min-h-[550px]  md:h-[75vw]  rounded-lg"
+                />
+                <p className="flex justify-between w-full font-helvetica">
+                  <span className=" font-garamond font-semibold  text-[#8E9391] ">
+                    Orange PION created for COLLECTIBLE 2023
+                  </span>
+                </p>
+              </div>
             </div>
           </section>
 
           <section>
-            <div className="  py-9 mx-20 grid gap-10 md:grid-cols-2">
+            <div className="  py-[5vw] mx-[5vw] grid  gap-20 md:grid-cols-2">
               <div className="grid row-span-2 gap-4">
                 <p className="font-helvetica text-xl">
                   OHM is a collectible furniture studio backed by a
@@ -242,56 +291,42 @@ const Home = () => {
           </section>
 
           <section>
-            <div className="  py-9 mx-20 grid gap-10 md:grid-cols-2">
-              <CardDiv text="Orange PION created for COLLECTIBLE 2023">
+            <div className="py-[5vw]  mx-[5vw] grid gap-10 md:grid-cols-auto*2 relative">
+              <CardDiv text="BAN - Black" price="1920.00" justify="justify-end">
                 <Card size="md">
-                  <CardImage src="images/pion.webp" />
+                  <CardImage
+                    src="http://localhost:5500/uploads/ban-black01.webp"
+                    type="visible"
+                  />
+                  <CardImage
+                    src="http://localhost:5500/uploads/ban-black02.webp"
+                    type="hidden"
+                  />
                 </Card>
               </CardDiv>
-              <CardDiv text="PION - Orange" price="600">
-                <Card>
-                  <CardImage src="images/ban-gray.webp" />
-                </Card>
-              </CardDiv>
-            </div>
-          </section>
 
-          <section>
-            <div className="mx-20 grid  gap-y-9">
-              <div>
-                <p className=" text-4xl font-helvetica font-medium">
-                  Selected Products
+              <div className="grid justify-end">
+                <img
+                  src="http://localhost:5500/uploads/ban-collection.webp"
+                  className="w-full md:min-h-[550px] md:h-[75vw] object-cover rounded-lg"
+                />
+                <p className="flex justify-between w-full font-helvetica">
+                  <span className=" font-garamond font-semibold  text-[#8E9391] ">
+                    BAN collection
+                  </span>
                 </p>
               </div>
-
-              <div className="grid grid-cols-2 grid-flow-row  gap-x-5 gap-y-9">
-                <Card size="sm">
-                  <CardImage src="images/ban-gray.webp" />
-                </Card>
-                <Card size="sm">
-                  <CardImage src="images/ban-gray.webp" />
-                </Card>
-                <Card size="sm">
-                  <CardImage src="images/ban-gray.webp" />
-                </Card>
-                <Card size="sm">
-                  <CardImage src="images/ban-gray.webp" />
-                </Card>
-                <Card size="sm">
-                  <CardImage src="images/ban-gray.webp" />
-                </Card>
-              </div>
-
-              <div className="w-full text-center">
-                <Link className="" to="collections/pion">
-                  See All
-                </Link>
-              </div>
             </div>
           </section>
 
           <section>
-            <div className="mx-20 grid gap-y-9 ">
+            <div className="mx-[2vw]  grid  gap-y-9">
+              <SelectedProducts />
+            </div>
+          </section>
+
+          {/* <section>
+            <div className="mx-[2vw]  grid gap-y-9 ">
               <CardDiv gap="20">
                 <div className="grid gap-6 md:grid-cols-1 md:grid-rows-1 w-full">
                   <Card size="lg">
@@ -321,7 +356,7 @@ const Home = () => {
                 </div>
               </CardDiv>
             </div>
-          </section>
+          </section> */}
         </motion.div>
       </AnimatePresence>
     </>

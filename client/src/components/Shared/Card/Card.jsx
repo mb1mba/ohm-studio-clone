@@ -3,7 +3,7 @@ import React from "react";
 const Card = ({ size, children }) => {
   const cardStyles = {
     sm: "w-[40vw] max-w-52",
-    md: "w-[86vw] w-full ",
+    md: " w-full ",
     lg: "w-[40vw] w-full",
   };
 

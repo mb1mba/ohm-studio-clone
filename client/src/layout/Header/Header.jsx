@@ -96,7 +96,7 @@ const Header = () => {
   return (
     <>
       {/* <CustomMenu /> */}
-      <header className="fixed w-full px-5 md:px-10 pt-10 top-0 md:z-10">
+      <header className="fixed w-full px-5 md:px-10 pt-10 top-0 md:z-10 overflow-hidden">
         {/* Nav for mobile */}
         <nav className="flex justify-between min-h-20 relative md:hidden">
           <Button onClick={() => setIsMenuOpen((prev) => !prev)}>
@@ -133,7 +133,7 @@ const Header = () => {
           variants={parentVariants}
           animate={isHover ? "open" : "hidden"}
           onMouseLeave={() => setIsHover(false)}
-          className=" max-h-60 min-h-60 w-full bg-black origin-top"
+          className="hidden md:block max-h-60 min-h-60 w-full bg-black origin-top"
         >
           <AnimatePresence mode="wait">
             <nav className="hidden md:flex font-helvetica z-10">
