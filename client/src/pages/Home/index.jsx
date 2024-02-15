@@ -253,7 +253,7 @@ const Home = () => {
               <div className="grid gap-4 justify-start">
                 <img
                   src="http://localhost:5500/uploads/pion-collection.webp"
-                  className=" w-full md:min-h-[550px]  md:h-[75vw]  rounded-lg"
+                  className=" w-full md:min-h-[550px] md:h-[75vw] rounded-lg"
                 />
                 <p className="flex justify-between w-full font-helvetica">
                   <span className=" font-garamond font-semibold  text-[#8E9391] ">
@@ -320,13 +320,43 @@ const Home = () => {
           </section>
 
           <section>
-            <div className="mx-[2vw]  grid  gap-y-9">
+            <div className="mx-[5vw]  grid  gap-y-9">
               <SelectedProducts />
             </div>
           </section>
 
-          {/* <section>
-            <div className="mx-[2vw]  grid gap-y-9 ">
+          <section>
+            <div className="mx-[5vw] grid">
+              <div className="grid gap-10">
+                <div className="w-full h-[93vw] sm:h">
+                  <img
+                    src="images/blue.webp"
+                    className="w-full h-full object-cover rounded-xl"
+                  />
+                </div>
+
+                <div className="grid gap-10 w-full p-10 bg-[#f5f4f4]">
+                  <div>
+                    <p className=" font-helvetica text-[1.8rem] ">BLOC</p>
+                    <p className=" font-helvetica">
+                      Three aluminum chairs made in France in three versions :
+                      raw or brushed aluminum, and powder-coated blue.
+                    </p>
+                  </div>
+                  <div className="w-full overflow-hidden">
+                    <Link
+                      className=" font-helvetica text-[#8e9194] relative max-w-fit overflow-hidden"
+                      classNameto="/collections/bloc"
+                    >
+                      <span className="before:h-[1px] before:w-full before:bg-[#8e9194] before:absolute before:bottom-0  before:left-0 before:origin-left before:scale-x-[-100%] hover:before:scale-x-[100%]  hover:before:origin-left before:delay-200 before:transition-transform before:duration-300  after:content-[' ']  after:h-[1px] after:w-full after:bg-[#8e9194] after:absolute after:bottom-0  after:left-0 before after:origin-right after:scale-x-[100%] hover:after:scale-x-[-100%] after:duration-700 hover:after:origin-right after:transition-transform">
+                        Buy Now
+                      </span>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {/* <div className="mx-[2vw]  grid gap-y-9 ">
               <CardDiv gap="20">
                 <div className="grid gap-6 md:grid-cols-1 md:grid-rows-1 w-full">
                   <Card size="lg">
@@ -355,8 +385,8 @@ const Home = () => {
                   </Card>
                 </div>
               </CardDiv>
-            </div>
-          </section> */}
+            </div> */}
+          </section>
         </motion.div>
       </AnimatePresence>
     </>
