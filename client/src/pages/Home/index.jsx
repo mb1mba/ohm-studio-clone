@@ -328,24 +328,26 @@ const Home = () => {
           <section>
             <div className="mx-[5vw] grid">
               <div className="grid gap-10">
-                <div className="w-full h-[93vw] sm:h">
+                <div className="w-full h-[93vw]  md:row-start-1 md:col-start-1">
                   <img
                     src="images/blue.webp"
                     className="w-full h-full object-cover rounded-xl"
                   />
                 </div>
 
-                <div className="grid gap-10 w-full p-10 bg-[#f5f4f4]">
-                  <div>
-                    <p className=" font-helvetica text-[1.8rem] ">BLOC</p>
-                    <p className=" font-helvetica">
+                <div className="grid gap-10 w-full min-h-72  p-[10vw] rounded-xl bg-[#f5f4f4] md:w-64 md:h-64 md:p-4 md:row-start-1 md:col-start-1 md:self-end md:mb-5 md:ml-5">
+                  <div className="flex flex-col justify-between">
+                    <p className=" font-helvetica text-[10vw] md:text-[2vw]">
+                      BLOC
+                    </p>
+                    <p className=" font-helvetica text-[5vw] md:text-[1vw]">
                       Three aluminum chairs made in France in three versions :
                       raw or brushed aluminum, and powder-coated blue.
                     </p>
                   </div>
-                  <div className="w-full overflow-hidden">
+                  <div className="overflow-hidden max-w-fit">
                     <Link
-                      className=" font-helvetica text-[#8e9194] relative max-w-fit overflow-hidden"
+                      className=" font-helvetica text-[#8e9194] text-[5vw] md:text-[1vw] relative max-w-fit overflow-hidden"
                       classNameto="/collections/bloc"
                     >
                       <span className="before:h-[1px] before:w-full before:bg-[#8e9194] before:absolute before:bottom-0  before:left-0 before:origin-left before:scale-x-[-100%] hover:before:scale-x-[100%]  hover:before:origin-left before:delay-200 before:transition-transform before:duration-300  after:content-[' ']  after:h-[1px] after:w-full after:bg-[#8e9194] after:absolute after:bottom-0  after:left-0 before after:origin-right after:scale-x-[100%] hover:after:scale-x-[-100%] after:duration-700 hover:after:origin-right after:transition-transform">
