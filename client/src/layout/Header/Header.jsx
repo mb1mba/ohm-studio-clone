@@ -96,7 +96,7 @@ const Header = () => {
   return (
     <>
       {/* <CustomMenu /> */}
-      <header className="fixed w-full px-5 md:px-10 pt-10 top-0 md:z-10 overflow-hidden">
+      <header className="fixed w-full  top-0 md:z-10 overflow-hidden">
         {/* Nav for mobile */}
         <nav className="flex justify-between min-h-20 relative md:hidden">
           <Button onClick={() => setIsMenuOpen((prev) => !prev)}>
@@ -107,7 +107,7 @@ const Header = () => {
         </nav>
 
         {/* Nav for tablet and bigger screen */}
-        <nav className="hidden md:flex font-helvetica z-10">
+        <nav className="hidden md:flex font-helvetica px-5 md:px-10 pt-10">
           <div className=" mx-auto basis-full">costum menu</div>
           <ul className="flex gap-8 text-xl">
             <motion.li
@@ -125,6 +125,7 @@ const Header = () => {
                 About
               </Link>
             </motion.li>
+            <Button onClick={() => setIsCartOpen((prev) => !prev)}>Cart</Button>
           </ul>
         </nav>
 
@@ -133,36 +134,15 @@ const Header = () => {
           variants={parentVariants}
           animate={isHover ? "open" : "hidden"}
           onMouseLeave={() => setIsHover(false)}
-          className="hidden md:block max-h-60 min-h-60 w-full bg-black origin-top"
+          className="hidden md:block max-h-60 min-h-60  origin-top px-10"
         >
           <AnimatePresence mode="wait">
-            <nav className="hidden md:flex font-helvetica z-10">
-              <div className=" mx-auto basis-full">costum menu</div>
-              <ul className="flex gap-8 text-xl">
-                <motion.li
-                  onHoverStart={() => setIsHover(true)}
-                  className="cursor-pointer"
-                >
-                  <Link to="/products">Shop</Link>
-                </motion.li>
-
-                <motion.li
-                  onHoverStart={() => setIsHover(true)}
-                  className="cursor-pointer"
-                >
-                  <Link className="cursor-pointer" to="/products">
-                    About
-                  </Link>
-                </motion.li>
-              </ul>
-            </nav>
-
             <motion.nav
               initial="hidden"
               variants={parentVariants}
               animate={isHover ? "open" : "hidden"}
               onMouseLeave={() => setIsHover(false)}
-              className=" max-h-auto w-full bg-black origin-top"
+              className=" max-h-auto origin-top pt-10 bg-black"
             >
               <AnimatePresence mode="wait">
                 {isHover && (
@@ -502,56 +482,64 @@ const Header = () => {
         )}
 
         {isCartOpen && (
-          <div className="absolute top-0 left-0 bg-white h-screen w-full px-5 pt-10 ">
-            <div className="top-0 flex  w-full min-h-20 items-center justify-between">
-              <h3 className="text-[8vw] font-helvetica ">Cart</h3>
-              <Button onClick={() => setIsCartOpen(false)}>Close</Button>
-            </div>
+          <div className="bg-[rgba(17,17,17,.1)] fixed top-0 left-0 w-full h-screen md:pt-10">
+            <div className=" relative md:ml-auto md:mr-9 bg-white h-screen w-full pt-10 md:max-w-[28vw] md:max-h-[90vh] md:min-h-[90vh]  md:rounded-xl">
+              <div className=" relative flex  w-full min-h-20 px-5 items-center justify-between">
+                <h3 className="text-[8vw] font-helvetica md:text-[3vw]">
+                  Cart
+                </h3>
+                <Button onClick={() => setIsCartOpen(false)}>Close</Button>
+              </div>
 
-            <div className="h-screen overflow-y-auto pb-20">
-              {cart.map((item) => {
-                return (
-                  <>
-                    <div className="grid grid-cols-2 gap-2 py-11 ">
-                      <img
-                        className="w-full object-cover rounded-lg"
-                        src={`http://localhost:5500/${item.image}`}
-                      />
-                      <div className="grid">
-                        <div className="grid grid-row-3 h-20 gap-2 text-gray-400 font-helvetica ">
-                          <span className=" text-black  ">{item.name}</span>
-                          <span>{item.price}</span>
-                          <div className="grid grid-rows-1 grid-cols-2 gap-2">
-                            <p className="">Quantity</p>
-                            <div className="flex w-full items-start justify-between ">
-                              <button onClick={() => decreaseQuantity(item)}>
-                                -
-                              </button>
-                              <p>{item.quantity}</p>
-                              <button onClick={() => addToCart(item)}>+</button>
+              <div className=" h-3/5 overflow-y-auto pb-24 px-2">
+                {cart.map((item) => {
+                  return (
+                    <>
+                      <div className="grid grid-cols-2 gap-2 py-11 ">
+                        <img
+                          className="w-full object-cover rounded-lg"
+                          src={`http://localhost:5500/${item.image}`}
+                        />
+                        <div className="grid">
+                          <div className="grid grid-row-3 h-20 gap-2 text-gray-400 font-helvetica ">
+                            <span className=" text-black md:text-[1vw]  ">
+                              {item.name}
+                            </span>
+                            <span className="md:text-[1vw]">{item.price}</span>
+                            <div className="grid grid-rows-1 grid-cols-2 gap-2">
+                              <p className="md:text-[1vw]">Quantity</p>
+                              <div className="flex w-full items-start justify-between md:text-[1vw] ">
+                                <button onClick={() => decreaseQuantity(item)}>
+                                  -
+                                </button>
+                                <p>{item.quantity}</p>
+                                <button onClick={() => addToCart(item)}>
+                                  +
+                                </button>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                        <div className="flex  items-end pb-3">
-                          <button onClick={() => removeFromCart(item)}>
-                            Delete
-                          </button>
+                          <div className="flex items-end pb-3 md:text-[1vw] ">
+                            <button onClick={() => removeFromCart(item)}>
+                              Delete
+                            </button>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <Drawline />
-                  </>
-                );
-              })}
-            </div>
-            <div className="fixed bottom-0 left-0 w-full p-5 bg-white">
-              <button
-                onClick={() => handleCheckout(cart)}
-                className=" bg-[#e3e3e3]  h-14 w-full text-center rounded-xl"
-              >
-                <span>Checkout </span>
-                <span className="text-[#8e9194]">{`(€${getCartTotal()})`}</span>
-              </button>
+                      <Drawline />
+                    </>
+                  );
+                })}
+              </div>
+              <div className="w-full px-2 bg-white absolute bottom-8">
+                <button
+                  onClick={() => handleCheckout(cart)}
+                  className=" bg-[#e3e3e3] h-14 w-full text-center rounded-xl md:h-auto md:py-2 md:px-9 md:text-[1vw]"
+                >
+                  <span>Checkout </span>&nbsp;
+                  <span className="text-[#8e9194]">{`(€${getCartTotal()})`}</span>
+                </button>
+              </div>
             </div>
           </div>
         )}

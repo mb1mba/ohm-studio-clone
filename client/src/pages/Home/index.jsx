@@ -291,7 +291,7 @@ const Home = () => {
           </section>
 
           <section>
-            <div className="py-[5vw]  mx-[5vw] grid gap-10 md:grid-cols-auto*2 relative">
+            <div className="py-[5vw] mx-[5vw] grid gap-10 md:grid-cols-auto*2 relative">
               <CardDiv text="BAN - Black" price="1920.00" justify="justify-end">
                 <Card size="md">
                   <CardImage
@@ -325,29 +325,32 @@ const Home = () => {
             </div>
           </section>
 
-          <section>
-            <div className="mx-[5vw] grid">
-              <div className="grid gap-10">
-                <div className="w-full h-[93vw]  md:row-start-1 md:col-start-1">
+          <section className="">
+            <div className="mx-[2.5vw] grid md:grid-cols-2 gap-5 ">
+              <Link
+                to="/collections/bloc"
+                className="grid gap-10  cursor-pointer "
+              >
+                <div className="w-full h-[93vw] md:h-full md:row-start-1 md:col-start-1">
                   <img
                     src="images/blue.webp"
                     className="w-full h-full object-cover rounded-xl"
                   />
                 </div>
 
-                <div className="grid gap-10 w-full min-h-72  p-[10vw] rounded-xl bg-[#f5f4f4] md:w-64 md:h-64 md:p-4 md:row-start-1 md:col-start-1 md:self-end md:mb-5 md:ml-5">
-                  <div className="flex flex-col justify-between">
-                    <p className=" font-helvetica text-[10vw] md:text-[2vw]">
+                <div className="grid gap-10 md:gap-4 w-full min-h-72 p-[10vw] rounded-xl bg-[#f5f4f4] md:w-[16vw] md:max-h-72 md:max-w-72 md:min-h-36 md:p-8 md:row-start-1 md:col-start-1 md:self-end md:mb-[2vw] md:ml-[2vw]">
+                  <div className="">
+                    <p className="font-helvetica text-[10vw] md:text-[3vw] 3xl:text-5xl mb-3">
                       BLOC
                     </p>
-                    <p className=" font-helvetica text-[5vw] md:text-[1vw]">
+                    <p className=" font-helvetica text-[5vw] md:text-[1vw] 3xl:text-xl">
                       Three aluminum chairs made in France in three versions :
                       raw or brushed aluminum, and powder-coated blue.
                     </p>
                   </div>
                   <div className="overflow-hidden max-w-fit">
                     <Link
-                      className=" font-helvetica text-[#8e9194] text-[5vw] md:text-[1vw] relative max-w-fit overflow-hidden"
+                      className=" font-helvetica text-[#8e9194] text-[5vw] md:text-[1vw] 3xl:text-lg relative max-w-fit overflow-hidden"
                       classNameto="/collections/bloc"
                     >
                       <span className="before:h-[1px] before:w-full before:bg-[#8e9194] before:absolute before:bottom-0  before:left-0 before:origin-left before:scale-x-[-100%] hover:before:scale-x-[100%]  hover:before:origin-left before:delay-200 before:transition-transform before:duration-300  after:content-[' ']  after:h-[1px] after:w-full after:bg-[#8e9194] after:absolute after:bottom-0  after:left-0 before after:origin-right after:scale-x-[100%] hover:after:scale-x-[-100%] after:duration-700 hover:after:origin-right after:transition-transform">
@@ -356,38 +359,42 @@ const Home = () => {
                     </Link>
                   </div>
                 </div>
-              </div>
+              </Link>
+
+              <Link
+                to="/collections/pion"
+                className="grid gap-10 cursor-pointer"
+              >
+                <div className="w-full h-[93vw] md:h-full md:row-start-1 md:col-start-1">
+                  <img
+                    src="http://localhost:5500/uploads/pion-collection02.webp"
+                    className="w-full h-full object-cover rounded-xl"
+                  />
+                </div>
+
+                <div className="grid gap-10 md:gap-4 w-full min-h-72 p-[10vw] rounded-xl bg-[#f5f4f4] md:w-[16vw] md:max-h-72 md:max-w-72 md:min-h-36  md:p-8 md:row-start-1 md:col-start-1 md:self-end md:mb-[2vw] md:ml-[2vw]">
+                  <div className="">
+                    <p className=" font-helvetica text-[10vw] md:text-[3vw] 3xl:text-5xl mb-3">
+                      PION
+                    </p>
+                    <p className=" font-helvetica text-[5vw] md:text-[1vw] 3xl:text-xl">
+                      Four colored stools made in France from recycled steel,
+                      assembled by hand and then powder coated.
+                    </p>
+                  </div>
+                  <div className="overflow-hidden max-w-fit">
+                    <Link
+                      className=" font-helvetica text-[#8e9194] text-[5vw] md:text-[1vw] 3xl:text-lg relative max-w-fit overflow-hidden"
+                      classNameto="/collections/bloc"
+                    >
+                      <span className="before:h-[1px] before:w-full before:bg-[#8e9194] before:absolute before:bottom-0  before:left-0 before:origin-left before:scale-x-[-100%] hover:before:scale-x-[100%]  hover:before:origin-left before:delay-200 before:transition-transform before:duration-300  after:content-[' ']  after:h-[1px] after:w-full after:bg-[#8e9194] after:absolute after:bottom-0  after:left-0 before after:origin-right after:scale-x-[100%] hover:after:scale-x-[-100%] after:duration-700 hover:after:origin-right after:transition-transform">
+                        Buy Now
+                      </span>
+                    </Link>
+                  </div>
+                </div>
+              </Link>
             </div>
-            {/* <div className="mx-[2vw]  grid gap-y-9 ">
-              <CardDiv gap="20">
-                <div className="grid gap-6 md:grid-cols-1 md:grid-rows-1 w-full">
-                  <Card size="lg">
-                    <CardImage src="images/blue.webp" />
-                  </Card>
-                  <Card size="lg">
-                    <CardText
-                      title="BLOC"
-                      path="/"
-                      text="Buy Now"
-                      description="Three aluminum chairs made in France in three versions : raw or brushed aluminum, and powder-coated blue."
-                    />
-                  </Card>
-                </div>
-                <div className="grid row-span-2 gap-6  ">
-                  <Card size="lg">
-                    <CardImage src="images/blue.webp" />
-                  </Card>
-                  <Card size="lg">
-                    <CardText
-                      title="PION"
-                      path="/"
-                      text="Buy Now"
-                      description="Four colored stools made in France from recycled steel, assembled by hand and then powder coated."
-                    />
-                  </Card>
-                </div>
-              </CardDiv>
-            </div> */}
           </section>
         </motion.div>
       </AnimatePresence>
