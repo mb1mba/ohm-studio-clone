@@ -1,5 +1,5 @@
 import React from "react";
-import Routers from "./routes/Routers";
+import Routers from "./pages/routes/Routers";
 import { ProductsProvider } from "./context/productsContext";
 import { CartProvider } from "./context/cartContext";
 import { UserProvider } from "./context/authContext";

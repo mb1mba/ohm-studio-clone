@@ -4,12 +4,12 @@ export default {
   theme: {
     extend: {
       screens: {
-        "3xl": "2200px",
+        "3xl": "1920px",
       },
       fontFamily: {
         favorit: ["Favorit"],
         garamond: ["EB Garamond"],
-        helvetica: ["Helvetica Neue"],
+        helvetica: ["Roboto "],
       },
 
       gridTemplateAreas: {
@@ -17,6 +17,10 @@ export default {
       },
       gridTemplateColumns: {
         "auto*2": "auto auto",
+        cartItem: "9vw auto",
+      },
+      gridTemplateRows: {
+        cartItem: "9auto",
       },
     },
   },

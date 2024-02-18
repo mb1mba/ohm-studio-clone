@@ -484,24 +484,27 @@ const Header = () => {
         {isCartOpen && (
           <div className="bg-[rgba(17,17,17,.1)] fixed top-0 left-0 w-full h-screen md:pt-10">
             <div className=" relative md:ml-auto md:mr-9 bg-white h-screen w-full pt-10 md:max-w-[28vw] md:max-h-[90vh] md:min-h-[90vh]  md:rounded-xl">
-              <div className=" relative flex  w-full min-h-20 px-5 items-center justify-between">
+              <div className=" relative flex  w-full min-h-20 px-[2vw] items-center justify-between">
                 <h3 className="text-[8vw] font-helvetica md:text-[3vw]">
                   Cart
                 </h3>
                 <Button onClick={() => setIsCartOpen(false)}>Close</Button>
               </div>
 
-              <div className=" h-3/5 overflow-y-auto pb-24 px-2">
-                {cart.map((item) => {
+              <div className=" h-3/5 overflow-y-auto pb-24 px-[2vw]">
+                {cart.map((item, i) => {
                   return (
                     <>
-                      <div className="grid grid-cols-2 gap-2 py-11 ">
+                      <div
+                        key={i}
+                        className="grid grid-cols-2 md:grid-cols-cartItem md:grid-rows-cartItem border-t  border-black gap-2 py-11 md:py-[2vw] md:gap-10 "
+                      >
                         <img
                           className="w-full object-cover rounded-lg"
                           src={`http://localhost:5500/${item.image}`}
                         />
                         <div className="grid">
-                          <div className="grid grid-row-3 h-20 gap-2 text-gray-400 font-helvetica ">
+                          <div className="grid grid-row-3 h-20 md:h-auto md:gap-0 gap-2 text-gray-400 font-helvetica ">
                             <span className=" text-black md:text-[1vw]  ">
                               {item.name}
                             </span>
@@ -526,7 +529,6 @@ const Header = () => {
                           </div>
                         </div>
                       </div>
-                      <Drawline />
                     </>
                   );
                 })}

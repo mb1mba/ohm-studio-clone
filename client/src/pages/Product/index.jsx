@@ -14,7 +14,7 @@ import { TextReveal } from "/src/components/Reveal";
 import { useProductsContext } from "/src/context/productsContext";
 import { transition } from "/src/components/Transition";
 import { useCartContext } from "/src/context/cartContext";
-
+import { SelectedProducts } from "/src/components/SelectedProducts";
 const Product = () => {
   const { productName } = useParams();
   const { products, setProducts } = useProductsContext();
@@ -53,12 +53,14 @@ const Product = () => {
     product[0] && (
       <>
         <section className="grid md:grid-cols-2 gap-4 ">
-          <img
-            className="rounded-2xl object-cover w-full h-[450px] md:hidden"
-            src={`http://localhost:5500/${product[0].images?.[0]}`}
-            alt=""
-            loading="lazy"
-          />
+          <div className="h-[120vw] md:hidden">
+            <img
+              className="rounded-2xl object-cover w-full h-full"
+              src={`http://localhost:5500/${product[0].images?.[0]}`}
+              alt=""
+              loading="lazy"
+            />
+          </div>
 
           <div className={`md:grid`}>
             {product[0].images.map((image) => (
@@ -70,45 +72,47 @@ const Product = () => {
             ))}
           </div>
 
-          <div className=" pt-10 px-5 pb-16 md:h-[50rem] md:sticky md:top-0 md:py-28 ">
+          <div className=" pt-10 justify-self-center pb-16 md:h-[50rem] md:sticky md:top-0 md:py-28 ">
             <h1 className="pb-8">
               <TextReveal>
-                <span className="font-garamond text-4xl leading-snug">
+                <span className="font-garamond text-[9.5vw] md:text-[3.45vw] 3xl:text-6xl leading-snug">
                   — Solid ash coffee table&nbsp;
                 </span>
               </TextReveal>
               <TextReveal>
-                <span className=" font-helvetica text-3xl block leading-snug">
+                <span className=" font-helvetica text-[7.75vw] md:text-[3vw] 3xl:text-5xl block leading-snug">
                   stackable, handmade
                 </span>
               </TextReveal>
               <TextReveal>
-                <span className="font-helvetica text-3xl block leading-snug">
+                <span className="font-helvetica text-[7.75vw] md:text-[3vw] 3xl:text-5xl block leading-snug">
                   in our french workshop
                 </span>
               </TextReveal>
               <TextReveal>
-                <span className="font-helvetica text-3xl block leading-snug">
+                <span className="font-helvetica text-[7.75vw] md:text-[3vw] 3xl:text-5xl block leading-snug">
                   and then varnished.
                 </span>
               </TextReveal>
             </h1>
 
-            <div className="grid py-7 gap-1">
+            <div className="grid py-7 md:py-[1vw] gap-1">
               <div className="flex justify-between">
                 <TextReveal>
-                  <p>Price</p>
+                  <p className="md:text-[1vw]">Price</p>
                 </TextReveal>
                 <TextReveal>
-                  <p>&#8364;{product[0].price?.toFixed(2)}</p>
+                  <p className="md:text-[1vw]">
+                    &#8364;{product[0].price?.toFixed(2)}
+                  </p>
                 </TextReveal>
               </div>
               <Drawline />
             </div>
-            <div className="grid py-7  gap-1">
+            <div className="grid  md:py-[1vw]  gap-1">
               <div className="flex justify-between">
                 <TextReveal>
-                  <p>Color</p>
+                  <p className="md:text-[1vw]">Color</p>
                 </TextReveal>
                 <div className="flex gap-2">
                   {product[0].variants?.map((variant) => {
@@ -137,28 +141,28 @@ const Product = () => {
 
             <div className="flex justify-between py-7 ">
               <TextReveal>
-                <p>Delivery Time</p>
+                <p className="md:text-[1vw]">Delivery Time</p>
               </TextReveal>
               <TextReveal>
-                <p>{product[0].deliveryTime}</p>
+                <p className="md:text-[1vw]">{product[0].deliveryTime}</p>
               </TextReveal>
             </div>
 
             <div>
               <div className="flex gap-4">
-                <div className="flex bg-[#e3e3e3] w-[35vw] min-w-36 px-7 py-4 rounded-xl">
-                  <div className="cursor-pointer">-</div>
+                <div className="flex bg-[#e3e3e3] min-w-36 px-7 py-4 md:p-[1vw] md:min-w-fit rounded-xl">
+                  <div className="cursor-pointer  md:text-[1vw]">-</div>
                   <input
-                    className="bg-[#e3e3e3] text-center w-16"
+                    className="bg-[#e3e3e3] text-center w-16  md:text-[1vw]"
                     type="number"
                     value="1"
                     max="20"
                   />
-                  <div className="cursor-pointer">+</div>
+                  <div className="cursor-pointer md:text-[1vw]">+</div>
                 </div>
                 <button
                   onClick={() => addToCart(product[0])}
-                  className="bg-[#e3e3e3] text-center w-full basis-auto rounded-lg"
+                  className="bg-[#e3e3e3] text-center w-full basis-auto rounded-lg md:p-[1vw]"
                   value="Shop Now"
                 >
                   Add to cart
@@ -212,43 +216,7 @@ const Product = () => {
         </section>
 
         <section className="pt-14 px-5 pb-14 ">
-          <div className="grid gap-y-9 w-full">
-            <p className="text-4xl font-helvetica font-medium">
-              Selected Products
-            </p>
-
-            <div className="grid grid-cols-2 md:flex md:min-w-0 gap-x-5 gap-y-9 ">
-              {products
-                ?.filter((product) => product.isSelected)
-                ?.map((product) => (
-                  <Link
-                    className="basis-full h-[120%]"
-                    to={`/products/${productNameFormatter(product.name)}`}
-                  >
-                    <CardDiv text={product.name} align="center">
-                      <Card size="md">
-                        <CardImage
-                          src={`http://localhost:5500/${product.images[0]}`}
-                          type="visible"
-                          height="120%"
-                        />
-                        <CardImage
-                          height="120%"
-                          type="hidden"
-                          src={`http://localhost:5500/${product.images[1]}`}
-                        />
-                      </Card>
-                    </CardDiv>
-                  </Link>
-                ))}
-            </div>
-
-            <div className="w-full text-center">
-              <Link className="" to="collections/pion">
-                See All
-              </Link>
-            </div>
-          </div>
+          <SelectedProducts />
         </section>
       </>
     )

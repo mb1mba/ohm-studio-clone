@@ -27,7 +27,7 @@ const SelectedProducts = () => {
         Selected Products
       </h2>
 
-      <div className="grid grid-cols-2 md:flex md:min-w-0 gap-x-5 gap-y-9 ">
+      <div className="grid grid-cols-2 md:flex md:min-w-0 gap-x-[1vw] gap-y-9 ">
         {products
           ?.filter((product) => product.isSelected)
           ?.map((product) => (
@@ -40,11 +40,9 @@ const SelectedProducts = () => {
                   <CardImage
                     src={`http://localhost:5500/${product.images[0]}`}
                     type="visible"
-                    height="100%"
                     selectedProduct="true"
                   />
                   <CardImage
-                    height="100%"
                     type="hidden"
                     src={`http://localhost:5500/${product.images[1]}`}
                     selectedProduct="true"
@@ -60,7 +58,7 @@ const SelectedProducts = () => {
           className="relative max-w-fit overflow-hidden flex justify-center"
           to="collections/pion"
         >
-          <span className="before:h-[1px] before:w-full before:bg-[#8e9194] text-[#8e9194] before:absolute before:bottom-0  before:left-0 before:origin-left before:scale-x-[-100%] hover:before:scale-x-[100%]  hover:before:origin-left before:delay-200 before:transition-transform before:duration-300  after:content-[' ']  after:h-[1px] after:w-full after:bg-[#8e9194] after:absolute after:bottom-0  after:left-0 before after:origin-right after:scale-x-[100%] hover:after:scale-x-[-100%] after:duration-700 hover:after:origin-right after:transition-transform">
+          <span className=" font-helvetica md:text-[1vw] 3xl:text-lg before:h-[1px] before:w-full before:bg-[#8e9194] text-[#8e9194] before:absolute before:bottom-0  before:left-0 before:origin-left before:scale-x-[-100%] hover:before:scale-x-[100%]  hover:before:origin-left before:delay-200 before:transition-transform before:duration-300  after:content-[' ']  after:h-[1px] after:w-full after:bg-[#8e9194] after:absolute after:bottom-0  after:left-0 before after:origin-right after:scale-x-[100%] hover:after:scale-x-[-100%] after:duration-700 hover:after:origin-right after:transition-transform">
             See all
           </span>
         </Link>

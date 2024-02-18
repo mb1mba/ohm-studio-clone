@@ -58,7 +58,7 @@ const Products = () => {
 
   return (
     displayedElement && (
-      <div className="grid row-auto sm:grid-cols-2 md:grid-cols-4 gap-8">
+      <div className="grid row-auto sm:grid-cols-2 md:grid-cols-4 gap-8 md:gap-x-4 md:gap-y-4">
         {displayedElement}
       </div>
     )
