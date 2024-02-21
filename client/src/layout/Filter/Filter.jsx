@@ -21,7 +21,7 @@ const Filter = () => {
   const { collectionName } = useParams();
 
   const element = links.map((link) => {
-    const style = `md:text-[0.9vw] cursor-pointer text-[#1119]
+    const style = `md:text-[1.3vw] cursor-pointer text-[#1119]
     ${
       collectionName === link.title.toLowerCase() &&
       "underline underline-offset-[10px] text-[#000]"

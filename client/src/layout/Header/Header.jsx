@@ -177,7 +177,7 @@ const Header = () => {
                           <Link className=" pb-4 overflow-hidden">
                             <motion.img
                               whileHover={{ y: 7 }}
-                              src="https://localhost:5500/uploads/red-small.avif"
+                              src="http://localhost:5500/uploads/red-small.avif"
                             ></motion.img>
                           </Link>
                         </motion.li>
@@ -207,7 +207,7 @@ const Header = () => {
                           <Link className="">
                             <motion.img
                               whileHover={{ y: 7 }}
-                              src="https://localhost:5500/uploads/red-small.avif"
+                              src="http://localhost:5500/uploads/red-small.avif"
                             ></motion.img>
                           </Link>
                         </motion.li>
@@ -236,7 +236,7 @@ const Header = () => {
                           <Link className="">
                             <motion.img
                               whileHover={{ y: 7 }}
-                              src="https://localhost:5500/uploads/red-small.avif"
+                              src="http://localhost:5500/uploads/red-small.avif"
                             ></motion.img>
                           </Link>
                         </motion.li>
@@ -265,7 +265,7 @@ const Header = () => {
                           <Link className="">
                             <motion.img
                               whileHover={{ y: 7 }}
-                              src="https://localhost:5500/uploads/red-small.avif"
+                              src="http://localhost:5500/uploads/red-small.avif"
                             ></motion.img>
                           </Link>
                         </motion.li>
@@ -294,7 +294,7 @@ const Header = () => {
                           <Link className="">
                             <motion.img
                               whileHover={{ y: 7 }}
-                              src="https://localhost:5500/uploads/red-small.avif"
+                              src="http://localhost:5500/uploads/red-small.avif"
                             ></motion.img>
                           </Link>
                         </motion.li>
@@ -330,7 +330,7 @@ const Header = () => {
                           <Link className=" pb-4 overflow-hidden">
                             <motion.img
                               whileHover={{ y: 7 }}
-                              src="https://localhost:5500/uploads/red-small.avif"
+                              src="http://localhost:5500/uploads/red-small.avif"
                             ></motion.img>
                           </Link>
                         </motion.li>
@@ -360,7 +360,7 @@ const Header = () => {
                           <Link className="">
                             <motion.img
                               whileHover={{ y: 7 }}
-                              src="https://localhost:5500/uploads/red-small.avif"
+                              src="http://localhost:5500/uploads/red-small.avif"
                             ></motion.img>
                           </Link>
                         </motion.li>
@@ -389,7 +389,7 @@ const Header = () => {
                           <Link className="">
                             <motion.img
                               whileHover={{ y: 7 }}
-                              src="https://localhost:5500/uploads/red-small.avif"
+                              src="http://localhost:5500/uploads/red-small.avif"
                             ></motion.img>
                           </Link>
                         </motion.li>
@@ -418,7 +418,7 @@ const Header = () => {
                           <Link className="">
                             <motion.img
                               whileHover={{ y: 7 }}
-                              src="https://localhost:5500/uploads/red-small.avif"
+                              src="http://localhost:5500/uploads/red-small.avif"
                             ></motion.img>
                           </Link>
                         </motion.li>
@@ -447,7 +447,7 @@ const Header = () => {
                           <Link className="">
                             <motion.img
                               whileHover={{ y: 7 }}
-                              src="https://localhost:5500/uploads/red-small.avif"
+                              src="http://localhost:5500/uploads/red-small.avif"
                             ></motion.img>
                           </Link>
                         </motion.li>

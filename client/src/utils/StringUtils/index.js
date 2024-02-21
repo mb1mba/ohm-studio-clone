@@ -1,1 +1,2 @@
-export { default } from "./productNameFormatter";
+export { productNameFormatter } from "./productNameFormatter";
+export { caseFormatter } from "./productNameFormatter";

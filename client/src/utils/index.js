@@ -1,1 +1,2 @@
-export { default as productNameFormatter } from "./StringUtils";
+export { productNameFormatter } from "./StringUtils";
+export { caseFormatter } from "./StringUtils";

@@ -12,6 +12,7 @@ const TextReveal = ({ children, width = "fit-content" }) => {
         initial="hidden"
         animate="visible"
         transition={{ duration: 0.75, delay: 0.25, ease: "easeOut" }}
+        className="w-full"
       >
         {children}
       </motion.div>

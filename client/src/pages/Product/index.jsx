@@ -15,12 +15,14 @@ import { useProductsContext } from "/src/context/productsContext";
 import { transition } from "/src/components/Transition";
 import { useCartContext } from "/src/context/cartContext";
 import { SelectedProducts } from "/src/components/SelectedProducts";
+import { caseFormatter } from "/src/utils";
+
 const Product = () => {
   const { productName } = useParams();
   const { products, setProducts } = useProductsContext();
   const [product, setProduct] = useState({});
   const { addToCart } = useCartContext();
-
+  const [selectedInfo, setSelectedInfo] = useState("description");
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -49,10 +51,12 @@ const Product = () => {
     return <div>Loading...</div>;
   }
 
+  console.log(product);
+
   return (
     product[0] && (
       <>
-        <section className="grid md:grid-cols-2 gap-4 ">
+        <section className="grid md:grid-cols-2 gap-4  ">
           <div className="h-[120vw] md:hidden">
             <img
               className="rounded-2xl object-cover w-full h-full"
@@ -72,47 +76,46 @@ const Product = () => {
             ))}
           </div>
 
-          <div className=" pt-10 justify-self-center pb-16 md:h-[50rem] md:sticky md:top-0 md:py-28 ">
-            <h1 className="pb-8">
-              <TextReveal>
-                <span className="font-garamond text-[9.5vw] md:text-[3.45vw] 3xl:text-6xl leading-snug">
-                  — Solid ash coffee table&nbsp;
-                </span>
-              </TextReveal>
-              <TextReveal>
-                <span className=" font-helvetica text-[7.75vw] md:text-[3vw] 3xl:text-5xl block leading-snug">
-                  stackable, handmade
-                </span>
-              </TextReveal>
-              <TextReveal>
-                <span className="font-helvetica text-[7.75vw] md:text-[3vw] 3xl:text-5xl block leading-snug">
-                  in our french workshop
-                </span>
-              </TextReveal>
-              <TextReveal>
-                <span className="font-helvetica text-[7.75vw] md:text-[3vw] 3xl:text-5xl block leading-snug">
-                  and then varnished.
-                </span>
-              </TextReveal>
+          <div className=" pt-10 justify-self-center pb-16 md:h-fit md:sticky md:top-0 md:py-[11vw] break-words md:max-w-[29vw]">
+            <h1 className="pb-8 md:leading-snug">
+              {product[0].description.map((sentence, i) => {
+                if (i === 0) {
+                  return (
+                    <TextReveal width="100%">
+                      <span className="  flex w-full font-garamond text-[9.5vw] md:text-[3.125vw] 3xl:text-[57px] leading-none">
+                        — {sentence}&nbsp;
+                      </span>
+                    </TextReveal>
+                  );
+                } else {
+                  return (
+                    <TextReveal>
+                      <span className=" font-helvetica text-[7.75vw] md:text-[2.7vw] 3xl:text-5xl 3xl:leading-[1.2] block leading-[1.2]">
+                        {sentence}
+                      </span>
+                    </TextReveal>
+                  );
+                }
+              })}
             </h1>
 
-            <div className="grid py-7 md:py-[1vw] gap-1">
+            <div className="grid py-7 md:py-[1vw] gap-1 text-[#8E9194]">
               <div className="flex justify-between">
                 <TextReveal>
-                  <p className="md:text-[1vw]">Price</p>
+                  <p className="md:text-[1vw] 3xl:text-lg">Price</p>
                 </TextReveal>
                 <TextReveal>
-                  <p className="md:text-[1vw]">
+                  <p className="md:text-[1vw] 3xl:text-lg">
                     &#8364;{product[0].price?.toFixed(2)}
                   </p>
                 </TextReveal>
               </div>
               <Drawline />
             </div>
-            <div className="grid  md:py-[1vw]  gap-1">
+            <div className="grid  md:py-[1vw]  gap-1 text-[#8E9194]">
               <div className="flex justify-between">
                 <TextReveal>
-                  <p className="md:text-[1vw]">Color</p>
+                  <p className="md:text-[1vw] 3xl:text-lg">Color</p>
                 </TextReveal>
                 <div className="flex gap-2">
                   {product[0].variants?.map((variant) => {
@@ -139,40 +142,46 @@ const Product = () => {
               <Drawline />
             </div>
 
-            <div className="flex justify-between py-7 ">
+            <div className="flex justify-between py-7 text-[#8E9194] ">
               <TextReveal>
-                <p className="md:text-[1vw]">Delivery Time</p>
+                <p className="md:text-[1vw] 3xl:text-lg">Delivery Time</p>
               </TextReveal>
               <TextReveal>
-                <p className="md:text-[1vw]">{product[0].deliveryTime}</p>
+                <p className="md:text-[1vw] 3xl:text-lg">
+                  {product[0].deliveryTime}
+                </p>
               </TextReveal>
             </div>
 
             <div>
               <div className="flex gap-4">
                 <div className="flex bg-[#e3e3e3] min-w-36 px-7 py-4 md:p-[1vw] md:min-w-fit rounded-xl">
-                  <div className="cursor-pointer  md:text-[1vw]">-</div>
+                  <div className="cursor-pointer  md:text-[1vw] 3xl:text-lg">
+                    -
+                  </div>
                   <input
-                    className="bg-[#e3e3e3] text-center w-16  md:text-[1vw]"
+                    className="bg-[#e3e3e3] text-center w-16  md:text-[1vw] 3xl:text-lg"
                     type="number"
                     value="1"
                     max="20"
                   />
-                  <div className="cursor-pointer md:text-[1vw]">+</div>
+                  <div className="cursor-pointer md:text-[1vw] 3xl:text-lg">
+                    +
+                  </div>
                 </div>
                 <button
                   onClick={() => addToCart(product[0])}
                   className="bg-[#e3e3e3] text-center w-full basis-auto rounded-lg md:p-[1vw]"
                   value="Shop Now"
                 >
-                  Add to cart
+                  Shop now
                 </button>
               </div>
             </div>
           </div>
         </section>
 
-        <section className="bg-[#e3e3e3] py-14 px-5 items md:h-auto ">
+        <section className="bg-[#e3e3e3] py-14 md:pt-[10vw] px-5 items  md:min-h-screen h-fit ">
           <Accordion>
             {Object.keys(product[0]?.info)?.map((obj, index) => (
               <div className="border-b border-[#8e91944d]" key={index}>
@@ -200,17 +209,36 @@ const Product = () => {
           <Info>
             <div className="grid rows-1 h-24 pl-5 max-w-fit">
               {Object.keys(product[0]?.info)?.map((obj, index) => (
-                <InfoTitle title={obj} />
+                <InfoTitle
+                  key={index}
+                  title={obj}
+                  selectedOne={selectedInfo}
+                  setSelectedOne={setSelectedInfo}
+                />
               ))}
             </div>
 
-            <div className="md:text-2xl lg:text-3xl leading-5 font-helvetica max-w-[25vw]">
-              Directly inspired by trivial everyday objects, PION is the first
-              piece in a collection which, through color and simplicity of form,
-              attempts to reconcile the adult and the child. With a minimalist
-              look, the piece of furniture is not limited to a single use. Thus
-              PION can be a stool, a side table or a bedside table. Solo
-              monochrome or well accompanied polychrome.
+            <div className="md:text-2xl lg:text-3xl leading-5 font-helvetica max-w-[30vw] grid">
+              {Object.keys(product[0]?.info)?.map((obj, index) =>
+                typeof product[0]?.info[obj] === "object" ? (
+                  obj === selectedInfo && (
+                    <ul className="col-start-1 row-start-1 [&>*:nth-child(3)]:py-[2vw] [&>*:nth-child(2)]:py-[2vw] [&>*:nth-child(1)]:pb-[2vw]">
+                      {Object.keys(product[0]?.info[obj]).map((element) => (
+                        <li className="flex justify-between w-full text-[3vw] 3xl:text-5xl border-b border-[rgba(142,145,148,.3)]  ">
+                          <span>{caseFormatter(element)}</span>
+                          <span>{product[0]?.info[obj][element]}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )
+                ) : (
+                  <InfoBody
+                    selectedInfo={selectedInfo}
+                    currentKey={obj}
+                    text={product[0]?.info[obj]}
+                  />
+                )
+              )}
             </div>
           </Info>
         </section>

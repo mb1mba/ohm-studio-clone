@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 import { productNameFormatter } from "/src/utils";
 import { useProductsContext } from "/src/context/productsContext";
 import { transition } from "/src/components/Transition";
-import { Product } from "..";
 
 const Products = () => {
   const BASE_URL = "http://localhost:5500";
