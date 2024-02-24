@@ -42,7 +42,7 @@ const transition = (OgComponent) => {
     <>
       <OgComponent />
       <motion.div
-        className="fixed top-0 left-0 w-full h-full bg-white origin-bottom grid grid-auto  justify-center items-center overflow-hidden"
+        className="fixed z-50 top-0 left-0 w-full h-full bg-white origin-bottom grid grid-auto  justify-center items-center overflow-hidden"
         key="slide-in"
         initial={{ scaleY: 0 }}
         animate={{ scaleY: 0 }}
@@ -64,7 +64,7 @@ const transition = (OgComponent) => {
       </motion.div>
 
       <motion.div
-        className="fixed top-0 left-0 w-full h-screen bg-white origin-top"
+        className="fixed z-50 top-0 left-0 w-full h-screen bg-white origin-top"
         key="slide-out"
         initial={{ scaleY: 1 }}
         animate={{ scaleY: 0 }}
