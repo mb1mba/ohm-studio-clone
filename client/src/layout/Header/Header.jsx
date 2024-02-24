@@ -93,6 +93,46 @@ const Header = () => {
     );
   });
 
+  const renderNavItems = (navArray) => {
+    return navArray.map((item, i) => (
+      <motion.li
+        key={i}
+        initial={{ y: "100%", opacity: 0 }}
+        animate={{
+          y: 0,
+          opacity: 1,
+          transition: {
+            ease: "easeInOut",
+            duration: 0.2,
+            delay: 0.6 + i * 0.1,
+          },
+        }}
+        exit={{
+          y: "100%",
+          opacity: 0,
+          transition: {
+            ease: "easeInOut",
+            duration: 0.2,
+            delay: 0.8 - i * 0.1,
+          },
+        }}
+        className="flex"
+      >
+        <Link>
+          <motion.img
+            whileHover={{ y: 7 }}
+            src={`http://localhost:5500/uploads/${item}-small.avif`}
+            className="w-[4.5vw] h-[5vw] 3xl:w-20 3xl:h-[89px]"
+          ></motion.img>
+        </Link>
+      </motion.li>
+    ));
+  };
+
+  const pionsNav = ["orange", "blue", "green", "yellow", "red"];
+  const blocsNav = ["blue2", "brushed", "raw"];
+  const bansNav = ["black", "natural"];
+
   return (
     <>
       {/* <CustomMenu /> */}
@@ -232,324 +272,55 @@ const Header = () => {
               <AnimatePresence mode="wait">
                 {isHover && (
                   <>
-                    <motion.ul className="flex overflow-hidden w-full justify-between h-[3.5vw]">
-                      <Link className="" to="/collections/pion">
-                        PION
+                    <div className="mb-5">
+                      <motion.ul className="flex overflow-hidden w-full justify-between h-[3.5vw] 3xl:h-16 font-bold tracking-[-0.3em]">
+                        <Link
+                          className="text-[3vw] 3xl:text-5xl self-center cursor-pointer"
+                          to="/collections/pion"
+                        >
+                          PION
+                        </Link>
+                        <div className="flex gap-5 ">
+                          {renderNavItems(pionsNav)}
+                        </div>
+                      </motion.ul>
+                      <Drawline />
+                    </div>
+                    <div className="mb-5">
+                      <motion.ul className="flex overflow-hidden w-full justify-between h-[3.5vw] 3xl:h-16 font-bold tracking-[-0.3em]">
+                        <Link
+                          className="text-[3vw] 3xl:text-5xl self-center cursor-pointer"
+                          to="/collections/bloc"
+                        >
+                          BLOC
+                        </Link>
+                        <div className="flex gap-5 ">
+                          {renderNavItems(blocsNav)}
+                        </div>
+                      </motion.ul>
+                      <Drawline />
+                    </div>
+                    <div className="mb-5">
+                      <motion.ul className="flex overflow-hidden w-full justify-between h-[3.5vw] 3xl:h-16 font-bold tracking-[-0.3em]">
+                        <Link
+                          className="text-[3vw] 3xl:text-5xl self-center cursor-pointer"
+                          to="/collections/ban"
+                        >
+                          BAN
+                        </Link>
+                        <div className="flex gap-5">
+                          {renderNavItems(bansNav)}
+                        </div>
+                      </motion.ul>
+                      <Drawline />
+                    </div>
+                    <div className="pt-[3.25vw]">
+                      <Link className="relative h-fit">
+                        <span className=" text-[1vw] 3xl:text-lg text-[#8E9194] before:absolute before:bottom-0  before:bg-[#8E9194] before:content-[' '] before:w-full before:h-[1px] hover:before:scale-0 hover:before:origin-left before:transition-transform">
+                          See all
+                        </span>
                       </Link>
-                      <div className="flex gap-5">
-                        <motion.li
-                          initial={{ y: "100%", opacity: 0 }}
-                          animate={{
-                            y: 0,
-                            opacity: 1,
-                            transition: {
-                              ease: "easeInOut",
-                              duration: 0.2,
-                              delay: 0.6,
-                            },
-                          }}
-                          exit={{
-                            y: "100%",
-                            opacity: 0,
-                            transition: {
-                              ease: "easeInOut",
-                              duration: 0.2,
-                              delay: 0.8,
-                            },
-                          }}
-                          className="flex"
-                        >
-                          <Link>
-                            <motion.img
-                              whileHover={{ y: 7 }}
-                              src="http://localhost:5500/uploads/red-small.avif"
-                              className="w-[4.5vw] h-[5vw]"
-                            ></motion.img>
-                          </Link>
-                        </motion.li>
-
-                        <motion.li
-                          initial={{ y: "100%", opacity: 0 }}
-                          animate={{
-                            y: 0,
-                            opacity: 1,
-                            transition: {
-                              ease: "easeInOut",
-                              duration: 0.2,
-                              delay: 0.65,
-                            },
-                          }}
-                          exit={{
-                            y: "100%",
-                            opacity: 0,
-                            transition: {
-                              ease: "easeInOut",
-                              duration: 0.2,
-                              delay: 0.75,
-                            },
-                          }}
-                          className="flex"
-                        >
-                          <Link>
-                            <motion.img
-                              whileHover={{ y: 7 }}
-                              src="http://localhost:5500/uploads/red-small.avif"
-                              className="w-[4.5vw] h-[5vw]"
-                            ></motion.img>
-                          </Link>
-                        </motion.li>
-                        <motion.li
-                          initial={{ y: "100%", opacity: 0 }}
-                          animate={{
-                            y: 0,
-                            opacity: 1,
-                            transition: {
-                              ease: "easeInOut",
-                              duration: 0.2,
-                              delay: 0.7,
-                            },
-                          }}
-                          exit={{
-                            y: "100%",
-                            opacity: 0,
-                            transition: {
-                              ease: "easeInOut",
-                              duration: 0.2,
-                              delay: 0.7,
-                            },
-                          }}
-                          className="flex"
-                        >
-                          <Link>
-                            <motion.img
-                              whileHover={{ y: 7 }}
-                              src="http://localhost:5500/uploads/red-small.avif"
-                              className="w-[4.5vw] h-[5vw]"
-                            ></motion.img>
-                          </Link>
-                        </motion.li>
-                        <motion.li
-                          initial={{ y: "100%", opacity: 0 }}
-                          animate={{
-                            y: 0,
-                            opacity: 1,
-                            transition: {
-                              ease: "easeInOut",
-                              duration: 0.2,
-                              delay: 0.7,
-                            },
-                          }}
-                          exit={{
-                            y: "100%",
-                            opacity: 0,
-                            transition: {
-                              ease: "easeInOut",
-                              duration: 0.2,
-                              delay: 0.65,
-                            },
-                          }}
-                          className="flex"
-                        >
-                          <Link>
-                            <motion.img
-                              whileHover={{ y: 7 }}
-                              src="http://localhost:5500/uploads/red-small.avif"
-                              className="w-[4.5vw] h-[5vw]"
-                            ></motion.img>
-                          </Link>
-                        </motion.li>
-                        <motion.li
-                          initial={{ y: "100%", opacity: 0 }}
-                          animate={{
-                            y: 0,
-                            opacity: 1,
-                            transition: {
-                              ease: "easeInOut",
-                              duration: 0.2,
-                              delay: 0.8,
-                            },
-                          }}
-                          exit={{
-                            y: "100%",
-                            opacity: 0,
-                            transition: {
-                              ease: "easeInOut",
-                              duration: 0.2,
-                              delay: 0.6,
-                            },
-                          }}
-                          className="flex"
-                        >
-                          <Link>
-                            <motion.img
-                              whileHover={{ y: 7 }}
-                              src="http://localhost:5500/uploads/red-small.avif"
-                              className="w-[4.5vw] h-[5vw]"
-                            ></motion.img>
-                          </Link>
-                        </motion.li>
-                      </div>
-                    </motion.ul>
-                    <Drawline />
-                    <motion.ul className="flex overflow-hidden w-full justify-between h-[3.5vw]">
-                      <Link className="" to="/collections/pion">
-                        PION
-                      </Link>
-                      <div className="flex gap-5">
-                        <motion.li
-                          initial={{ y: "100%", opacity: 0 }}
-                          animate={{
-                            y: 0,
-                            opacity: 1,
-                            transition: {
-                              ease: "easeInOut",
-                              duration: 0.2,
-                              delay: 0.6,
-                            },
-                          }}
-                          exit={{
-                            y: "100%",
-                            opacity: 0,
-                            transition: {
-                              ease: "easeInOut",
-                              duration: 0.2,
-                              delay: 0.8,
-                            },
-                          }}
-                          className="flex"
-                        >
-                          <Link>
-                            <motion.img
-                              whileHover={{ y: 7 }}
-                              src="http://localhost:5500/uploads/red-small.avif"
-                              className="w-[4.5vw] h-[5vw]"
-                            ></motion.img>
-                          </Link>
-                        </motion.li>
-
-                        <motion.li
-                          initial={{ y: "100%", opacity: 0 }}
-                          animate={{
-                            y: 0,
-                            opacity: 1,
-                            transition: {
-                              ease: "easeInOut",
-                              duration: 0.2,
-                              delay: 0.65,
-                            },
-                          }}
-                          exit={{
-                            y: "100%",
-                            opacity: 0,
-                            transition: {
-                              ease: "easeInOut",
-                              duration: 0.2,
-                              delay: 0.75,
-                            },
-                          }}
-                          className="flex"
-                        >
-                          <Link>
-                            <motion.img
-                              whileHover={{ y: 7 }}
-                              src="http://localhost:5500/uploads/red-small.avif"
-                              className="w-[4.5vw] h-[5vw]"
-                            ></motion.img>
-                          </Link>
-                        </motion.li>
-                        <motion.li
-                          initial={{ y: "100%", opacity: 0 }}
-                          animate={{
-                            y: 0,
-                            opacity: 1,
-                            transition: {
-                              ease: "easeInOut",
-                              duration: 0.2,
-                              delay: 0.7,
-                            },
-                          }}
-                          exit={{
-                            y: "100%",
-                            opacity: 0,
-                            transition: {
-                              ease: "easeInOut",
-                              duration: 0.2,
-                              delay: 0.7,
-                            },
-                          }}
-                          className="flex"
-                        >
-                          <Link>
-                            <motion.img
-                              whileHover={{ y: 7 }}
-                              src="http://localhost:5500/uploads/red-small.avif"
-                              className="w-[4.5vw] h-[5vw]"
-                            ></motion.img>
-                          </Link>
-                        </motion.li>
-                        <motion.li
-                          initial={{ y: "100%", opacity: 0 }}
-                          animate={{
-                            y: 0,
-                            opacity: 1,
-                            transition: {
-                              ease: "easeInOut",
-                              duration: 0.2,
-                              delay: 0.7,
-                            },
-                          }}
-                          exit={{
-                            y: "100%",
-                            opacity: 0,
-                            transition: {
-                              ease: "easeInOut",
-                              duration: 0.2,
-                              delay: 0.65,
-                            },
-                          }}
-                          className="flex"
-                        >
-                          <Link>
-                            <motion.img
-                              whileHover={{ y: 7 }}
-                              src="http://localhost:5500/uploads/red-small.avif"
-                              className="w-[4.5vw] h-[5vw]"
-                            ></motion.img>
-                          </Link>
-                        </motion.li>
-                        <motion.li
-                          initial={{ y: "100%", opacity: 0 }}
-                          animate={{
-                            y: 0,
-                            opacity: 1,
-                            transition: {
-                              ease: "easeInOut",
-                              duration: 0.2,
-                              delay: 0.8,
-                            },
-                          }}
-                          exit={{
-                            y: "100%",
-                            opacity: 0,
-                            transition: {
-                              ease: "easeInOut",
-                              duration: 0.2,
-                              delay: 0.6,
-                            },
-                          }}
-                          className="flex"
-                        >
-                          <Link>
-                            <motion.img
-                              whileHover={{ y: 7 }}
-                              src="http://localhost:5500/uploads/red-small.avif"
-                              className="w-[4.5vw] h-[5vw]"
-                            ></motion.img>
-                          </Link>
-                        </motion.li>
-                      </div>
-                    </motion.ul>
-                    <Drawline />
+                    </div>
                   </>
                 )}
               </AnimatePresence>
