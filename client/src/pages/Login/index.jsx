@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "/src/api/axios";
 import { useUserContext } from "/src/context/authContext";
 import toast, { Toaster } from "react-hot-toast";
+import { transition } from "/src/components/Transition";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -103,4 +104,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default transition(Login);

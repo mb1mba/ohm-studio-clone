@@ -1,6 +1,8 @@
 import React from "react";
 import { useUserContext } from "/src/context/authContext";
 import { TextReveal } from "/src/components/Reveal";
+import { transition } from "/src/components/Transition";
+
 const Profile = () => {
   const { user } = useUserContext();
   const currentUser = user.user;
@@ -20,4 +22,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default transition(Profile);

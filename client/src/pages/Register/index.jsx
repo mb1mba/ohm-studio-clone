@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "/src/api/axios";
 import toast, { Toaster } from "react-hot-toast";
-
+import { transition } from "/src/components/Transition";
 const Register = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -101,4 +101,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default transition(Register);
