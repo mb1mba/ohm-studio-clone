@@ -1,3 +1,4 @@
+import { xor } from "lodash";
 import React, { createContext, useContext, useState, useEffect } from "react";
 
 const CartContext = createContext();
@@ -8,12 +9,14 @@ const CartProvider = ({ children }) => {
   );
 
   const addToCart = (item) => {
-    const isItemInCart = cart.find((cartItem) => item._id === cartItem.id);
+    const isItemInCart = cart.find(
+      (cartItem) => item._id === cartItem.id || item.id === cartItem.id
+    );
 
     if (isItemInCart) {
       setCart((prevCart) =>
         prevCart.map((element) =>
-          item._id === element.id
+          item._id === element.id || item.id === element.id
             ? { ...element, quantity: element.quantity + 1 }
             : element
         )
@@ -24,7 +27,7 @@ const CartProvider = ({ children }) => {
         {
           id: item._id,
           name: item.name,
-          image: item.images[0] || item.image,
+          image: (item.images && item.images[0]) || item.image,
           price: item.price,
           productId: item._id,
           quantity: 1,
@@ -34,16 +37,21 @@ const CartProvider = ({ children }) => {
   };
 
   const removeFromCart = (item) => {
-    setCart((prevCart) =>
-      prevCart.filter((cartItem) => cartItem.id !== item._id)
-    );
+    setCart((prevCart) => {
+      prevCart.filter((cartItem) => cartItem.id !== item._id);
+    });
   };
 
   const decreaseQuantity = (item) => {
+    console.log(cart);
     setCart((prevCart) =>
       prevCart.map((cartItem) => {
-        if (cartItem._id === item._id) {
-          return { ...item, quantity: item.quantity - 1 };
+        if (cartItem.id === item.id) {
+          if (item.quantity) {
+            return { ...item, quantity: item.quantity - 1 };
+          } else if (item.quantity === 0) {
+            removeFromCart(item);
+          }
         }
       })
     );
@@ -54,7 +62,10 @@ const CartProvider = ({ children }) => {
   };
 
   const getCartTotal = () => {
-    return cart.reduce((total, item) => total + item.price * item.quantity, 0);
+    return cart.reduce(
+      (total, item) => total + item?.price * item?.quantity,
+      0
+    );
   };
 
   useEffect(() => {
