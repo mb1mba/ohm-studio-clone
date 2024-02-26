@@ -23,6 +23,8 @@ const Product = () => {
   const [product, setProduct] = useState({});
   const { addToCart } = useCartContext();
   const [selectedInfo, setSelectedInfo] = useState("description");
+  const [quantity, setQuantity] = useState(1);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -46,12 +48,6 @@ const Product = () => {
       setProduct(filteredProduct);
     }
   }, [productName]);
-
-  if (!product) {
-    return <div>Loading...</div>;
-  }
-
-  console.log(product);
 
   return (
     product[0] && (
@@ -156,21 +152,30 @@ const Product = () => {
             <div>
               <div className="flex gap-4">
                 <div className="flex bg-[#e3e3e3] min-w-36 px-7 py-4 md:p-[1vw] md:min-w-fit rounded-xl">
-                  <div className="cursor-pointer  md:text-[1vw] 3xl:text-lg">
+                  <button
+                    onClick={() =>
+                      setQuantity((prevQuantity) =>
+                        Math.max(prevQuantity - 1, 0)
+                      )
+                    }
+                    className="cursor-pointer  md:text-[1vw] 3xl:text-lg"
+                  >
                     -
-                  </div>
-                  <input
-                    className="bg-[#e3e3e3] text-center w-16  md:text-[1vw] 3xl:text-lg"
-                    type="number"
-                    value="1"
-                    max="20"
-                  />
-                  <div className="cursor-pointer md:text-[1vw] 3xl:text-lg">
+                  </button>
+                  <p className="bg-[#e3e3e3] text-center w-16  md:text-[1vw] 3xl:text-lg">
+                    {quantity}
+                  </p>
+                  <button
+                    onClick={() =>
+                      setQuantity((prevQuantity) => prevQuantity + 1)
+                    }
+                    className="cursor-pointer md:t ext-[1vw] 3xl:text-lg"
+                  >
                     +
-                  </div>
+                  </button>
                 </div>
                 <button
-                  onClick={() => addToCart(product[0])}
+                  onClick={() => addToCart({ ...product[0], quantity })}
                   className="bg-[#e3e3e3] text-center w-full basis-auto rounded-lg md:p-[1vw]"
                   value="Shop Now"
                 >
