@@ -1,4 +1,3 @@
-import { xor } from "lodash";
 import React, { createContext, useContext, useState, useEffect } from "react";
 
 const CartContext = createContext();
@@ -9,7 +8,7 @@ const CartProvider = ({ children }) => {
   );
 
   const addToCart = (item) => {
-    const isItemInCart = cart.find(
+    const isItemInCart = cart?.find(
       (cartItem) => item._id === cartItem.id || item.id === cartItem.id
     );
 
@@ -29,8 +28,7 @@ const CartProvider = ({ children }) => {
           name: item.name,
           image: (item.images && item.images[0]) || item.image,
           price: item.price,
-          productId: item._id,
-          quantity: 1,
+          quantity: item.quantity,
         },
       ]);
     }
@@ -40,15 +38,15 @@ const CartProvider = ({ children }) => {
     setCart((prevCart) => {
       prevCart.filter((cartItem) => cartItem.id !== item._id);
     });
+    console.log(cart);
   };
 
   const decreaseQuantity = (item) => {
-    console.log(cart);
     setCart((prevCart) =>
       prevCart.map((cartItem) => {
         if (cartItem.id === item.id) {
           if (item.quantity) {
-            return { ...item, quantity: item.quantity - 1 };
+            return { ...item, quantity: Math.max(item.quantity - 1, 1) };
           } else if (item.quantity === 0) {
             removeFromCart(item);
           }
@@ -62,21 +60,24 @@ const CartProvider = ({ children }) => {
   };
 
   const getCartTotal = () => {
-    return cart.reduce(
-      (total, item) => total + item?.price * item?.quantity,
-      0
-    );
+    return cart
+      ? cart.reduce((total, item) => total + item?.price * item?.quantity, 0)
+      : 0;
   };
 
   useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cart));
+    if (!cart) {
+      localStorage.setItem("cart", JSON.stringify([]));
+      setCart([]);
+    } else {
+      localStorage.setItem("cart", JSON.stringify(cart));
+    }
   }, [cart]);
 
   useEffect(() => {
     const items = localStorage.getItem("cart");
     if (items) {
       setCart(JSON.parse(items));
-      console.log(cart);
     }
   }, []);
 
