@@ -6,6 +6,7 @@ const CartProvider = ({ children }) => {
   const [cart, setCart] = useState(
     localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : []
   );
+  const [isCartOpen, setIsCartOpen] = useState(false);
 
   const addToCart = (item) => {
     const isItemInCart = cart?.find(
@@ -16,7 +17,7 @@ const CartProvider = ({ children }) => {
       setCart((prevCart) =>
         prevCart.map((element) =>
           item._id === element.id || item.id === element.id
-            ? { ...element, quantity: element.quantity + 1 }
+            ? { ...element, quantity: element.quantity + item.quantity }
             : element
         )
       );
@@ -35,21 +36,19 @@ const CartProvider = ({ children }) => {
   };
 
   const removeFromCart = (item) => {
-    setCart((prevCart) => {
-      prevCart.filter((cartItem) => cartItem.id !== item._id);
-    });
-    console.log(cart);
+    const newCart = cart.filter((cartItem) => cartItem.id !== item.id);
+    setCart(newCart);
   };
 
   const decreaseQuantity = (item) => {
+    console.log(item);
+
     setCart((prevCart) =>
       prevCart.map((cartItem) => {
         if (cartItem.id === item.id) {
-          if (item.quantity) {
-            return { ...item, quantity: Math.max(item.quantity - 1, 1) };
-          } else if (item.quantity === 0) {
-            removeFromCart(item);
-          }
+          return { ...item, quantity: Math.max(item.quantity - 1, 1) };
+        } else {
+          return { ...cartItem };
         }
       })
     );
@@ -91,6 +90,8 @@ const CartProvider = ({ children }) => {
         cleanCart,
         getCartTotal,
         decreaseQuantity,
+        isCartOpen,
+        setIsCartOpen,
       }}
     >
       {children}
