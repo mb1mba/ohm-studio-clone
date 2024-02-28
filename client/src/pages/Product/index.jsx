@@ -21,7 +21,7 @@ const Product = () => {
   const { productName } = useParams();
   const { products, setProducts } = useProductsContext();
   const [product, setProduct] = useState({});
-  const { addToCart } = useCartContext();
+  const { addToCart, setIsCartOpen } = useCartContext();
   const [selectedInfo, setSelectedInfo] = useState("description");
   const [quantity, setQuantity] = useState(1);
 
@@ -175,9 +175,13 @@ const Product = () => {
                   </button>
                 </div>
                 <button
-                  onClick={() => addToCart({ ...product[0], quantity })}
+                  onClick={() => {
+                    addToCart({ ...product[0], quantity });
+                    setQuantity(1);
+                    setIsCartOpen(true);
+                    document.body.style.overflow = "hidden";
+                  }}
                   className="bg-[#e3e3e3] text-center w-full basis-auto rounded-lg md:p-[1vw]"
-                  value="Shop Now"
                 >
                   Shop now
                 </button>
@@ -231,7 +235,7 @@ const Product = () => {
                       {Object.keys(product[0]?.info[obj]).map((element) => (
                         <li className="flex justify-between w-full text-[3vw] 3xl:text-5xl border-b border-[rgba(142,145,148,.3)]  ">
                           <span>{caseFormatter(element)}</span>
-                          <span>{product[0]?.info[obj][element]}</span>
+                          <span>{product[0]?.info[obj][element]} cm</span>
                         </li>
                       ))}
                     </ul>
