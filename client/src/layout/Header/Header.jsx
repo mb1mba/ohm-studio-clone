@@ -105,18 +105,18 @@ const Header = () => {
             y: 0,
             opacity: 1,
             transition: {
-              ease: "easeInOut",
-              duration: 0.2,
-              delay: 0.6 + i * 0.1,
+              ease: [0.3, 0, 0, 1],
+              duration: 0.7,
+              delay: 0.6 + (i * 0.05) / 2,
             },
           }}
           exit={{
             y: "100%",
             opacity: 0,
             transition: {
-              ease: "easeInOut",
-              duration: 0.2,
-              delay: 0.8 - i * 0.1,
+              ease: [0.3, 0, 0, 1],
+              duration: 0.7,
+              delay: 0.6 + (i * 0.05) / 2,
             },
           }}
           className="flex"
