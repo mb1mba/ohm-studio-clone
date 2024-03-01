@@ -6,22 +6,20 @@ const CardDiv = ({
   price,
   gap = 4,
   align,
-  order,
   color = "#000",
+  fontWeight = "semibold",
 }) => {
   return (
     <div
-      className={`lg:grid gap-${gap} justify-center lg:grid-areas-card lg:grid-cols-card lg:grid-rows-card  md:sticky md:bottom-0 md:self-end md:${
-        order ? "justify-end" : "justify-start"
-      } ${order && `order-${order}`} `}
+      className={`cursor-pointer flex flex-col lg:grid gap-${gap} justify-center lg:grid-areas-card lg:grid-cols-card lg:grid-rows-card  md:sticky md:bottom-0 md:self-end`}
     >
       {children}
       <div
         className={`flex justify-${align} text-center items-center grid-in-text`}
       >
         <p
-          className="  font-helvetica text-xl  md:text-[1vw] 3xl:text-lg text-center font-semibold"
-          style={{ color }}
+          className="font-helvetica text-[4.8vw]  md:text-[1vw] 3xl:text-lg text-center "
+          style={{ color, fontWeight }}
         >
           {text}
         </p>

@@ -1,9 +1,17 @@
-import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import React, { useState } from "react";
+
+import {
+  motion,
+  AnimatePresence,
+  useScroll,
+  useMotionValueEvent,
+} from "framer-motion";
 import axios from "/src/api/axios";
-import { CustomMenu, Button, links } from "/src/components/Header";
-import { Drawline } from "/src/components/Shared";
 import { Link } from "react-router-dom";
+
+import { useCartContext } from "/src/context/cartContext";
+import { useUserContext } from "/src/context/authContext";
+
 import {
   Menu,
   MenuItem,
@@ -11,9 +19,9 @@ import {
   MenuList,
   MenuSection,
 } from "/src/components/Menu";
+import { CustomMenu, Button, links } from "/src/components/Header";
+import { Drawline } from "/src/components/Shared";
 import { TextReveal } from "/src/components/Reveal";
-import { useCartContext } from "/src/context/cartContext";
-import { useUserContext } from "/src/context/authContext";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -55,6 +63,7 @@ const Header = () => {
     open: {
       maxHeight: isHover === "Shop" ? "25vw" : "17vw",
       height: isHover === "Shop" ? "25vw" : "17vw",
+      zIndex: isHover === "Shop" ? 1 : -1,
       minHeight: "240px",
       transition: {
         ease: "easeInOut",
@@ -176,14 +185,18 @@ const Header = () => {
         </nav>
 
         {/* Nav for tablet and bigger screen */}
-        <nav className="hidden md:flex justify-end font-helvetica px-5 md:px-10 pt-10 sticky top-0">
+        <motion.nav
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="hidden md:flex justify-end font-helvetica px-5 md:px-10 pt-10 sticky top-0"
+        >
           <ul className="flex gap-8 text-xl">
             <motion.li
               onHoverStart={() => setIsHover("Shop")}
               className="cursor-pointer w-fit relative overflow-hidden"
             >
               <Link to="/products">
-                <span className=" before:h-[1px] before:w-full before:bg-[#8e9194] before:absolute before:bottom-0  before:left-0 before:origin-right before:scale-x-0 hover:before:scale-x-100  hover:before:origin-left before:delay-200 before:transition-transform before:duration-300  after:content-[' ']  after:h-[1px] after:w-full after:bg-[#8e9194] after:absolute after:bottom-0  after:left-0 before after:origin-right after:scale-x-0 hover:after:scale-x-[-100%] after:duration-700 hover:after:origin-right after:transition-transform">
+                <span className=" text-[1vw] 3xl:text-lg before:h-[1px] before:w-full before:bg-[#8e9194] before:absolute before:bottom-0  before:left-0 before:origin-right before:scale-x-0 hover:before:scale-x-100  hover:before:origin-left before:delay-200 before:transition-transform before:duration-300  after:content-[' ']  after:h-[1px] after:w-full after:bg-[#8e9194] after:absolute after:bottom-0  after:left-0 before after:origin-right after:scale-x-0 hover:after:scale-x-[-100%] after:duration-700 hover:after:origin-right after:transition-transform">
                   Shop
                 </span>
               </Link>
@@ -194,7 +207,7 @@ const Header = () => {
               className="cursor-pointer w-fit relative overflow-hidden"
             >
               <Link className="cursor-pointer" to="/products">
-                <span className=" before:h-[1px] before:w-full before:bg-[#8e9194] before:absolute before:bottom-0  before:left-0 before:origin-right before:scale-x-0 hover:before:scale-x-100  hover:before:origin-left before:delay-200 before:transition-transform before:duration-300  after:content-[' ']  after:h-[1px] after:w-full after:bg-[#8e9194] after:absolute after:bottom-0  after:left-0 before after:origin-right after:scale-x-0 hover:after:scale-x-[-100%] after:duration-700 hover:after:origin-right after:transition-transform">
+                <span className="text-[1vw] 3xl:text-lg before:h-[1px] before:w-full before:bg-[#8e9194] before:absolute before:bottom-0  before:left-0 before:origin-right before:scale-x-0 hover:before:scale-x-100  hover:before:origin-left before:delay-200 before:transition-transform before:duration-300  after:content-[' ']  after:h-[1px] after:w-full after:bg-[#8e9194] after:absolute after:bottom-0  after:left-0 before after:origin-right after:scale-x-0 hover:after:scale-x-[-100%] after:duration-700 hover:after:origin-right after:transition-transform">
                   About
                 </span>
               </Link>
@@ -204,7 +217,7 @@ const Header = () => {
               onHoverStart={() => setIsHover("")}
             >
               <Link to="/account" className="">
-                <span className=" before:h-[1px] before:w-full before:bg-[#8e9194] before:absolute before:bottom-0  before:left-0 before:origin-right before:scale-x-0 hover:before:scale-x-100  hover:before:origin-left before:delay-200 before:transition-transform before:duration-300  after:content-[' ']  after:h-[1px] after:w-full after:bg-[#8e9194] after:absolute after:bottom-0  after:left-0 before after:origin-right after:scale-x-0 hover:after:scale-x-[-100%] after:duration-700 hover:after:origin-right after:transition-transform">
+                <span className="text-[1vw] 3xl:text-lg before:h-[1px] before:w-full before:bg-[#8e9194] before:absolute before:bottom-0  before:left-0 before:origin-right before:scale-x-0 hover:before:scale-x-100  hover:before:origin-left before:delay-200 before:transition-transform before:duration-300  after:content-[' ']  after:h-[1px] after:w-full after:bg-[#8e9194] after:absolute after:bottom-0  after:left-0 before after:origin-right after:scale-x-0 hover:after:scale-x-[-100%] after:duration-700 hover:after:origin-right after:transition-transform">
                   Account
                 </span>
               </Link>
@@ -218,12 +231,12 @@ const Header = () => {
               }}
               onHoverStart={() => setIsHover("")}
             >
-              <span className="before:h-[1px] before:w-full before:bg-[#8e9194] before:absolute before:bottom-0  before:left-0 before:origin-right before:scale-x-0 hover:before:scale-x-100  hover:before:origin-left before:delay-200 before:transition-transform before:duration-300  after:content-[' ']  after:h-[1px] after:w-full after:bg-[#8e9194] after:absolute after:bottom-0  after:left-0 before after:origin-right after:scale-x-0 hover:after:scale-x-[-100%] after:duration-700 hover:after:origin-right after:transition-transform">
+              <span className="text-[1vw] 3xl:text-lg before:h-[1px] before:w-full before:bg-[#8e9194] before:absolute before:bottom-0  before:left-0 before:origin-right before:scale-x-0 hover:before:scale-x-100  hover:before:origin-left before:delay-200 before:transition-transform before:duration-300  after:content-[' ']  after:h-[1px] after:w-full after:bg-[#8e9194] after:absolute after:bottom-0  after:left-0 before after:origin-right after:scale-x-0 hover:after:scale-x-[-100%] after:duration-700 hover:after:origin-right after:transition-transform">
                 Cart
               </span>
             </Button>
           </ul>
-        </nav>
+        </motion.nav>
 
         {isMenuOpen && (
           <Menu>
@@ -441,7 +454,9 @@ const Header = () => {
               <motion.ul
                 initial={{ opacity: 0 }}
                 animate={isHover === "About" ? { opacity: 1 } : { opacity: 0 }}
-                className="row-start-1 col-start-1 h-fit grid p-[3vw] "
+                className={`row-start-1 col-start-1 h-fit grid ${
+                  isHover === "About" ? "p-[3vw]" : "p-0"
+                }`}
               >
                 {isHover === "About" && (
                   <>

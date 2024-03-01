@@ -1,7 +1,9 @@
 import React, { useRef, useCallback, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useOutletContext } from "react-router-dom";
 import { motion, AnimatePresence, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
+import { useMediaQuery } from "react-responsive";
+
 import {
   Text,
   Card,
@@ -9,7 +11,9 @@ import {
   CardText,
   CardImage,
 } from "/src/components/Shared";
+
 import { TextReveal } from "/src/components/Reveal";
+import { Sentence } from "/src/components/Sentence";
 import { transition } from "/src/components/Transition";
 import { SelectedProducts } from "/src/components/SelectedProducts";
 
@@ -17,16 +21,9 @@ const Home = () => {
   const images = ["red.webp", "blue.webp", "green.webp", "yellow.webp"];
 
   const randomIndex = Math.floor(Math.random() * 4);
-  const animation = useAnimation();
   const [ref, inView, entry] = useInView({ threshold: 0.05 });
-
-  // useEffect(() => {
-  //   if (inView) {
-  //     animation.start("visible");
-  //   } else {
-  //     animation.start("hidden");
-  //   }
-  // }, [animation, inView]);
+  const isTabletOrBigger = useMediaQuery({ minWidth: 768 });
+  const { isFooterInView } = useOutletContext();
 
   const imagesEl = images.map((image, i) => (
     <motion.img
@@ -42,9 +39,21 @@ const Home = () => {
     />
   ));
 
+  const getScale = () => {
+    if (isTabletOrBigger) {
+      if (inView && !isFooterInView) {
+        return 1;
+      } else if (inView && isFooterInView) {
+        return 0.95;
+      }
+    } else {
+      return 1;
+    }
+  };
+
   return (
     <>
-      <section className="grid w-full justify-center md:min-w-screen md:justify-stretch md:h-[300vw] md:z-[1] md:sticky md:top-0 bg-[#e3e3e3] ">
+      <section className="grid w-full justify-center md:min-w-screen md:justify-stretch md:h-[300vw] md:z-[1] md:sticky md:top-0 bg-[#f2eef0] ">
         <picture className="md:hidden">
           <img
             className=" rounded-t-xl w-full"
@@ -55,13 +64,13 @@ const Home = () => {
         <div className=" grid w-full md:h-screen relative max-w-[90%] mx-auto">
           <div className="md:flex md:self-end">
             <div className="grid gap-10 my-20 md:pt-40 md:pb-40">
-              <div className="text-4xl md:text-xl">
-                <div className="flex items-baseline w-full  ">
+              <div className="text-[4vw] leading-[1.25] md:text-xl">
+                <div className="flex items-baseline w-full">
                   <TextReveal>
                     <Text>PION</Text>
                   </TextReveal>
                   <TextReveal>
-                    <span className="flex font-garamond md:text-xl lg:text-3xl xl:text-5xl ">
+                    <span className="flex font-garamond text-[5.65vw] md:text-xl lg:text-3xl xl:text-5xl ">
                       &nbsp;—&nbsp;
                       <span className=" flex md:hidden ">4</span>
                       <span className=" hidden sm:flex">Four</span>
@@ -70,32 +79,32 @@ const Home = () => {
                   </TextReveal>
                 </div>
                 <TextReveal>
-                  <span className="font-garamond md:text-xl lg:text-3xl xl:text-5xl 2xl:text-6xl">
+                  <span className="font-garamond text-[5.65vw] md:text-xl lg:text-3xl xl:text-5xl 2xl:text-6xl">
                     stools&nbsp;
-                    <span className="font-helvetica text-3xl md:text-xl lg:text-3xl xl:text-5xl 2xl:text-6xl ">
+                    <span className="font-helvetica text-[8vw] md:text-xl lg:text-3xl xl:text-5xl 2xl:text-6xl font-semibold">
                       made in France
                     </span>
                   </span>
                 </TextReveal>
 
                 <TextReveal>
-                  <span className=" font-helvetica text-3xl md:text-xl lg:text-3xl xl:text-5xl 2xl:text-6xl ">
+                  <span className=" font-helvetica text-[8vw] md:text-xl lg:text-3xl xl:text-5xl 2xl:text-6xl font-semibold">
                     from recycled steel
                   </span>
                 </TextReveal>
 
                 <TextReveal>
-                  <span className=" font-helvetica text-3xl md:text-xl lg:text-3xl xl:text-5xl 2xl:text-6xl ">
+                  <span className=" font-helvetica text-[8vw] md:text-xl lg:text-3xl xl:text-5xl 2xl:text-6xl font-semibold">
                     assembled by hand
                   </span>
                 </TextReveal>
                 <TextReveal>
-                  <span className=" font-helvetica text-3xl md:text-xl lg:text-3xl xl:text-5xl 2xl:text-6xl ">
+                  <span className=" font-helvetica text-[8vw] md:text-xl lg:text-3xl xl:text-5xl 2xl:text-6xl font-semibold">
                     and then powder
                   </span>
                 </TextReveal>
                 <TextReveal>
-                  <span className=" font-helvetica text-3xl md:text-xl lg:text-3xl xl:text-5xl 2xl:text-6xl ">
+                  <span className=" font-helvetica text-[8vw] md:text-xl lg:text-3xl xl:text-5xl 2xl:text-6xl font-semibold">
                     coated.
                   </span>
                 </TextReveal>
@@ -106,7 +115,7 @@ const Home = () => {
                   className=" font-helvetica text-[#8e9194] relative max-w-fit overflow-hidden"
                   to="collections/pion"
                 >
-                  <span className="before:h-[1px] before:w-full before:bg-[#8e9194] before:absolute before:bottom-0  before:left-0 before:origin-left before:scale-x-[-100%] hover:before:scale-x-[100%]  hover:before:origin-left before:delay-200 before:transition-transform before:duration-300  after:content-[' ']  after:h-[1px] after:w-full after:bg-[#8e9194] after:absolute after:bottom-0  after:left-0 before after:origin-right after:scale-x-[100%] hover:after:scale-x-[-100%] after:duration-700 hover:after:origin-right after:transition-transform">
+                  <span className=" before:h-[1px] before:w-full before:bg-[#8e9194] before:absolute before:bottom-0  before:left-0 before:origin-left before:scale-x-[-100%] hover:before:scale-x-[100%]  hover:before:origin-left before:delay-200 before:transition-transform before:duration-300  after:content-[' ']  after:h-[1px] after:w-full after:bg-[#8e9194] after:absolute after:bottom-0  after:left-0 before after:origin-right after:scale-x-[100%] hover:after:scale-x-[-100%] after:duration-700 hover:after:origin-right after:transition-transform">
                     Shop Now
                   </span>
                 </Link>
@@ -134,47 +143,52 @@ const Home = () => {
       <AnimatePresence>
         <motion.div
           ref={ref}
-          className="bg-white rounded-t-3xl m-auto md:z-[2] block md:relative md:rounded-xl   "
+          className="bg-white rounded-t-3xl m-auto md:z-[2] block md:relative md:rounded-xl"
           initial={{ scale: 0.95 }}
           animate={{
-            scale: inView ? 1 : 0.95,
+            scale: getScale(),
             transition: { duration: 0.4, ease: [0.61, 1, 0.88, 1] },
           }}
           exit={{ scale: 0.95 }}
         >
           <section className="">
-            <div className=" py-[5vw]  mx-[5vw]  grid gap-20 md:grid-cols-2">
-              <div className="grid">
-                <p className=" font-helvetica text-xl">
+            <div className=" py-[5.65vw]  mx-[6.75vw] md:mx-[2.75vw]  grid gap-[13vw] md:gap-[8vw] md:grid-cols-3/10">
+              <div className="flex flex-col gap-4 md:gap-[1vw]">
+                <p className="font-helvetica text-xl md:text-[1.5vw] 3xl:text-[1.6rem] leading-[1.25] font-semibold">
                   The BLOC chair.
-                  <br />1 metal sheet, 2 pleats, 4 screws.
-                  <br /> Her line like her conception is clear simplicity,
-                  triviality.
+                  <br />
+                  1 metal sheet, 2 pleats, 4 screws.
+                  <br />
+                  Her line like her conception is clear simplicity, triviality.
                 </p>
                 <Link
-                  className=" font-helvetica text-[#8e9194]"
+                  className="font-helvetica text-[4vw] md:text-[1vw] 3xl:text-lg text-[#8e9194] relative overflow-hidden w-fit"
                   to="collections/bloc"
                 >
-                  Discover
+                  <span className="before:h-[1px] before:w-full before:bg-[#8e9194] before:absolute before:bottom-0  before:left-0 before:origin-left before:scale-x-[-100%] hover:before:scale-x-[100%]  hover:before:origin-left before:delay-200 before:transition-transform before:duration-300  after:content-[' ']  after:h-[1px] after:w-full after:bg-[#8e9194] after:absolute after:bottom-0  after:left-0 before after:origin-right after:scale-x-[100%] hover:after:scale-x-[-100%] after:duration-700 hover:after:origin-right after:transition-transform">
+                    Discover
+                  </span>
                 </Link>
               </div>
 
-              <div className=" inline">
-                <span className=" font-garamond text-4xl">
-                  — To make something better with less&nbsp;
-                </span>
-                <span className=" font-helvetica text-3xl">
-                  To make something more beautiful with nothing. A story of
-                  blissful sobriety. <br />
-                  Like a child’s answer to an adult’s query.
-                </span>
-              </div>
+              <Sentence
+                array={[
+                  "— To make something better with less",
+                  <>
+                    To make something more beautiful with nothing.
+                    <br />
+                    A story of blissful sobriety.
+                    <br />
+                    Like a child’s answer to an adult’s query.
+                  </>,
+                ]}
+              />
             </div>
           </section>
 
           <section>
-            <div className="py-[5vw]  mx-[5vw] grid gap-20 md:grid-cols-auto*2 relative">
-              <CardDiv text="BLOC - Raw " price="1.125,00">
+            <div className="py-[5.65vw] mx-[6.75vw] md:mx-[2.75vw]  grid  gap-[16vw] md:gap-[8vw] md:grid-cols-3/10 relative">
+              <CardDiv text="BLOC - Raw " price="1.125,00" align="between">
                 <Card size="md">
                   <CardImage
                     src="http://localhost:5500/uploads/bloc-brush01.webp"
@@ -187,13 +201,13 @@ const Home = () => {
                 </Card>
               </CardDiv>
 
-              <div className="grid justify-end">
+              <div className="grid justify-end gap-4">
                 <img
                   src="/images/home-img2.webp"
-                  className=" w-full md:min-h-[550px] md:h-[75vw] flex rounded-lg justify-end"
+                  className="w-full md:min-h-[550px] md:h-[75vw] flex rounded-lg justify-end"
                 />
                 <p className="flex justify-between w-full font-helvetica">
-                  <span className=" font-garamond font-semibold  text-[#8E9391] ">
+                  <span className="font-garamond font-semibold  text-[#8E9391] md:text-[1.35vw] 3xl:text-lg">
                     BLOC in OHM interiors
                   </span>
                 </p>
@@ -202,41 +216,39 @@ const Home = () => {
           </section>
 
           <section>
-            <div className="py-[5vw] mx-[5vw]  grid gap-20 row-auto md:grid-cols-2">
-              <div className="inline">
-                <span className="font-garamond text-4xl">
-                  — A traditional approach&nbsp;
-                </span>
-                <span className=" font-helvetica text-3xl">
-                  while imagining what the furniture of tomorrow could be, in
-                  its use and representation.
-                </span>
-              </div>
+            <div className="py-[5.65vw]  mx-[6.75vw] md:mx-[2.75vw]  grid gap-[14vw] md:grid-cols-10/3 relative">
+              <Sentence
+                array={[
+                  "— A traditional approach",
+                  "while imagining what the furniture of tomorrow could be, in its use and representation.",
+                ]}
+              />
 
-              <div className="grid row-span-2 gap-4">
-                <p className="font-helvetica text-xl">
+              <div className="flex flex-col gap-4  md:gap-[1vw]">
+                <p className="font-helvetica text-xl md:text-[1.5vw] 3xl:text-[1.6rem] leading-[1.25] font-semibold">
                   OHM is a collectible furniture studio backed by a
                   manufacturing workshop.
                 </p>
                 <Link
-                  className=" font-helvetica text-[#8e9194]"
-                  to="collections/bloc"
+                  className=" font-helvetica text-[4vw] md:text-[1vw] 3xl:text-lg text-[#8e9194] relative overflow-hidden w-fit "
+                  to="collections/pion"
                 >
-                  Learn More
+                  <span className="before:h-[1px] before:w-full before:bg-[#8e9194] before:absolute before:bottom-0  before:left-0 before:origin-left before:scale-x-[-100%] hover:before:scale-x-[100%]  hover:before:origin-left before:delay-200 before:transition-transform before:duration-300  after:content-[' ']  after:h-[1px] after:w-full after:bg-[#8e9194] after:absolute after:bottom-0  after:left-0 before after:origin-right after:scale-x-[100%] hover:after:scale-x-[-100%] after:duration-700 hover:after:origin-right after:transition-transform">
+                    Learn more
+                  </span>
                 </Link>
               </div>
             </div>
           </section>
 
           <section>
-            <div className="py-[5vw] gap-20  mx-[5vw] grid  md:grid-cols-auto*2 relative">
+            <div className="py-[5.65vw]  mx-[6.75vw] md:mx-[2.75vw]  grid gap-[14vw] md:grid-cols-10/3 relative">
               <CardDiv
-                className="col-start-2"
                 text="PION - Orange"
                 price="600"
                 align="between"
-                order="2"
                 justify="justify-end"
+                start="col-start-2"
               >
                 <Card size="md">
                   <CardImage
@@ -250,13 +262,13 @@ const Home = () => {
                 </Card>
               </CardDiv>
 
-              <div className="grid gap-4 justify-start">
+              <div className="grid gap-4 justify-start col-start-1 row-start-1">
                 <img
                   src="http://localhost:5500/uploads/pion-collection.webp"
                   className=" w-full md:min-h-[550px] md:h-[75vw] rounded-lg"
                 />
                 <p className="flex justify-between w-full font-helvetica">
-                  <span className=" font-garamond font-semibold  text-[#8E9391] ">
+                  <span className="font-garamond font-semibold  text-[#8E9391] md:text-[1.2vw] 3xl:text-lg">
                     Orange PION created for COLLECTIBLE 2023
                   </span>
                 </p>
@@ -265,34 +277,40 @@ const Home = () => {
           </section>
 
           <section>
-            <div className="  py-[5vw] mx-[5vw] grid  gap-20 md:grid-cols-2">
-              <div className="grid row-span-2 gap-4">
-                <p className="font-helvetica text-xl">
+            <div className="py-[5.65vw]  mx-[6.75vw] md:mx-[2.75vw]  grid gap-[20vw] md:grid-cols-3/10 relative">
+              <div className="flex flex-col gap-4 md:gap-[1vw]">
+                <p className="font-helvetica text-xl md:text-[1.5vw] 3xl:text-[1.6rem] leading-[1.25] font-semibold">
                   OHM is a collectible furniture studio backed by a
                   manufacturing workshop.
                 </p>
                 <Link
-                  className=" font-helvetica text-[#8e9194]"
-                  to="collections/bloc"
+                  className=" font-helvetica text-[4vw] md:text-[1vw] 3xl:text-lg text-[#8e9194] relative overflow-hidden w-fit "
+                  to="collections/ban"
                 >
-                  Learn More
+                  <span className="before:h-[1px] before:w-full before:bg-[#8e9194] before:absolute before:bottom-0  before:left-0 before:origin-left before:scale-x-[-100%] hover:before:scale-x-[100%]  hover:before:origin-left before:delay-200 before:transition-transform before:duration-300  after:content-[' ']  after:h-[1px] after:w-full after:bg-[#8e9194] after:absolute after:bottom-0  after:left-0 before after:origin-right after:scale-x-[100%] hover:after:scale-x-[-100%] after:duration-700 hover:after:origin-right after:transition-transform">
+                    Learn More
+                  </span>
                 </Link>
               </div>
-              <div className=" inline">
-                <span className=" font-garamond text-4xl">
-                  — Influenced by images know&nbsp;
-                </span>
-                <span className=" font-helvetica text-3xl">
-                  to the human eye, our pieces of furniture are simple and yet
-                  thought-through to be used in different ways.
-                </span>
-              </div>
+
+              <Sentence
+                array={[
+                  " — Influenced by images know",
+                  `to the human eye, our pieces of furniture are simple and yet
+                  thought-through to be used in different ways.`,
+                ]}
+              />
             </div>
           </section>
 
           <section>
-            <div className="py-[5vw] mx-[5vw] grid gap-10 md:grid-cols-auto*2 relative">
-              <CardDiv text="BAN - Black" price="1920.00" justify="justify-end">
+            <div className="py-[5.65vw]  mx-[6.75vw] md:mx-[2.75vw]  grid gap-[14vw] md:grid-cols-3/10 relative">
+              <CardDiv
+                text="BAN - Black"
+                price="1920.00"
+                justify="justify-end"
+                align="between"
+              >
                 <Card size="md">
                   <CardImage
                     src="http://localhost:5500/uploads/ban-black01.webp"
@@ -305,13 +323,13 @@ const Home = () => {
                 </Card>
               </CardDiv>
 
-              <div className="grid justify-end">
+              <div className="grid justify-end gap-4">
                 <img
                   src="http://localhost:5500/uploads/ban-collection.webp"
                   className="w-full md:min-h-[550px] md:h-[75vw] object-cover rounded-lg"
                 />
                 <p className="flex justify-between w-full font-helvetica">
-                  <span className=" font-garamond font-semibold  text-[#8E9391] ">
+                  <span className=" font-garamond font-semibold  text-[#8E9391] md:text-[1.35vw] 3xl:text-lg">
                     BAN collection
                   </span>
                 </p>
@@ -320,13 +338,13 @@ const Home = () => {
           </section>
 
           <section>
-            <div className="mx-[5vw]  grid  gap-y-9">
+            <div className="mx-[6.75vw] md:mx-[2.75vw]  grid gap-y-9">
               <SelectedProducts />
             </div>
           </section>
 
           <section className="">
-            <div className="mx-[2.5vw] grid md:grid-cols-2 gap-5 ">
+            <div className="mx-[6.75vw] md:mx-[2.75vw] grid md:grid-cols-2 gap-5 ">
               <Link
                 to="/collections/bloc"
                 className="grid gap-10  cursor-pointer "
@@ -338,19 +356,19 @@ const Home = () => {
                   />
                 </div>
 
-                <div className="grid gap-10 md:gap-4 w-full min-h-72 p-[10vw] rounded-xl bg-[#f5f4f4] md:w-[16vw] md:max-h-72 md:max-w-72 md:min-h-36 md:p-8 md:row-start-1 md:col-start-1 md:self-end md:mb-[2vw] md:ml-[2vw]">
-                  <div className="">
-                    <p className="font-helvetica text-[10vw] md:text-[3vw] 3xl:text-5xl mb-3">
-                      BLOC
+                <div className="grid gap-10 md:gap-[0.125vw] w-full p-[10vw] rounded-xl bg-[#f5f4f4] md:w-[17.6875vw] md:h-[17.6875vw] 3xl:w-72 3xl:h-72 3xl:p-7 md:min-h-36 md:p-[1.875vw] md:row-start-1 md:col-start-1 md:self-end md:mb-[2vw] md:ml-[2vw]">
+                  <div className="grid content-center">
+                    <p className=" uppercase leading-none font-helvetica font-bold -tracking-[0.1em] text-[10vw] md:text-[3vw] 3xl:text-[3rem] mb-3 md:mb-0">
+                      Bloc
                     </p>
-                    <p className=" font-helvetica text-[5vw] md:text-[1vw] 3xl:text-xl">
+                    <p className=" font-helvetica text-[5vw] md:text-[1vw] 3xl:text-lg">
                       Three aluminum chairs made in France in three versions :
                       raw or brushed aluminum, and powder-coated blue.
                     </p>
                   </div>
-                  <div className="overflow-hidden max-w-fit">
+                  <div className="overflow-hidden max-w-fit self-end ">
                     <Link
-                      className=" font-helvetica text-[#8e9194] text-[5vw] md:text-[1vw] 3xl:text-lg relative max-w-fit overflow-hidden"
+                      className="font-helvetica text-[#8e9194] text-[5vw] md:text-[1vw] 3xl:text-lg relative max-w-fit overflow-hidden"
                       classNameto="/collections/bloc"
                     >
                       <span className="before:h-[1px] before:w-full before:bg-[#8e9194] before:absolute before:bottom-0  before:left-0 before:origin-left before:scale-x-[-100%] hover:before:scale-x-[100%]  hover:before:origin-left before:delay-200 before:transition-transform before:duration-300  after:content-[' ']  after:h-[1px] after:w-full after:bg-[#8e9194] after:absolute after:bottom-0  after:left-0 before after:origin-right after:scale-x-[100%] hover:after:scale-x-[-100%] after:duration-700 hover:after:origin-right after:transition-transform">
@@ -372,19 +390,19 @@ const Home = () => {
                   />
                 </div>
 
-                <div className="grid gap-10 md:gap-4 w-full min-h-72 p-[10vw] rounded-xl bg-[#f5f4f4] md:w-[16vw] md:max-h-72 md:max-w-72 md:min-h-36  md:p-8 md:row-start-1 md:col-start-1 md:self-end md:mb-[2vw] md:ml-[2vw]">
-                  <div className="">
-                    <p className=" font-helvetica text-[10vw] md:text-[3vw] 3xl:text-5xl mb-3">
-                      PION
+                <div className="grid gap-10 md:gap-[0.125vw] w-full p-[10vw] rounded-xl bg-[#f5f4f4] md:w-[17.6875vw] md:h-[17.6875vw] 3xl:w-72 3xl:h-72 3xl:p-7 md:min-h-36 md:p-[1.875vw] md:row-start-1 md:col-start-1 md:self-end md:mb-[2vw] md:ml-[2vw]">
+                  <div className="grid content-center">
+                    <p className=" uppercase leading-none font-helvetica font-bold -tracking-[0.1em] text-[10vw] md:text-[3vw] 3xl:text-[3rem] mb-3 md:mb-0">
+                      Pion
                     </p>
-                    <p className=" font-helvetica text-[5vw] md:text-[1vw] 3xl:text-xl">
+                    <p className="font-helvetica text-[5vw] md:text-[1vw] 3xl:text-lg">
                       Four colored stools made in France from recycled steel,
                       assembled by hand and then powder coated.
                     </p>
                   </div>
-                  <div className="overflow-hidden max-w-fit">
+                  <div className="overflow-hidden max-w-fit self-end">
                     <Link
-                      className=" font-helvetica text-[#8e9194] text-[5vw] md:text-[1vw] 3xl:text-lg relative max-w-fit overflow-hidden"
+                      className="font-helvetica text-[#8e9194] text-[5vw] md:text-[1vw] 3xl:text-lg relative max-w-fit overflow-hidden"
                       classNameto="/collections/bloc"
                     >
                       <span className="before:h-[1px] before:w-full before:bg-[#8e9194] before:absolute before:bottom-0  before:left-0 before:origin-left before:scale-x-[-100%] hover:before:scale-x-[100%]  hover:before:origin-left before:delay-200 before:transition-transform before:duration-300  after:content-[' ']  after:h-[1px] after:w-full after:bg-[#8e9194] after:absolute after:bottom-0  after:left-0 before after:origin-right after:scale-x-[100%] hover:after:scale-x-[-100%] after:duration-700 hover:after:origin-right after:transition-transform">

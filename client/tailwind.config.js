@@ -17,7 +17,10 @@ export default {
       },
       gridTemplateColumns: {
         "auto*2": "auto auto",
+        "3/10": "32% auto",
+        "10/3": "auto, 32%",
         cartItem: "9vw auto",
+        homePageText: "25% auto",
       },
       gridTemplateRows: {
         cartItem: "9auto",

@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
+import { useParams, Link } from "react-router-dom";
+
 import axios from "/src/api/axios";
+
 import { Card, CardDiv, CardImage } from "/src/components/Shared";
-import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
 import { productNameFormatter } from "/src/utils";
 import { useProductsContext } from "/src/context/productsContext";
 import { transition } from "/src/components/Transition";
+import { cardProductNameFormatter } from "/src/utils";
 
 const Products = () => {
   const BASE_URL = "http://localhost:5500";
@@ -27,7 +29,7 @@ const Products = () => {
         <Link to={`/products/${productNameFormatter(product.name)}`}>
           <CardDiv
             key={product.name}
-            text={product.name}
+            text={cardProductNameFormatter(product.name)}
             price={product.price}
             align="between"
           >
@@ -57,7 +59,7 @@ const Products = () => {
 
   return (
     displayedElement && (
-      <div className="grid row-auto sm:grid-cols-2 md:grid-cols-4 gap-8 md:gap-x-4 md:gap-y-4">
+      <div className="grid row-auto pb-[14vw] sm:grid-cols-2 md:grid-cols-4 gap-8 md:gap-x-[1vw] md:gap-y-[1vw]">
         {displayedElement}
       </div>
     )
