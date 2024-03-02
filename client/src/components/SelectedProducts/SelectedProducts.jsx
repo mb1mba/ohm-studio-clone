@@ -5,7 +5,7 @@ import axios from "/src/api/axios";
 
 import { productNameFormatter, cardProductNameFormatter } from "/src/utils";
 
-import { CardDiv, CardImage, Card, CardText } from "../Shared";
+import { CardDiv, CardImage } from "../Shared";
 
 const SelectedProducts = () => {
   const [products, setProducts] = useState([]);
@@ -44,7 +44,7 @@ const SelectedProducts = () => {
                 align="center"
                 fontWeight="normal"
               >
-                <Card size="md">
+                <div className="grid w-[40.625vw] h-[53.4375vw] md:w-[18vw] md:h-[23.55vw] ">
                   <CardImage
                     src={`http://localhost:5500/${product.images[0]}`}
                     type="visible"
@@ -55,7 +55,7 @@ const SelectedProducts = () => {
                     src={`http://localhost:5500/${product.images[1]}`}
                     selectedProduct="true"
                   />
-                </Card>
+                </div>
               </CardDiv>
             </Link>
           ))}

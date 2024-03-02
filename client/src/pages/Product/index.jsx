@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
+
 import axios from "/src/api/axios";
 import { Drawline } from "/src/components/Shared";
 import {
@@ -7,15 +9,14 @@ import {
   AccordionHeader,
 } from "/src/components/Accordion";
 import { Info, InfoBody, InfoTitle } from "/src/components/VerticalProductInfo";
-import { Link, useParams } from "react-router-dom";
-import { CardImage, Card, CardDiv } from "/src/components/Shared";
-import { productNameFormatter } from "/src/utils";
+
+import { productNameFormatter, caseFormatter } from "/src/utils";
 import { TextReveal } from "/src/components/Reveal";
 import { useProductsContext } from "/src/context/productsContext";
-import { transition } from "/src/components/Transition";
 import { useCartContext } from "/src/context/cartContext";
+import { transition } from "/src/components/Transition";
 import { SelectedProducts } from "/src/components/SelectedProducts";
-import { caseFormatter } from "/src/utils";
+import { Sentence } from "/src/components/Sentence";
 
 const Product = () => {
   const { productName } = useParams();
@@ -73,29 +74,12 @@ const Product = () => {
           </div>
 
           <div className=" pt-10 justify-self-center pb-16 md:h-fit md:sticky md:top-0 md:py-[11vw] break-words md:max-w-[29vw]">
-            <h1 className="pb-8 md:leading-snug">
-              {product[0].description.map((sentence, i) => {
-                if (i === 0) {
-                  return (
-                    <TextReveal width="100%">
-                      <span className="  flex w-full font-garamond text-[9.5vw] md:text-[3.125vw] 3xl:text-[57px] leading-none">
-                        — {sentence}&nbsp;
-                      </span>
-                    </TextReveal>
-                  );
-                } else {
-                  return (
-                    <TextReveal>
-                      <span className=" font-helvetica text-[7.75vw] md:text-[2.7vw] 3xl:text-5xl 3xl:leading-[1.2] block leading-[1.2]">
-                        {sentence}
-                      </span>
-                    </TextReveal>
-                  );
-                }
-              })}
+            <h1 className="pb-[1.8vw] md:leading-snug">
+              <Sentence array={product[0].description} />
             </h1>
 
-            <div className="grid py-7 md:py-[1vw] gap-1 text-[#8E9194]">
+            <Drawline />
+            <div className="grid py-7 md:py-[1.4vw] gap-1 text-[#8E9194]">
               <div className="flex justify-between">
                 <TextReveal>
                   <p className="md:text-[1vw] 3xl:text-lg">Price</p>
@@ -106,9 +90,10 @@ const Product = () => {
                   </p>
                 </TextReveal>
               </div>
-              <Drawline />
             </div>
-            <div className="grid  md:py-[1vw]  gap-1 text-[#8E9194]">
+
+            <Drawline />
+            <div className="grid  md:py-[1.4vw]  gap-1 text-[#8E9194]">
               <div className="flex justify-between">
                 <TextReveal>
                   <p className="md:text-[1vw] 3xl:text-lg">Color</p>
@@ -118,7 +103,7 @@ const Product = () => {
                     return (
                       <TextReveal>
                         <Link
-                          className={`h-6 w-6 flex items-center justify-center ${
+                          className={`h-[1.6vw] w-[1.6vw] flex items-center justify-center ${
                             productName === productNameFormatter(variant.name)
                               ? "rounded-full border border-solid border-[#8e919499]"
                               : ""
@@ -127,7 +112,7 @@ const Product = () => {
                         >
                           <div
                             style={{ backgroundColor: variant.color }}
-                            className=" rounded-full h-4 w-4  "
+                            className=" rounded-full h-[1vw] w-[1vw]  "
                           ></div>
                         </Link>
                       </TextReveal>
@@ -135,12 +120,12 @@ const Product = () => {
                   })}
                 </div>
               </div>
-              <Drawline />
             </div>
 
-            <div className="flex justify-between py-7 text-[#8E9194] ">
+            <Drawline />
+            <div className="flex justify-between py-7 md:py-[1.4vw] text-[#8E9194] ">
               <TextReveal>
-                <p className="md:text-[1vw] 3xl:text-lg">Delivery Time</p>
+                <p className="md:text-[1vw] 3xl:text-lg">Delivery time</p>
               </TextReveal>
               <TextReveal>
                 <p className="md:text-[1vw] 3xl:text-lg">
@@ -148,10 +133,9 @@ const Product = () => {
                 </p>
               </TextReveal>
             </div>
-
             <div>
               <div className="flex gap-4">
-                <div className="flex bg-[#e3e3e3] min-w-36 px-7 py-4 md:p-[1vw] md:min-w-fit rounded-xl">
+                <div className="flex bg-[#e3e3e3] text-[#8e9194] min-w-36 px-7 py-4 md:p-[1vw] md:min-w-[3.75vw] rounded-xl">
                   <button
                     onClick={() =>
                       setQuantity((prevQuantity) =>
@@ -162,14 +146,14 @@ const Product = () => {
                   >
                     -
                   </button>
-                  <p className="bg-[#e3e3e3] text-center w-16  md:text-[1vw] 3xl:text-lg">
+                  <span className="bg-[#e3e3e3] text-center w-16  md:text-[1vw] 3xl:text-lg self-center">
                     {quantity}
-                  </p>
+                  </span>
                   <button
                     onClick={() =>
                       setQuantity((prevQuantity) => prevQuantity + 1)
                     }
-                    className="cursor-pointer md:t ext-[1vw] 3xl:text-lg"
+                    className="cursor-pointer md:text-[1vw] 3xl:text-lg"
                   >
                     +
                   </button>
@@ -181,7 +165,7 @@ const Product = () => {
                     setIsCartOpen(true);
                     document.body.style.overflow = "hidden";
                   }}
-                  className="bg-[#e3e3e3] text-center w-full basis-auto rounded-lg md:p-[1vw]"
+                  className="bg-[#e3e3e3] hover:bg-gray-300 font-semibold text-center w-full basis-auto rounded-lg md:p-[1vw] md:text-[1vw]"
                 >
                   Shop now
                 </button>
@@ -233,7 +217,7 @@ const Product = () => {
                   obj === selectedInfo && (
                     <ul className="col-start-1 row-start-1 [&>*:nth-child(3)]:py-[2vw] [&>*:nth-child(2)]:py-[2vw] [&>*:nth-child(1)]:pb-[2vw]">
                       {Object.keys(product[0]?.info[obj]).map((element) => (
-                        <li className="flex justify-between w-full text-[3vw] 3xl:text-5xl border-b border-[rgba(142,145,148,.3)]  ">
+                        <li className="flex justify-between w-full text-[3vw] 3xl:text-5xl border-b border-[rgba(142,145,148,.3)] font-bold  ">
                           <span>{caseFormatter(element)}</span>
                           <span>{product[0]?.info[obj][element]} cm</span>
                         </li>
