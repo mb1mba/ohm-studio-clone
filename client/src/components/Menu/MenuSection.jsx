@@ -5,8 +5,12 @@ const MenuSection = ({ name, children, onClick }) => {
     <TextReveal width="100%">
       <div className="" onClick={onClick}>
         <div className="flex justify-between items-center">
-          <h2 className=" text-[10vw]  font-helvetica ">{name}</h2>
-          {name === "Shop" && <Link to="/products">See All</Link>}
+          <h2 className=" text-[9.33vw]  font-helvetica font-bold ">{name}</h2>
+          {name === "Shop" && (
+            <Link to="/products" className="w-fit relative overflow-hidden">
+              See All
+            </Link>
+          )}
         </div>
         {children}
       </div>
