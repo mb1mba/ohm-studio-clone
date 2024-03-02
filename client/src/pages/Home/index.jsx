@@ -4,13 +4,7 @@ import { motion, AnimatePresence, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { useMediaQuery } from "react-responsive";
 
-import {
-  Text,
-  Card,
-  CardDiv,
-  CardText,
-  CardImage,
-} from "/src/components/Shared";
+import { Text, CardDiv, CardText, CardImage } from "/src/components/Shared";
 
 import { TextReveal } from "/src/components/Reveal";
 import { Sentence } from "/src/components/Sentence";
@@ -139,7 +133,6 @@ const Home = () => {
           </picture>
         </div>
       </section>
-
       <AnimatePresence>
         <motion.div
           ref={ref}
@@ -189,7 +182,7 @@ const Home = () => {
           <section>
             <div className="py-[5.65vw] mx-[6.75vw] md:mx-[2.75vw]  grid  gap-[16vw] md:gap-[8vw] md:grid-cols-3/10 relative">
               <CardDiv text="BLOC - Raw " price="1.125,00" align="between">
-                <Card size="md">
+                <div className="grid">
                   <CardImage
                     src="http://localhost:5500/uploads/bloc-brush01.webp"
                     type="visible"
@@ -198,7 +191,7 @@ const Home = () => {
                     src="http://localhost:5500/uploads/bloc-brush02.webp"
                     type="hidden"
                   />
-                </Card>
+                </div>
               </CardDiv>
 
               <div className="grid justify-end gap-4">
@@ -250,7 +243,7 @@ const Home = () => {
                 justify="justify-end"
                 start="col-start-2"
               >
-                <Card size="md">
+                <div className="grid">
                   <CardImage
                     src="http://localhost:5500/uploads/pion-orange.webp"
                     type="visible"
@@ -259,7 +252,7 @@ const Home = () => {
                     src="http://localhost:5500/uploads/pion-orange02.webp"
                     type="hidden"
                   />
-                </Card>
+                </div>
               </CardDiv>
 
               <div className="grid gap-4 justify-start col-start-1 row-start-1">
@@ -311,7 +304,7 @@ const Home = () => {
                 justify="justify-end"
                 align="between"
               >
-                <Card size="md">
+                <div className="grid">
                   <CardImage
                     src="http://localhost:5500/uploads/ban-black01.webp"
                     type="visible"
@@ -320,7 +313,7 @@ const Home = () => {
                     src="http://localhost:5500/uploads/ban-black02.webp"
                     type="hidden"
                   />
-                </Card>
+                </div>
               </CardDiv>
 
               <div className="grid justify-end gap-4">
@@ -416,6 +409,31 @@ const Home = () => {
           </section>
         </motion.div>
       </AnimatePresence>
+
+      <section>
+        <div className="grid mx-[6.75vw] md:mx-[2.75vw] gap-[2rem] py-[13.35vw]">
+          <div className="grid grid-cols-3 gap-[2vw] ">
+            <div className="w-[25vw] h-[25vw] bg-[#8e9194] rounded-xl"></div>
+            <div className="w-[25vw] h-[25vw] bg-[#8e9194] rounded-xl justify-self-center"></div>
+            <div className="w-[25vw] h-[25vw] bg-[#8e9194] rounded-xl justify-self-end"></div>
+          </div>
+          <div className="text-center">
+            <h2>
+              <span className="font-garamond text-[9.375vw] block tracking-tighter">
+                Follow us on instagram&nbsp;
+              </span>
+
+              <Link
+                target="_blank"
+                to="https://www.instagram.com/ohm.studio_/?hl=fr"
+                className="text-[7.8125vw] font-helvetica font-bold"
+              >
+                @ohm.studio_
+              </Link>
+            </h2>
+          </div>
+        </div>
+      </section>
     </>
   );
 };
