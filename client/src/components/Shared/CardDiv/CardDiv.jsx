@@ -18,7 +18,7 @@ const CardDiv = ({
         className={`flex justify-${align} text-center items-center grid-in-text`}
       >
         <p
-          className="font-helvetica text-[4.8vw]  md:text-[1vw] 3xl:text-lg text-center "
+          className="font-helvetica text-[4.8vw] sm:text-[2vw]  md:text-[1vw] 3xl:text-lg text-center "
           style={{ color, fontWeight }}
         >
           {text}
