@@ -61,10 +61,10 @@ const Header = () => {
 
   const parentVariants = {
     open: {
-      maxHeight: isHover === "Shop" ? "25vw" : "17vw",
-      height: isHover === "Shop" ? "25vw" : "17vw",
+      maxHeight: isHover === "Shop" ? "540px" : "350px",
+      height: "fit-content",
+
       zIndex: isHover === "Shop" ? 1 : -1,
-      minHeight: "240px",
       transition: {
         ease: "easeInOut",
         duration: 0.4,
@@ -73,7 +73,6 @@ const Header = () => {
     },
     hidden: {
       maxHeight: 0,
-      minHeight: 0,
       transition: { delay: 1, ease: "easeInOut", duration: 0.4 },
     },
   };
@@ -93,7 +92,9 @@ const Header = () => {
         <MenuList isOpen={isSectionOpen[index]} index={index}>
           {links[category].map((link, linkIndex) => (
             <MenuItem type={category.toLowerCase()}>
-              <MenuLink text={link.name} path={link.path}></MenuLink>
+              <TextReveal>
+                <MenuLink text={link.name} path={link.path} />
+              </TextReveal>
               {category === "Shop"
                 ? linkIndex <= 1 && <Drawline isAnimate="false" />
                 : null}
@@ -168,11 +169,11 @@ const Header = () => {
   return (
     <>
       {/* <CustomMenu /> */}
-      <header className="fixed w-full  top-0 md:z-10   ">
+      <header className="fixed w-full  top-0 z-10">
         {/* Nav for mobile */}
-        <nav className="flex justify-between min-h-20 relative md:hidden">
+        <nav className="flex justify-between min-h-20 relative md:hidden z-10 px-[5.25vw] pt-[10.625vw]">
           <Button onClick={() => setIsMenuOpen((prev) => !prev)}>
-            {isMenuOpen ? "Close" : "Menu"}
+            <span>{isMenuOpen ? "Close" : "Menu"}</span>
           </Button>
 
           <Button
@@ -180,7 +181,7 @@ const Header = () => {
               setIsCartOpen((prev) => !prev);
             }}
           >
-            Cart
+            {isMenuOpen ? "" : "Cart"}
           </Button>
         </nav>
 
@@ -240,20 +241,32 @@ const Header = () => {
 
         {isMenuOpen && (
           <Menu>
-            {menuElement}
+            <div className="mb-[11vw]">{menuElement}</div>
             <Drawline isAnimate="false" />
             <div className="grid mt-10">
               <TextReveal>
-                <Link className="font-helvetica">Contact us</Link>
+                <Link className="font-helvetica text-[4.8vw] font-bold">
+                  Contact us
+                </Link>
               </TextReveal>
               <TextReveal>
-                <Link className="font-helvetica">Instagram</Link>
+                <Link className="font-helvetica text-[4.8vw] font-bold">
+                  Instagram
+                </Link>
               </TextReveal>
               <TextReveal>
-                <Link className="font-helvetica">FAQ</Link>
+                <Link className="font-helvetica text-[4.8vw] font-bold">
+                  FAQ
+                </Link>
               </TextReveal>
               <TextReveal>
-                <Link className="font-helvetica">Github</Link>
+                <Link
+                  target="_blank"
+                  to="https://github.com/mb1mba"
+                  className="font-helvetica text-[4.8vw] font-bold"
+                >
+                  Github
+                </Link>
               </TextReveal>
             </div>
           </Menu>
@@ -265,7 +278,7 @@ const Header = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="bg-[rgba(17,17,17,.1)] fixed top-0 left-0 w-full h-screen md:pt-10"
+              className="bg-[rgba(17,17,17,.1)] fixed top-0 left-0 w-full h-screen md:pt-10 "
             >
               <motion.div
                 initial={{ x: "100%" }}
@@ -290,7 +303,7 @@ const Header = () => {
                   </Button>
                 </div>
 
-                <div className=" h-3/5 overflow-y-auto pb-24 px-[2vw]">
+                <div className="h-3/5 overflow-y-auto pb-24 px-[2vw]">
                   {cart &&
                     cart.map((item, i) => {
                       return (
@@ -363,19 +376,18 @@ const Header = () => {
               animate="open"
               exit="hidden"
               onMouseLeave={() => setIsHover(false)}
-              className="hidden md:grid w-[96.5vw] h-max left-1/2 -translate-x-1/2 absolute top-32 origin-top px-10 bg-white"
+              className="hidden md:grid w-[96.5vw] h-auto left-1/2 -translate-x-1/2 absolute top-32  rounded-xl origin-top bg-white"
             >
               <motion.ul
                 initial={{ opacity: 0 }}
                 animate={isHover === "Shop" ? { opacity: 1 } : { opacity: 0 }}
-                className="row-start-1 col-start-1 h-fit grid p-[3vw] "
+                className="row-start-1 col-start-1 h-fit grid p-[3vw]  "
               >
                 {isHover === "Shop" && (
                   <>
                     {navsItem.map((item) => (
                       <>
-                        {" "}
-                        <motion.li className="flex overflow-hidden w-full justify-between h-[3.5vw] 3xl:h-16  ">
+                        <motion.li className="flex overflow-hidden w-full justify-between h-[4vw] 3xl:h-16  ">
                           <motion.div
                             onHoverStart={() => {
                               setIsLinkHover(item.collectionName);
@@ -385,19 +397,19 @@ const Header = () => {
                           >
                             <TextReveal>
                               <Link
-                                className="text-[3vw] 3xl:text-5xl self-center cursor-pointer flex gap-1 font-bold -tracking-[0.1em]"
+                                className="text-[3vw] 3xl:text-5xl h-[4vw] 3xl:h-fit cursor-pointer flex gap-1 font-bold -tracking-[0.1em]"
                                 to={`/collections/${item.collectionName.toLowerCase()}}`}
                               >
-                                <motion.span className="uppercase ">
+                                <motion.span className="uppercase">
                                   {item.collectionName}
                                 </motion.span>
                                 <svg
                                   xmlns="http://www.w3.org/2000/svg"
                                   viewBox="0 0 12 12"
                                   fill="none"
-                                  width={12}
-                                  height={12}
-                                  className="self-end"
+                                  width="1vw"
+                                  height="1vw"
+                                  className="self-end max-w-3"
                                 >
                                   <path
                                     d="M5.74852 11.435C5.19776 11.4309 4.65089 11.3414 4.12701 11.1698C3.69303 11.0255 3.27846 10.8274 2.8928 10.58C2.14187 10.1029 1.51155 9.45543 1.05193 8.6892C0.7441 8.18278 0.520189 7.62904 0.389024 7.04981C0.154911 5.97319 0.2353 4.85112 0.620439 3.81972C0.751823 3.47676 0.917397 3.14817 1.11461 2.83901C1.39686 2.38737 1.74188 1.97897 2.1391 1.6263C2.63483 1.18775 3.20188 0.838955 3.81524 0.595301C4.21563 0.43683 4.63356 0.327881 5.0599 0.270831C5.31296 0.23696 5.56796 0.219888 5.82324 0.219727C5.92931 0.219727 6.03617 0.21973 6.14465 0.228653C7.08582 0.277991 7.99768 0.575883 8.78904 1.09255C9.23788 1.38259 9.64369 1.73545 9.99432 2.14059C10.3567 2.55983 10.6571 3.02976 10.8862 3.53581C11.0818 3.96814 11.2186 4.42519 11.2928 4.89452C11.367 5.37394 11.3837 5.86063 11.3426 6.34409C11.2911 6.95326 11.137 7.5491 10.887 8.10596C10.6791 8.5697 10.4113 9.00365 10.0907 9.39654C9.75931 9.79991 9.37395 10.1548 8.94572 10.4511C8.46448 10.7876 7.93271 11.0437 7.37082 11.2095C6.85317 11.3597 6.31683 11.434 5.77825 11.4302L5.74852 11.435ZM5.80154 1.05686C5.41957 1.05576 5.03896 1.10291 4.66858 1.1972C4.03749 1.36464 3.44729 1.66141 2.93471 2.06904C2.42213 2.47668 1.99814 2.98645 1.68912 3.56663C1.36946 4.16098 1.18139 4.81829 1.13791 5.49317C1.11478 5.84022 1.12771 6.18876 1.17647 6.5331C1.23463 6.94792 1.349 7.3527 1.51637 7.73607C1.72284 8.20542 2.00043 8.63945 2.33917 9.02259C2.73038 9.46302 3.19827 9.82732 3.71963 10.0974C4.22039 10.3587 4.76572 10.5216 5.32667 10.5776C5.48978 10.5947 5.65364 10.6034 5.81762 10.6036C6.68781 10.6042 7.53996 10.3531 8.27318 9.88C8.7095 9.60089 9.09877 9.2531 9.42623 8.84981C9.76351 8.43275 10.0294 7.96174 10.2129 7.45621C10.4013 6.93474 10.4952 6.38326 10.4901 5.82819C10.4923 5.54464 10.4692 5.26148 10.421 4.98213C10.3291 4.47232 10.1554 3.98105 9.90674 3.5277C9.56414 2.90066 9.08765 2.35841 8.51182 1.94023C8.16381 1.68538 7.78254 1.48037 7.37886 1.33104C7.00751 1.19392 6.61977 1.10718 6.22581 1.07308C6.08117 1.06254 5.93895 1.05686 5.80154 1.05686Z"
@@ -425,7 +437,7 @@ const Header = () => {
                                 to={`/collections/${item.collectionName.toLowerCase()}`}
                                 className="self-center text-[#8E9194] cursor-pointer"
                               >
-                                See All
+                                See all
                               </Link>
                             </motion.div>
                           </motion.div>
@@ -434,15 +446,15 @@ const Header = () => {
                             {renderNavItems(item.collections)}
                           </div>
                         </motion.li>
-                        <Drawline className="bg-[#8e91944d] h-[1px] mb-10" />
+                        <Drawline className="bg-[#8e91944d] h-[1px] mb-[2vw]" />
                       </>
                     ))}
                     <Link
-                      className="mt-[5vw] relative w-fit overflow-hidden cursor-pointer"
+                      className=" relative w-fit overflow-hidden cursor-pointer 3xl:mt-[3vw]"
                       to="/products"
                     >
                       <TextReveal>
-                        <span className="before:h-[1px] before:w-full before:bg-[#8e9194] before:absolute before:bottom-0  before:left-0 before:origin-left before:scale-x-[-100%] hover:before:scale-x-[100%]  hover:before:origin-left before:delay-200 before:transition-transform before:duration-300  after:content-[' ']  after:h-[1px] after:w-full after:bg-[#8e9194] after:absolute after:bottom-0  after:left-0 before after:origin-right after:scale-x-[100%] hover:after:scale-x-[-100%] after:duration-700 hover:after:origin-right after:transition-transform">
+                        <span className=" text-[1.2vw] 3xl:text-lg text-[#8e9194] font-bold before:h-[1px] before:w-full before:bg-[#8e9194] before:absolute before:bottom-0  before:left-0 before:origin-left before:scale-x-[-100%] hover:before:scale-x-[100%]  hover:before:origin-left before:delay-200 before:transition-transform before:duration-300  after:content-[' ']  after:h-[1px] after:w-full after:bg-[#8e9194] after:absolute after:bottom-0  after:left-0 before after:origin-right after:scale-x-[100%] hover:after:scale-x-[-100%] after:duration-700 hover:after:origin-right after:transition-transform">
                           See all
                         </span>
                       </TextReveal>
@@ -455,35 +467,35 @@ const Header = () => {
                 initial={{ opacity: 0 }}
                 animate={isHover === "About" ? { opacity: 1 } : { opacity: 0 }}
                 className={`row-start-1 col-start-1 h-fit grid ${
-                  isHover === "About" ? "p-[3vw]" : "p-0"
+                  isHover === "About" ? "p-[3vw] md:p-[1.75vw]" : "p-0"
                 }`}
               >
                 {isHover === "About" && (
                   <>
-                    <li className="mb-10">
+                    <li className="mb-[2vw]">
                       <TextReveal>
                         <Link className="relative">
-                          <span className="md:text-[1.3vw] 3xl:text-5xl  font-semibold   cursor-pointer text-[#000]  before:h-[1px] before:w-full before:bg-[#8e9194] before:absolute before:bottom-0  before:left-0 before:origin-right before:scale-x-0 hover:before:scale-x-100  hover:before:origin-left before:delay-200 before:transition-transform before:duration-300  after:content-[' ']  after:h-[1px] after:w-full after:bg-[#8e9194] after:absolute after:bottom-0  after:left-0 before after:origin-right after:scale-x-0 hover:after:scale-x-[-100%] after:duration-700 hover:after:origin-right after:transition-transform">
+                          <span className="md:text-[2.75vw] 3xl:text-5xl  font-semibold   cursor-pointer text-[#000]  before:h-[1px] before:w-full before:bg-[#8e9194] before:absolute before:bottom-0  before:left-0 before:origin-right before:scale-x-0 hover:before:scale-x-100  hover:before:origin-left before:delay-200 before:transition-transform before:duration-300  after:content-[' ']  after:h-[1px] after:w-full after:bg-[#8e9194] after:absolute after:bottom-0  after:left-0 before after:origin-right after:scale-x-0 hover:after:scale-x-[-100%] after:duration-700 hover:after:origin-right after:transition-transform">
                             Who whe are
                           </span>
                         </Link>
                       </TextReveal>
                     </li>
 
-                    <li className="mb-10">
+                    <li className="mb-[2vw]">
                       <TextReveal>
                         <Link className="relative">
-                          <span className="md:text-[1.3vw] 3xl:text-5xl  font-semibold   cursor-pointer text-[#000]  before:h-[1px] before:w-full before:bg-[#8e9194] before:absolute before:bottom-0  before:left-0 before:origin-right before:scale-x-0 hover:before:scale-x-100  hover:before:origin-left before:delay-200 before:transition-transform before:duration-300  after:content-[' ']  after:h-[1px] after:w-full after:bg-[#8e9194] after:absolute after:bottom-0  after:left-0 before after:origin-right after:scale-x-0 hover:after:scale-x-[-100%] after:duration-700 hover:after:origin-right after:transition-transform">
+                          <span className="md:text-[2.75vw] 3xl:text-5xl  font-semibold   cursor-pointer text-[#000]  before:h-[1px] before:w-full before:bg-[#8e9194] before:absolute before:bottom-0  before:left-0 before:origin-right before:scale-x-0 hover:before:scale-x-100  hover:before:origin-left before:delay-200 before:transition-transform before:duration-300  after:content-[' ']  after:h-[1px] after:w-full after:bg-[#8e9194] after:absolute after:bottom-0  after:left-0 before after:origin-right after:scale-x-0 hover:after:scale-x-[-100%] after:duration-700 hover:after:origin-right after:transition-transform">
                             Press
                           </span>
                         </Link>
                       </TextReveal>
                     </li>
 
-                    <li className="mb-10">
+                    <li className="mb-[2vw]">
                       <TextReveal>
                         <Link className="relative">
-                          <span className="md:text-[3vw]   3xl:text-5xl  font-semibold  cursor-pointer text-[#000]   before:h-[1px] before:w-full before:bg-[#8e9194] before:absolute before:bottom-0  before:left-0 before:origin-right before:scale-x-0 hover:before:scale-x-100  hover:before:origin-left before:delay-200 before:transition-transform before:duration-300  after:content-[' ']  after:h-[1px] after:w-full after:bg-[#8e9194] after:absolute after:bottom-0  after:left-0 before after:origin-right after:scale-x-0 hover:after:scale-x-[-100%] after:duration-700 hover:after:origin-right after:transition-transform">
+                          <span className="md:text-[2.75vw]   3xl:text-5xl  font-semibold  cursor-pointer text-[#000]   before:h-[1px] before:w-full before:bg-[#8e9194] before:absolute before:bottom-0  before:left-0 before:origin-right before:scale-x-0 hover:before:scale-x-100  hover:before:origin-left before:delay-200 before:transition-transform before:duration-300  after:content-[' ']  after:h-[1px] after:w-full after:bg-[#8e9194] after:absolute after:bottom-0  after:left-0 before after:origin-right after:scale-x-0 hover:after:scale-x-[-100%] after:duration-700 hover:after:origin-right after:transition-transform">
                             Dealers
                           </span>
                         </Link>
