@@ -9,7 +9,7 @@ const CardImage = ({ src, height = "100%", type, selectedProduct = false }) => {
   const style = styles[type];
   return (
     <img
-      className={`rounded-xl w-full h-full object-cover min-h-[23.65vw]
+      className={`rounded-xl w-full h-full object-cover
       } md:grid-in-images ${style}`}
       src={src}
       alt=""
