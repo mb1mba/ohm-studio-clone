@@ -1,76 +1,56 @@
 import React from "react";
-import { motion } from "framer-motion";
+import { animate, motion } from "framer-motion";
 
 const transition = (OgComponent) => {
-  const defaultAnimations = {
-    hidden: {
-      opacity: 0,
-    },
-    visible: (i = 1) => ({
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.12,
-        delayChildren: 0.04 * i,
-      },
-    }),
-  };
-
-  const child = {
-    visible: {
-      opacity: 1,
-      y: 20,
-      transition: {
-        type: "spring",
-        damping: 12,
-        stiffness: 100,
-      },
-    },
-    hidden: {
-      opacity: 0,
-      y: 0,
-      transition: {
-        type: "spring",
-        damping: 12,
-        stiffness: 100,
-      },
-    },
-  };
-
-  // const word = "OHM";
+  const title = ["O", "H", "M"];
 
   return () => (
     <>
       <OgComponent />
       <motion.div
-        className="fixed z-50 top-0 left-0 w-full h-full bg-white origin-bottom grid grid-auto  justify-center items-center overflow-hidden"
-        key="slide-in"
-        initial={{ scaleY: 0 }}
-        animate={{ scaleY: 0 }}
-        exit={{ scaleY: 1 }}
-        transition={{
-          duration: 1,
-          ease: [0.22, 1, 0.36, 1],
+        className="fixed flex z-50 left-0 w-full h-full bg-white origin-bottom justify-center items-center overflow-hidden"
+        initial={{ top: 0 }}
+        animate={{
+          top: "-100vh",
+          transition: { duration: 1.5, delay: 0.75, ease: [0.76, 0, 0.24, 1] },
+          transitionEnd: {
+            top: "100vh",
+          },
+        }}
+        exit={{
+          top: 0,
+          transition: { duration: 1.5, ease: [0.76, 0, 0.24, 1] },
         }}
       >
-        {/* <div className="">
-          {word.split("").map((char, index) => {
-            return (
-              <motion.span className="" variants={child} key={index}>
-                {char}
-              </motion.span>
-            );
-          })}
-        </div> */}
+        <motion.div className=" w-fit overflow-hidden flex">
+          {title.map((letter, i) => (
+            <motion.div
+              key={i}
+              initial={{ y: 0, opacity: 1 }}
+              animate={{
+                opacity: 1,
+                y: "-100%",
+                transition: {
+                  duration: 1,
+                  delay: 0.35 + i * 0.05,
+                  ease: [0.76, 0, 0.24, 1],
+                },
+              }}
+              exit={{
+                y: [120, 0],
+                transition: {
+                  duration: 1.45,
+                  delay: 0.35 + i * 0.05,
+                  ease: [0.76, 0, 0.24, 1],
+                },
+              }}
+              className="text-[1.8vw] md:text-[1.2vw] 3xl:text-2xl font-bold "
+            >
+              {letter}
+            </motion.div>
+          ))}
+        </motion.div>
       </motion.div>
-
-      <motion.div
-        className="fixed z-50 top-0 left-0 w-full h-screen bg-white origin-top"
-        key="slide-out"
-        initial={{ scaleY: 1 }}
-        animate={{ scaleY: 0 }}
-        exit={{ scaleY: 0 }}
-        transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-      />
     </>
   );
 };
