@@ -166,7 +166,7 @@ const Home = () => {
 
               <Sentence
                 array={[
-                  "— To make something better with less",
+                  "To make something better with less",
                   <>
                     To make something more beautiful with nothing.
                     <br />
@@ -212,7 +212,7 @@ const Home = () => {
             <div className="py-[5.65vw]  mx-[6.75vw] md:mx-[2.75vw]  grid gap-[14vw] md:grid-cols-10/3 relative">
               <Sentence
                 array={[
-                  "— A traditional approach",
+                  "A traditional approach",
                   "while imagining what the furniture of tomorrow could be, in its use and representation.",
                 ]}
               />
@@ -288,7 +288,7 @@ const Home = () => {
 
               <Sentence
                 array={[
-                  " — Influenced by images know",
+                  " Influenced by images know",
                   `to the human eye, our pieces of furniture are simple and yet
                   thought-through to be used in different ways.`,
                 ]}
