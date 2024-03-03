@@ -57,7 +57,7 @@ function PersistLogin() {
     !user?.accessToken ? verifyRefresh() : setIsLoading(false);
   }, []);
 
-  return <>{isLoading ? <p>Loading...</p> : <Outlet />}</>;
+  return <Outlet />;
 }
 
 export default PersistLogin;
