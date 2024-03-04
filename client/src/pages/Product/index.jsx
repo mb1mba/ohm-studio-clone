@@ -103,7 +103,7 @@ const Product = () => {
                     return (
                       <TextReveal>
                         <Link
-                          className={`h-[1.6vw] w-[1.6vw] flex items-center justify-center ${
+                          className={`h-[1.3vw] w-[1.3vw] flex items-center justify-center ${
                             productName === productNameFormatter(variant.name)
                               ? "rounded-full border border-solid border-[#8e919499]"
                               : ""
@@ -165,7 +165,7 @@ const Product = () => {
                     setIsCartOpen(true);
                     document.body.style.overflow = "hidden";
                   }}
-                  className="bg-[#e3e3e3] hover:bg-gray-300 font-semibold text-center w-full basis-auto rounded-lg md:p-[1vw] md:text-[1vw]"
+                  className="bg-[#e3e3e3] hover:bg-gray-300  text-center w-full basis-auto rounded-lg md:p-[1vw] md:text-[1vw] 3xl:text-lg"
                 >
                   Shop now
                 </button>
