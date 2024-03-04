@@ -59,48 +59,23 @@ const Home = () => {
           <div className="md:flex md:self-end">
             <div className="grid gap-10 my-20 md:pt-40 md:pb-40">
               <div className="text-[4vw] leading-[1.25] md:text-xl">
-                <div className="flex items-baseline w-full">
-                  <TextReveal>
-                    <Text>PION</Text>
-                  </TextReveal>
-                  <TextReveal>
-                    <span className="flex font-garamond text-[5.65vw] md:text-xl lg:text-3xl xl:text-5xl ">
-                      &nbsp;—&nbsp;
-                      <span className=" flex md:hidden ">4</span>
-                      <span className=" hidden sm:flex">Four</span>
-                      &nbsp;colored
-                    </span>
-                  </TextReveal>
-                </div>
                 <TextReveal>
-                  <span className="font-garamond text-[5.65vw] md:text-xl lg:text-3xl xl:text-5xl 2xl:text-6xl">
-                    stools&nbsp;
-                    <span className="font-helvetica text-[8vw] md:text-xl lg:text-3xl xl:text-5xl 2xl:text-6xl font-semibold">
-                      made in France
-                    </span>
-                  </span>
-                </TextReveal>
-
-                <TextReveal>
-                  <span className=" font-helvetica text-[8vw] md:text-xl lg:text-3xl xl:text-5xl 2xl:text-6xl font-semibold">
-                    from recycled steel
-                  </span>
-                </TextReveal>
-
-                <TextReveal>
-                  <span className=" font-helvetica text-[8vw] md:text-xl lg:text-3xl xl:text-5xl 2xl:text-6xl font-semibold">
-                    assembled by hand
-                  </span>
-                </TextReveal>
-                <TextReveal>
-                  <span className=" font-helvetica text-[8vw] md:text-xl lg:text-3xl xl:text-5xl 2xl:text-6xl font-semibold">
-                    and then powder
-                  </span>
-                </TextReveal>
-                <TextReveal>
-                  <span className=" font-helvetica text-[8vw] md:text-xl lg:text-3xl xl:text-5xl 2xl:text-6xl font-semibold">
-                    coated.
-                  </span>
+                  <Sentence
+                    beforeHyphen="Pion"
+                    array={[
+                      "Four colored",
+                      <>
+                        <span className="font-garamond  font-normal leading-[0.8] md:leading-[1.25] text-[9.25vw] md:text-[3.35vw] 3xl:text-6xl  ">
+                          stools
+                        </span>{" "}
+                        made in France
+                      </>,
+                      " from recycled steel",
+                      "assembled by hand",
+                      "and then powder",
+                      "coated.",
+                    ]}
+                  />
                 </TextReveal>
               </div>
 
