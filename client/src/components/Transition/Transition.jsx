@@ -44,7 +44,7 @@ const transition = (OgComponent) => {
                   ease: [0.76, 0, 0.24, 1],
                 },
               }}
-              className="text-[1.8vw] md:text-[1.2vw] 3xl:text-2xl font-bold "
+              className="text-[1.8vw] md:text-[1.2v] 3xl:text-8xl -tracking-[0.1em] font-bold "
             >
               {letter}
             </motion.div>
