@@ -30,7 +30,7 @@ const Sentence = ({ array, beforeHyphen }) => {
       );
     } else {
       return (
-        <span className="font-helvetica block leading-[1.2] md:leading-[1.25] font-semibold text-[8vw] md:text-[3vw] 3xl:text-[3rem]  ">
+        <span className="font-helvetica block leading-[1.2] md:leading-[1.25] font-semibold text-[8vw] md:text-[2.75vw] 3xl:text-[3rem]  ">
           {s}
         </span>
       );
