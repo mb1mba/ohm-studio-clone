@@ -1,7 +1,7 @@
 import React from "react";
 
 const Sentence = ({ array, beforeHyphen }) => {
-  const beforeHyperElement = (
+  const beforeHyperElement = beforeHyphen && (
     <span className="font-favorit flex items-end uppercase tracking-tighter text-4xl md:text-xl lg:text-3xl xl:text-5xl font-bold">
       <span className="self-end">{beforeHyphen}</span>
       <svg
