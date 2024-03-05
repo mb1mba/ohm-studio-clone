@@ -1,6 +1,11 @@
 import React, { useRef, useCallback, useEffect } from "react";
 import { Link, useOutletContext } from "react-router-dom";
-import { motion, AnimatePresence, useAnimation } from "framer-motion";
+import {
+  motion,
+  AnimatePresence,
+  useTransform,
+  useScroll,
+} from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { useMediaQuery } from "react-responsive";
 
@@ -11,6 +16,10 @@ import { Sentence } from "/src/components/Sentence";
 import { transition } from "/src/components/Transition";
 import { SelectedProducts } from "/src/components/SelectedProducts";
 
+function useParallax(value, distance) {
+  return useTransform(value, [0, 1], [distance, -distance]);
+}
+
 const Home = () => {
   const images = ["red.webp", "blue.webp", "green.webp", "yellow.webp"];
 
@@ -18,9 +27,15 @@ const Home = () => {
   const [ref, inView, entry] = useInView({ threshold: 0.05 });
   const isTabletOrBigger = useMediaQuery({ minWidth: 768 });
   const { isFooterInView } = useOutletContext();
+  const isSmallComputer = useMediaQuery({ minWidth: 1024 });
+  const ref2 = useRef(null);
+  const { scrollYProgress } = useScroll({ target: ref2 });
+  const y = useParallax(scrollYProgress, isTabletOrBigger ? 300 : 0);
+  const yImage = useParallax(scrollYProgress, 100);
 
   const imagesEl = images.map((image, i) => (
     <motion.img
+      ref={ref2}
       key={i}
       loading="lazy"
       src={`http://localhost:5500/uploads/${image}`}
@@ -47,7 +62,7 @@ const Home = () => {
 
   return (
     <>
-      <section className="grid w-full justify-center md:min-w-screen md:justify-stretch md:h-[100vh] md:z-[1]  bg-[#f2eef0] ">
+      <section className="grid w-full justify-center md:min-w-screen md:justify-stretch md:h-[300vw] md:z-[1] md:sticky md:top-0 bg-[#f2eef0] ">
         <picture className="md:hidden">
           <img
             className=" rounded-t-xl w-full"
@@ -56,9 +71,12 @@ const Home = () => {
         </picture>
 
         <div className=" grid w-full md:h-screen relative max-w-[90%] mx-auto">
-          <div className="md:flex md:self-end">
-            <div className="grid gap-10 my-20 md:pt-40 md:pb-40">
-              <div className="text-[4vw] leading-[1.25] md:text-xl">
+          <motion.div
+            style={{ y }}
+            className="md:flex md:row-start-1 md:self-end "
+          >
+            <div className="grid gap-10 my-20 md:my-0 ">
+              <motion.div className="text-[4vw] ">
                 <TextReveal>
                   <Sentence
                     beforeHyphen="Pion"
@@ -66,7 +84,7 @@ const Home = () => {
                       "Four colored",
                       <>
                         <span className="font-garamond  font-normal leading-[0.8] md:leading-[1.25] text-[9.25vw] md:text-[3.35vw] 3xl:text-6xl  ">
-                          stools
+                          stools&nbsp;
                         </span>
                         made in France
                       </>,
@@ -77,22 +95,25 @@ const Home = () => {
                     ]}
                   />
                 </TextReveal>
-              </div>
 
-              <TextReveal>
-                <Link
-                  className=" font-helvetica text-[#8e9194] relative max-w-fit overflow-hidden"
-                  to="collections/pion"
-                >
-                  <span className=" before:h-[1px] before:w-full before:bg-[#8e9194] before:absolute before:bottom-0  before:left-0 before:origin-left before:scale-x-[-100%] hover:before:scale-x-[100%]  hover:before:origin-left before:delay-200 before:transition-transform before:duration-300  after:content-[' ']  after:h-[1px] after:w-full after:bg-[#8e9194] after:absolute after:bottom-0  after:left-0 before after:origin-right after:scale-x-[100%] hover:after:scale-x-[-100%] after:duration-700 hover:after:origin-right after:transition-transform">
-                    Shop Now
-                  </span>
-                </Link>
-              </TextReveal>
+                <TextReveal>
+                  <Link
+                    className=" font-helvetica text-[#8e9194] md:text-[1vw] 3xl:text-lg relative max-w-fit overflow-hidden"
+                    to="collections/pion"
+                  >
+                    <span className=" before:h-[1px] before:w-full before:bg-[#8e9194] before:absolute before:bottom-0  before:left-0 before:origin-left before:scale-x-[-100%] hover:before:scale-x-[100%]  hover:before:origin-left before:delay-200 before:transition-transform before:duration-300  after:content-[' ']  after:h-[1px] after:w-full after:bg-[#8e9194] after:absolute after:bottom-0  after:left-0 before after:origin-right after:scale-x-[100%] hover:after:scale-x-[-100%] after:duration-700 hover:after:origin-right after:transition-transform">
+                      Shop Now
+                    </span>
+                  </Link>
+                </TextReveal>
+              </motion.div>
             </div>
-          </div>
+          </motion.div>
 
-          <picture className="hidden absolute md:-bottom-24  lg:right-20 right-28  md:grid">
+          <motion.picture
+            style={{ y: yImage }}
+            className="hidden absolute md:-bottom-[2vw] lg:right-20 right-[2vw]  md:grid"
+          >
             <img
               sizes="(max-width: 1726px) 100vw, 1726px"
               srcset="
@@ -105,7 +126,7 @@ const Home = () => {
               alt=""
               className="w-[48vw] max-w-[865px]"
             />
-          </picture>
+          </motion.picture>
         </div>
       </section>
       <AnimatePresence>
