@@ -5,6 +5,7 @@ import {
   AnimatePresence,
   useScroll,
   useMotionValueEvent,
+  easeInOut,
 } from "framer-motion";
 import axios from "/src/api/axios";
 import { Link } from "react-router-dom";
@@ -19,6 +20,7 @@ import {
   MenuList,
   MenuSection,
 } from "/src/components/Menu";
+
 import { CustomMenu, Button, links } from "/src/components/Header";
 import { Drawline } from "/src/components/Shared";
 import { TextReveal } from "/src/components/Reveal";
@@ -35,12 +37,24 @@ const Header = () => {
     setIsCartOpen,
   } = useCartContext();
 
+  const { scrollY } = useScroll();
   const { user } = useUserContext();
   const [isHover, setIsHover] = useState("");
   const [isLinkHover, setIsLinkHover] = useState("");
   const [isSectionOpen, setIsSectionOpen] = useState(
     Array(links.length).fill(false)
   );
+  const [isNavBarHidden, setIsNavBarHidden] = useState(false);
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    const previous = scrollY.getPrevious();
+    if (latest > previous && latest > 150) {
+      console.log("hidden");
+      setIsNavBarHidden(true);
+    } else {
+      setIsNavBarHidden(false);
+    }
+  });
 
   const handleCheckout = (cartItems) => {
     axios
@@ -63,7 +77,6 @@ const Header = () => {
     open: {
       maxHeight: isHover === "Shop" ? "540px" : "350px",
       height: "fit-content",
-
       zIndex: isHover === "Shop" ? 1 : -1,
       transition: {
         ease: "easeInOut",
@@ -187,8 +200,12 @@ const Header = () => {
 
         {/* Nav for tablet and bigger screen */}
         <motion.nav
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
+          variants={{
+            visible: { opacity: 1 },
+            hidden: { opacity: 0 },
+          }}
+          animate={isNavBarHidden ? "hidden" : "visible"}
+          transition={{ duration: 0.3, ease: "easeInOut" }}
           className="hidden md:flex justify-end font-helvetica px-5 md:px-10 pt-10 sticky top-0"
         >
           <ul className="flex gap-8 text-xl">
