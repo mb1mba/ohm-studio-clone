@@ -1,4 +1,4 @@
-import React, { useRef, useCallback, useEffect } from "react";
+import React, { useRef } from "react";
 import { Link, useOutletContext } from "react-router-dom";
 import {
   motion,
@@ -16,21 +16,20 @@ import { Sentence } from "/src/components/Sentence";
 import { transition } from "/src/components/Transition";
 import { SelectedProducts } from "/src/components/SelectedProducts";
 
-function useParallax(value, distance) {
-  return useTransform(value, [0, 1], [distance, -distance]);
-}
+const useParallax = (value, distance) => {
+  return useTransform(value, [0, 1], [0, -distance]);
+};
 
 const Home = () => {
   const images = ["red.webp", "blue.webp", "green.webp", "yellow.webp"];
 
   const randomIndex = Math.floor(Math.random() * 4);
-  const [ref, inView, entry] = useInView({ threshold: 0.05 });
+  const [ref, inView] = useInView({ threshold: 0.05 });
   const isTabletOrBigger = useMediaQuery({ minWidth: 768 });
   const { isFooterInView } = useOutletContext();
-  const isSmallComputer = useMediaQuery({ minWidth: 1024 });
   const ref2 = useRef(null);
   const { scrollYProgress } = useScroll({ target: ref2 });
-  const y = useParallax(scrollYProgress, isTabletOrBigger ? 300 : 0);
+  const yText = useParallax(scrollYProgress, isTabletOrBigger ? 450 : 0);
   const yImage = useParallax(scrollYProgress, 100);
 
   const imagesEl = images.map((image, i) => (
@@ -72,47 +71,45 @@ const Home = () => {
 
         <div className=" grid w-full md:h-screen relative max-w-[90%] mx-auto">
           <motion.div
-            style={{ y }}
-            className="md:flex md:row-start-1 md:self-end "
+            style={{ y: yText }}
+            className="md:flex md:row-start-1  md:pb-[3vw] md:h-full md:flex-wrap md:content-end"
           >
-            <div className="grid gap-10 my-20 md:my-0 ">
-              <motion.div className="text-[4vw] ">
-                <TextReveal>
-                  <Sentence
-                    beforeHyphen="Pion"
-                    array={[
-                      "Four colored",
-                      <>
-                        <span className="font-garamond  font-normal leading-[0.8] md:leading-[1.25] text-[9.25vw] md:text-[3.35vw] 3xl:text-6xl  ">
-                          stools&nbsp;
-                        </span>
-                        made in France
-                      </>,
-                      " from recycled steel",
-                      "assembled by hand",
-                      "and then powder",
-                      "coated.",
-                    ]}
-                  />
-                </TextReveal>
+            <div className="grid gap-[1vw] my-20 md:my-0">
+              <TextReveal>
+                <Sentence
+                  beforeHyphen="Pion"
+                  array={[
+                    "Four colored",
+                    <>
+                      <span className="font-garamond  font-normal leading-[0.8] md:leading-[1.25] text-[9.25vw] md:text-[3.35vw] 3xl:text-6xl  ">
+                        stools&nbsp;
+                      </span>
+                      made in France
+                    </>,
+                    " from recycled steel",
+                    "assembled by hand",
+                    "and then powder",
+                    "coated.",
+                  ]}
+                />
+              </TextReveal>
 
-                <TextReveal>
-                  <Link
-                    className=" font-helvetica text-[#8e9194] md:text-[1vw] 3xl:text-lg relative max-w-fit overflow-hidden"
-                    to="collections/pion"
-                  >
-                    <span className=" before:h-[1px] before:w-full before:bg-[#8e9194] before:absolute before:bottom-0  before:left-0 before:origin-left before:scale-x-[-100%] hover:before:scale-x-[100%]  hover:before:origin-left before:delay-200 before:transition-transform before:duration-300  after:content-[' ']  after:h-[1px] after:w-full after:bg-[#8e9194] after:absolute after:bottom-0  after:left-0 before after:origin-right after:scale-x-[100%] hover:after:scale-x-[-100%] after:duration-700 hover:after:origin-right after:transition-transform">
-                      Shop Now
-                    </span>
-                  </Link>
-                </TextReveal>
-              </motion.div>
+              <TextReveal>
+                <Link
+                  className=" font-helvetica text-[#8e9194] md:text-[1vw] 3xl:text-lg relative max-w-fit overflow-hidden"
+                  to="collections/pion"
+                >
+                  <span className=" before:h-[1px] before:w-full before:bg-[#8e9194] before:absolute before:bottom-0  before:left-0 before:origin-left before:scale-x-[-100%] hover:before:scale-x-[100%]  hover:before:origin-left before:delay-200 before:transition-transform before:duration-300  after:content-[' ']  after:h-[1px] after:w-full after:bg-[#8e9194] after:absolute after:bottom-0  after:left-0 before after:origin-right after:scale-x-[100%] hover:after:scale-x-[-100%] after:duration-700 hover:after:origin-right after:transition-transform">
+                    Shop Now
+                  </span>
+                </Link>
+              </TextReveal>
             </div>
           </motion.div>
 
           <motion.picture
             style={{ y: yImage }}
-            className="hidden absolute md:-bottom-[2vw] lg:right-20 right-[2vw]  md:grid"
+            className="hidden absolute md:-bottom-[10vw] lg:right-20 right-[2vw]  md:grid"
           >
             <img
               sizes="(max-width: 1726px) 100vw, 1726px"
