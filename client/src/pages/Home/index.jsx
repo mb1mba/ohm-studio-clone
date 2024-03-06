@@ -403,24 +403,26 @@ const Home = () => {
             </section>
 
             <section>
-              <div className="grid mx-[6.75vw] md:mx-[2.75vw] gap-[2rem] py-[13.35vw]">
+              <div className="grid mx-[6.75vw] md:mx-[2.75vw] md:flex gap-[2vw] md:gap-[4vw] py-[13.35vw]">
                 <div className="grid grid-cols-3 gap-[2vw] ">
-                  <div className="w-[25vw] h-[25vw] bg-[#8e9194] rounded-xl"></div>
-                  <div className="w-[25vw] h-[25vw] bg-[#8e9194] rounded-xl justify-self-center"></div>
-                  <div className="w-[25vw] h-[25vw] bg-[#8e9194] rounded-xl justify-self-end"></div>
+                  <div className="w-[25vw] h-[25vw] md:w-[5.5vw] md:h-[5.5vw] bg-[#8e9194] rounded-xl"></div>
+                  <div className="w-[25vw] h-[25vw] md:w-[5.5vw] md:h-[5.5vw] bg-[#8e9194] rounded-xl justify-self-center"></div>
+                  <div className="w-[25vw] h-[25vw] md:w-[5.5vw] md:h-[5.5vw] bg-[#8e9194] rounded-xl justify-self-end"></div>
                 </div>
                 <div className="text-center">
-                  <h2>
-                    <span className="font-garamond text-[9.375vw] block tracking-tighter">
-                      Follow us on instagram&nbsp;
+                  <h2 className=" overflow-hidden">
+                    <span className="font-garamond text-[9.375vw] md:text-[3.5625vw] block tracking-tighter md:inline-block">
+                      Follow us on Instagram &nbsp;
                     </span>
 
                     <Link
                       target="_blank"
                       to="https://www.instagram.com/ohm.studio_/?hl=fr"
-                      className="text-[7.8125vw] font-helvetica font-bold"
+                      className="text-[7.8125vw] relative w-fit  md:text-[3vw] font-helvetica font-bold"
                     >
-                      @ohm.studio_
+                      <span className=" cursor-pointer before:h-[1px] before:w-full before:bg-[#8e9194] before:absolute before:bottom-0  before:left-0 before:origin-right before:scale-x-0 hover:before:scale-x-100  hover:before:origin-left before:delay-200 before:transition-transform before:duration-300  after:content-[' ']  after:h-[1px] after:w-full after:bg-[#8e9194] after:absolute after:bottom-0  after:left-0 before after:origin-right after:scale-x-0 hover:after:scale-x-[-100%] after:duration-700 hover:after:origin-right after:transition-transform">
+                        @ohm.studio_
+                      </span>
                     </Link>
                   </h2>
                 </div>
