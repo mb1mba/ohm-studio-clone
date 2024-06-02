@@ -145,9 +145,9 @@ const getUsers = asyncHandler(async (req, res) => {
   }
 
   if (users) {
-    res.status(200).json(users);
+    return res.status(200).json(users);
   } else {
-    res.status(404).json({ message: "Users not found" });
+    return res.status(404).json({ message: "Users not found" });
   }
 });
 

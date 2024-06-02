@@ -32,9 +32,9 @@ const getProducts = asyncHandler(async (req, res) => {
   const products = await Product.find({});
 
   if (products) {
-    res.status(200).json(products);
+    return res.status(200).json(products);
   } else {
-    res.status(400).json({ message: "No products found." });
+    return res.status(401).json({ message: "No products found." });
   }
 });
 
@@ -49,9 +49,9 @@ const getProduct = asyncHandler(async (req, res) => {
   });
 
   if (product) {
-    res.status(200).json(product);
+    return res.status(200).json(product);
   } else {
-    res.status(400).json({ message: "No product found." });
+    return res.status(400).json({ message: "No product found." });
   }
 });
 
